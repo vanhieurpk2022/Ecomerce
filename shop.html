@@ -17,11 +17,12 @@
         <div>
             <ul id="navbar">
                 <li><a href="index.html">Home</a></li>
-                <li><a class="active" href="shop.html">Shop</a></li>
+                <li><a href="shop.html" class="active">Shop</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li id="lg-bag"><a href="cart.html"><i class="bi bi-bag"></i></a></li>
+                <li id="lg-bag"><a href="signup.html" class="signup">Sign Up</a></li>
                 <a href="#" id="close"> <i class="bi bi-x-lg"></i></a>
             </ul>
 
@@ -33,11 +34,38 @@
         </div>
     </section>
 
+
     <section id="page-header">
         <h2>#stayhome</h2>
         <p>Save more with coupons & up to 70% off!</p>
     </section>
 
+    <section id="filter">
+        <div class="filter_main">
+            <div class="sort">
+                <span>Sắp xếp theo</span>
+                <button class="recent">Phổ biến</button>
+                <button>Mới nhất</button>
+            </div>
+
+            <div class="category">
+                <span>Danh mục</span>
+                <select name="category">
+                    <option value="all">Tất cả</option>
+                    <option value="pants">Quần</option>
+                    <option value="shirt">Áo</option>
+                </select>
+            </div>
+
+            <div class="price">
+                <select name="price">
+                    <option value="default">Giá</option>
+                    <option value="asc">Giá từ thấp đến cao</option>
+                    <option value="desc">Giá từ cao đến thấp</option>
+                </select>
+            </div>
+        </div>
+    </section>
 
     <section id="product1" class="section-p1">
 
