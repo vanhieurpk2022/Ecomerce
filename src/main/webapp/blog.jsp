@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,8 +20,8 @@
             <ul id="navbar">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="shop.html">Shop</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li id="lg-bag"><a href="cart.html"><i class="bi bi-cart"></i></a>
                     <span id="cart_count">0</span>
@@ -37,7 +39,6 @@
                     <li><a href="#"> <i class="bi bi-box-arrow-right"></i> Logout</a></li>
                 </ul>
                 </li> -->
-
                 <a href="#" id="close"> <i class="bi bi-x-lg"></i></a>
             </ul>
 
@@ -49,69 +50,91 @@
         </div>
     </section>
 
-    <section id="page-header" class="about-header">
-        <h2>#KnownUs</h2>
-        <p>Lorem ipsum dolor sit amet.</p>
+    <section id="page-header" class="blog-header">
+        <h2>#readmore</h2>
+        <p>Read all case studies about our products!</p>
     </section>
 
-    <section id="about-head" class=" section-p1">
-        <img src="img/about/a6.jpg" alt="">
-        <div>
-            <h2>Who We Are?</h2>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus nihil harum consequuntur iusto eligendi
-                placeat numquam eos, fugit animi dolore modi repudiandae nesciunt architecto beatae voluptatum error
-                impedit! Assumenda, dignissimos.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus nihil
-                harum
-                consequuntur iusto eligendi
-                placeat numquam eos, fugit animi dolore modi repudiandae nesciunt architecto beatae voluptatum error
-                impedit! Assumenda, dignissimos.</p>
-
-            <!-- khi rê chuột vào sẽ hiển thị tooltip -->
-            <abbr title="">Create stunning images with as much or as little control as you like thanks to a choice of
-                Basic and Creative modes.</abbr>
-
-            <br><br>
-            <!-- sliding text -->
-
-            <marquee bgcolor="#ccc" loop="-1" scrollamount="5" width="100%">Create stunning images with as much or as
-                little control as you like
-                thanks to a choice of
-                Basic and Creative modes.</marquee>
+    <section id="blog">
+        <div class="blog-box">
+            <div class="blog-img">
+                <img src="img/blog/b1.jpg" alt="">
+            </div>
+            <div class="blog-details">
+                <h4>The Cotton-Jersey Zip-Up Hoodier</h4>
+                <p>Kickstarter man braid godard coloring book. Raclette waistcoat selfies yr wolf chartreuse hexagon
+                    irony, godard...</p>
+                <a href="#">CONTINUE READING</a>
+            </div>
+            <h1>13/01</h1>
+        </div>
+        <div class="blog-box">
+            <div class="blog-img">
+                <img src="img/blog/b2.jpg" alt="">
+            </div>
+            <div class="blog-details">
+                <h4>The Cotton-Jersey Zip-Up Hoodier</h4>
+                <p>Kickstarter man braid godard coloring book. Raclette waistcoat selfies yr wolf chartreuse hexagon
+                    irony, godard...</p>
+                <a href="#">CONTINUE READING</a>
+            </div>
+            <h1>13/01</h1>
+        </div>
+        <div class="blog-box">
+            <div class="blog-img">
+                <img src="img/blog/b3.jpg" alt="">
+            </div>
+            <div class="blog-details">
+                <h4>The Cotton-Jersey Zip-Up Hoodier</h4>
+                <p>Kickstarter man braid godard coloring book. Raclette waistcoat selfies yr wolf chartreuse hexagon
+                    irony, godard...</p>
+                <a href="#">CONTINUE READING</a>
+            </div>
+            <h1>13/01</h1>
+        </div>
+        <div class="blog-box">
+            <div class="blog-img">
+                <img src="img/blog/b4.jpg" alt="">
+            </div>
+            <div class="blog-details">
+                <h4>The Cotton-Jersey Zip-Up Hoodier</h4>
+                <p>Kickstarter man braid godard coloring book. Raclette waistcoat selfies yr wolf chartreuse hexagon
+                    irony, godard...</p>
+                <a href="#">CONTINUE READING</a>
+            </div>
+            <h1>13/01</h1>
+        </div>
+        <div class="blog-box">
+            <div class="blog-img">
+                <img src="img/blog/b5.jpg" alt="">
+            </div>
+            <div class="blog-details">
+                <h4>The Cotton-Jersey Zip-Up Hoodier</h4>
+                <p>Kickstarter man braid godard coloring book. Raclette waistcoat selfies yr wolf chartreuse hexagon
+                    irony, godard...</p>
+                <a href="#">CONTINUE READING</a>
+            </div>
+            <h1>13/01</h1>
+        </div>
+        <div class="blog-box">
+            <div class="blog-img">
+                <img src="img/blog/b6.jpg" alt="">
+            </div>
+            <div class="blog-details">
+                <h4>The Cotton-Jersey Zip-Up Hoodier</h4>
+                <p>Kickstarter man braid godard coloring book. Raclette waistcoat selfies yr wolf chartreuse hexagon
+                    irony, godard...</p>
+                <a href="#">CONTINUE READING</a>
+            </div>
+            <h1>13/01</h1>
         </div>
     </section>
 
-    <section id="about-app" class="section-p1">
-        <h1>Download Our <a href="#">App</a></h1>
-        <div class="video">
-            <video autoplay muted loop src="img/about/1.mp4"></video>
-        </div>
-    </section>
+    <section id="pagination" class="section-p1">
+        <a href="#">1</a>
+        <a href="#">2</a>
+        <a href="#"><i class="fa-solid fa-arrow-right"></i></a>
 
-    <section id="feature" class="section-p1">
-        <div class="fe-box">
-            <img src="img/features/f1.png" alt="">
-            <h6>Free Shipping</h6>
-        </div>
-        <div class="fe-box">
-            <img src="img/features/f2.png" alt="">
-            <h6>Online Order</h6>
-        </div>
-        <div class="fe-box">
-            <img src="img/features/f3.png" alt="">
-            <h6>Save Money</h6>
-        </div>
-        <div class="fe-box">
-            <img src="img/features/f4.png" alt="">
-            <h6>Promotions</h6>
-        </div>
-        <div class="fe-box">
-            <img src="img/features/f5.png" alt="">
-            <h6>Happy Sell</h6>
-        </div>
-        <div class="fe-box">
-            <img src="img/features/f6.png" alt="">
-            <h6>F24/7 Support</h6>
-        </div>
     </section>
 
     <section id="newsletter" class="section-p1 section-m1">
@@ -124,6 +147,7 @@
             <button class="normal">Sign Up</button>
         </div>
     </section>
+
 
     <footer class="section-p1">
         <div class=" col">

@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,11 +22,10 @@
                 <li><a href="shop.html">Shop</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a class="active" href="contact.html">Contact</a></li>
+                <li><a href="contact.html">Contact</a></li>
                 <li id="lg-bag"><a href="cart.html"><i class="bi bi-cart"></i></a>
                     <span id="cart_count">0</span>
-                </li>
-                <!-- login succsess -->
+                </li> <!-- login succsess -->
                 <li><a href="signup.html" class="signup">Sign Up</a></li>
                 <!-- <li class="user-menu">
                     <div class="avatar">
@@ -38,7 +39,6 @@
                         <li><a href="#"> <i class="bi bi-box-arrow-right"></i> Logout</a></li>
                     </ul>
                 </li> -->
-
                 <a href="#" id="close"> <i class="bi bi-x-lg"></i></a>
             </ul>
 
@@ -55,84 +55,84 @@
         <p>LEAVE A MESSENGE. We love to hear from you!</p>
     </section>
 
-    <section id="contact-details" class="section-p1">
-        <div class="details">
-            <span>GET IN TOUCH</span>
-            <h2>Visit one of our agency locations or contact us today</h2>
-            <h3>Head Office</h3>
-            <div>
-                <li>
-                    <i class="bi bi-map"></i>
-                    <p>56 Glassford Street Glassgow G1 1UL New York</p>
-                </li>
+    <section id="cart" class="section-p1">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>Remove</td>
+                    <td>Image</td>
+                    <td>Product</td>
+                    <td>Price</td>
+                    <td>Quantity</td>
+                    <td>Subtotal</td>
+                </tr>
 
-                <li>
-                    <i class="bi bi-envelope"></i>
-                    <p>contact@example.com</p>
-                </li>
-
-                <li>
-                    <i class="bi bi-telephone"></i>
-                    <p>contact@example.com</p>
-                </li>
-
-                <li>
-                    <i class="bi bi-clock"></i>
-                    <p>Monday to Satuday - 9.00 am to 16 pm</p>
-                </li>
-
-            </div>
-        </div>
-
-        <div class="map">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.2084632156307!2d106.78738242593356!3d10.871743239282905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175276398969f7b%3A0x9672b7efd0893fc4!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBOw7RuZyBMw6JtIFRQLiBI4buTIENow60gTWluaA!5e0!3m2!1svi!2s!4v1757518376149!5m2!1svi!2s"
-                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> <a href="#"><i class="bi bi-x-circle"></i></a></td>
+                    <td><img src="img/products/f1.jpg" alt=""></td>
+                    <td>Cartoon Astronaut T-Shirts</td>
+                    <td>$118.19</td>
+                    <td><input type="number" value="1"></td>
+                    <td>$118.19</td>
+                </tr>
+                <tr>
+                    <td> <a href="#"><i class="bi bi-x-circle"></i></a></td>
+                    <td><img src="img/products/f2.jpg" alt=""></td>
+                    <td>Cartoon Astronaut T-Shirts</td>
+                    <td>$118.19</td>
+                    <td><input type="number" value="1"></td>
+                    <td>$118.19</td>
+                </tr>
+                <tr>
+                    <td> <a href="#"><i class="bi bi-x-circle"></i></a></td>
+                    <td><img src="img/products/f3.jpg" alt=""></td>
+                    <td>Cartoon Astronaut T-Shirts</td>
+                    <td>$118.19</td>
+                    <td><input type="number" value="1"></td>
+                    <td>$118.19</td>
+                </tr>
+            </tbody>
+        </table>
     </section>
 
-    <section id="form-details">
-        <form action="">
-            <span>LEAVE A MESSENGE</span>
-            <h2>We love to hear from you</h2>
-            <input type="text" placeholder="YourName">
-            <input type="text" placeholder="E-mail">
-            <input type="text" placeholder="Subject">
-            <textarea name="" id="" cols="30" rows="10" placeholder="Your Messenge"></textarea>
-            <button class="normal">submit</button>
-        </form>
-
-        <div class="people">
+    <section id="cart-add" class="section-p1">
+        <div id="coupon">
+            <h3>Apply Coupon</h3>
             <div>
-                <img src="img/people/1.png" alt="">
-                <p><span>John Doe </span> Senior Marketing Manager <br> Phone: + 000 123 444889 <br> Email:
-                    contact@example.com</p>
+                <input type="text" placeholder="Enter Your Coupon">
+                <button class="normal">Apply</button>
             </div>
-
-            <div>
-                <img src="img/people/2.png" alt="">
-                <p><span>John Doe </span> Senior Marketing Manager <br> Phone: + 000 123 444889 <br> Email:
-                    contact@example.com</p>
-            </div>
-
-            <div>
-                <img src="img/people/3.png" alt="">
-                <p><span>John Doe </span> Senior Marketing Manager <br> Phone: + 000 123 444889 <br> Email:
-                    contact@example.com</p>
-            </div>
-
         </div>
-    </section>
 
-    <section id="newsletter" class="section-p1 section-m1">
-        <div class="newstext">
-            <h4>Sign Up For Newsletters</h4>
-            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
-        </div>
-        <div class="form">
-            <input type="text" placeholder=" Your email address">
-            <button class="normal">Sign Up</button>
+        <div id="subtotal">
+            <h3>Cart Totals</h3>
+            <table>
+                <tr>
+                    <td>Cart Subtotal</td>
+                    <td>#335</td>
+                </tr>
+                <tr>
+                    <td>Payment Options</td>
+                    <td>
+                        <select name="" id="paymentMethod">
+                            <option value="0">Cash On Delivery (COD)</option>
+                            <option value="2">Bank transfer </option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Shipping</td>
+                    <td>Free</td>
+                </tr>
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td><strong>$ 335</strong></td>
+                </tr>
+            </table>
+            <button class="normal">Proceed to checkout</button>
         </div>
     </section>
 
@@ -195,4 +195,5 @@
     <script src="script.js"></script>
 </body>
 
+</html>
 </html>

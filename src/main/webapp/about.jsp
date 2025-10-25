@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
@@ -18,9 +19,9 @@
         <div>
             <ul id="navbar">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="shop.html" class="active">Shop</a></li>
+                <li><a href="shop.html">Shop</a></li>
                 <li><a href="blog.html">Blog</a></li>
-                <li><a href="about.html">About</a></li>
+                <li><a href="about.html" class="active">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li id="lg-bag"><a href="cart.html"><i class="bi bi-cart"></i></a>
                     <span id="cart_count">0</span>
@@ -38,6 +39,7 @@
                     <li><a href="#"> <i class="bi bi-box-arrow-right"></i> Logout</a></li>
                 </ul>
                 </li> -->
+
                 <a href="#" id="close"> <i class="bi bi-x-lg"></i></a>
             </ul>
 
@@ -49,34 +51,81 @@
         </div>
     </section>
 
-
-    <section id="signup">
-        <form action="">
-            <div class="signup_Header">
-                <h1> Cara Clothes</h1>
-                <h2>Sign in</h2>
-            </div>
-            <div class="signup_Main">
-                <input type="text" placeholder="User name" required>
-                <input type="password" placeholder="Password" required>
-            </div>
-
-            <div class="forgot">
-                <label for="remember" class="remember">
-                    <input type="checkbox" id="remember">
-                    <span>Remember me</span>
-                </label>
-                <div> <a href="#">Forgot password?</a></div>
-            </div>
-
-            <button type="submit">Sign in</button>
-            <hr>
-            <p>Don't have an account? <a href="#">Sign up</a></p>
-        </form>
+    <section id="page-header" class="about-header">
+        <h2>#KnownUs</h2>
+        <p>Lorem ipsum dolor sit amet.</p>
     </section>
 
+    <section id="about-head" class=" section-p1">
+        <img src="img/about/a6.jpg" alt="">
+        <div>
+            <h2>Who We Are?</h2>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus nihil harum consequuntur iusto eligendi
+                placeat numquam eos, fugit animi dolore modi repudiandae nesciunt architecto beatae voluptatum error
+                impedit! Assumenda, dignissimos.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus nihil
+                harum
+                consequuntur iusto eligendi
+                placeat numquam eos, fugit animi dolore modi repudiandae nesciunt architecto beatae voluptatum error
+                impedit! Assumenda, dignissimos.</p>
 
+            <!-- khi rê chuột vào sẽ hiển thị tooltip -->
+            <abbr title="">Create stunning images with as much or as little control as you like thanks to a choice of
+                Basic and Creative modes.</abbr>
 
+            <br><br>
+            <!-- sliding text -->
+
+            <marquee bgcolor="#ccc" loop="-1" scrollamount="5" width="100%">Create stunning images with as much or as
+                little control as you like
+                thanks to a choice of
+                Basic and Creative modes.</marquee>
+        </div>
+    </section>
+
+    <section id="about-app" class="section-p1">
+        <h1>Download Our <a href="#">App</a></h1>
+        <div class="video">
+            <video autoplay muted loop src="img/about/1.mp4"></video>
+        </div>
+    </section>
+
+    <section id="feature" class="section-p1">
+        <div class="fe-box">
+            <img src="img/features/f1.png" alt="">
+            <h6>Free Shipping</h6>
+        </div>
+        <div class="fe-box">
+            <img src="img/features/f2.png" alt="">
+            <h6>Online Order</h6>
+        </div>
+        <div class="fe-box">
+            <img src="img/features/f3.png" alt="">
+            <h6>Save Money</h6>
+        </div>
+        <div class="fe-box">
+            <img src="img/features/f4.png" alt="">
+            <h6>Promotions</h6>
+        </div>
+        <div class="fe-box">
+            <img src="img/features/f5.png" alt="">
+            <h6>Happy Sell</h6>
+        </div>
+        <div class="fe-box">
+            <img src="img/features/f6.png" alt="">
+            <h6>F24/7 Support</h6>
+        </div>
+    </section>
+
+    <section id="newsletter" class="section-p1 section-m1">
+        <div class="newstext">
+            <h4>Sign Up For Newsletters</h4>
+            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+        </div>
+        <div class="form">
+            <input type="text" placeholder=" Your email address">
+            <button class="normal">Sign Up</button>
+        </div>
+    </section>
 
     <footer class="section-p1">
         <div class=" col">
