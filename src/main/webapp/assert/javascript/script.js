@@ -81,3 +81,4 @@ tabs.forEach(tab => {
         contents[tab.id].style.display = "block";
     });
 });
+

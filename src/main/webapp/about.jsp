@@ -1,189 +1,92 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech2etc Ecommerce Tutorial</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech2etc Ecommerce Tutorial</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assert/css/style.css">
 </head>
 
 <body>
-    <section id=header>
-        <a href="#"> <img src="img/logo.png" class="logo" alt=""></a>
 
-        <div>
-            <ul id="navbar">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="about.html" class="active">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li id="lg-bag"><a href="cart.html"><i class="bi bi-cart"></i></a>
-                    <span id="cart_count">0</span>
-                </li> <!-- login succsess -->
-                <li><a href="signup.html" class="signup">Sign Up</a></li>
-                <!-- <li class="user-menu">
-                    <div class="avatar">
-                        <img src="" alt="">
-                        <span>tên tài khoản</span>
-                    </div> -->
-                <!-- Dropdown menu -->
-                <!-- <ul class="dropdown">
-                    <li><a href="#"> <i class="bi bi-gear"></i> Settings & Privacy</a></li>
-                    <li><a href="#"> <i class="bi bi-question-circle"></i> Help & Support </a></li>
-                    <li><a href="#"> <i class="bi bi-box-arrow-right"></i> Logout</a></li>
-                </ul>
-                </li> -->
-
-                <a href="#" id="close"> <i class="bi bi-x-lg"></i></a>
-            </ul>
-
-        </div>
-        <div id="mobile">
-            <a href="cart.html"><i class="bi bi-bag"></i></a>
-            <i id="bar" class="fas fa-outdent"></i>
-
-        </div>
+	<c:set var="ctx" value="${pageContext.request.contextPath}" />
+	
+		<!--  thêm header -->
+	<jsp:include page="/header.jsp"></jsp:include>
+	
+	
+ <section id="page-header" class="blog-header">
+        <h2>#readmore</h2>
+        <p>Read all case studies about our products!</p>
     </section>
+	<section id="about-app" class="section-p1">
+		<h1>
+			Download Our <a href="#">App</a>
+		</h1>
+		<div class="video">
+			<video autoplay muted loop src="${ctx }/assert/img/about/1.mp4"></video>
+		</div>
+	</section>
 
-    <section id="page-header" class="about-header">
-        <h2>#KnownUs</h2>
-        <p>Lorem ipsum dolor sit amet.</p>
-    </section>
+	<section id="feature" class="section-p1">
+		<div class="fe-box">
+			<img src="${ctx }/assert/img/features/f1.png" alt="">
+			<h6>Free Shipping</h6>
+		</div>
+		<div class="fe-box">
+			<img src="${ctx }/assert/img/features/f2.png" alt="">
+			<h6>Online Order</h6>
+		</div>
+		<div class="fe-box">
+			<img src="${ctx }/assert/img/features/f3.png" alt="">
+			<h6>Save Money</h6>
+		</div>
+		<div class="fe-box">
+			<img src="${ctx }/assert/img/features/f4.png" alt="">
+			<h6>Promotions</h6>
+		</div>
+		<div class="fe-box">
+			<img src="${ctx }/assert/img/features/f5.png" alt="">
+			<h6>Happy Sell</h6>
+		</div>
+		<div class="fe-box">
+			<img src="${ctx }/assert/img/features/f6.png" alt="">
+			<h6>F24/7 Support</h6>
+		</div>
+	</section>
 
-    <section id="about-head" class=" section-p1">
-        <img src="img/about/a6.jpg" alt="">
-        <div>
-            <h2>Who We Are?</h2>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus nihil harum consequuntur iusto eligendi
-                placeat numquam eos, fugit animi dolore modi repudiandae nesciunt architecto beatae voluptatum error
-                impedit! Assumenda, dignissimos.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus nihil
-                harum
-                consequuntur iusto eligendi
-                placeat numquam eos, fugit animi dolore modi repudiandae nesciunt architecto beatae voluptatum error
-                impedit! Assumenda, dignissimos.</p>
+	<section id="newsletter" class="section-p1 section-m1">
+		<div class="newstext">
+			<h4>Sign Up For Newsletters</h4>
+			<p>
+				Get E-mail updates about our latest shop and <span>special
+					offers.</span>
+			</p>
+		</div>
+		<div class="form">
+			<input type="text" placeholder=" Your email address">
+			<button class="normal">Sign Up</button>
+		</div>
+	</section>
 
-            <!-- khi rê chuột vào sẽ hiển thị tooltip -->
-            <abbr title="">Create stunning images with as much or as little control as you like thanks to a choice of
-                Basic and Creative modes.</abbr>
 
-            <br><br>
-            <!-- sliding text -->
 
-            <marquee bgcolor="#ccc" loop="-1" scrollamount="5" width="100%">Create stunning images with as much or as
-                little control as you like
-                thanks to a choice of
-                Basic and Creative modes.</marquee>
-        </div>
-    </section>
 
-    <section id="about-app" class="section-p1">
-        <h1>Download Our <a href="#">App</a></h1>
-        <div class="video">
-            <video autoplay muted loop src="img/about/1.mp4"></video>
-        </div>
-    </section>
 
-    <section id="feature" class="section-p1">
-        <div class="fe-box">
-            <img src="img/features/f1.png" alt="">
-            <h6>Free Shipping</h6>
-        </div>
-        <div class="fe-box">
-            <img src="img/features/f2.png" alt="">
-            <h6>Online Order</h6>
-        </div>
-        <div class="fe-box">
-            <img src="img/features/f3.png" alt="">
-            <h6>Save Money</h6>
-        </div>
-        <div class="fe-box">
-            <img src="img/features/f4.png" alt="">
-            <h6>Promotions</h6>
-        </div>
-        <div class="fe-box">
-            <img src="img/features/f5.png" alt="">
-            <h6>Happy Sell</h6>
-        </div>
-        <div class="fe-box">
-            <img src="img/features/f6.png" alt="">
-            <h6>F24/7 Support</h6>
-        </div>
-    </section>
+	<%@ include file="/footer.jsp"%>
 
-    <section id="newsletter" class="section-p1 section-m1">
-        <div class="newstext">
-            <h4>Sign Up For Newsletters</h4>
-            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
-        </div>
-        <div class="form">
-            <input type="text" placeholder=" Your email address">
-            <button class="normal">Sign Up</button>
-        </div>
-    </section>
-
-    <footer class="section-p1">
-        <div class=" col">
-            <img class="logo" src="img/logo.png" alt="">
-            <h4>Contact</h4>
-            <p><Strong>Address:</Strong> 562 Wellington Rood. Street 32. San Francisco</p>
-            <p><Strong>Phone:</Strong> +01 2222 365 /(+91) 01 2345 6789</p>
-            <p><Strong>Hours:</Strong> 10:00 - 18:00, Mon - Sa</p>
-
-            <div class="follow">
-                <h4>Follow us</h4>
-                <div class="icon">
-                    <i class="fab fa-facebook-f"></i>
-                    <i class="fab fa-twitter"></i>
-                    <i class="fab fa-instagram"></i>
-                    <i class="fab fa-pinterest-p"></i>
-                    <i class="fab fa-youtube"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <h4>About</h4>
-            <a href="#"> About us</a>
-            <a href="#"> Delivery Information</a>
-            <a href="#"> Privacy Policy</a>
-            <a href="#"> Terms & Conditions</a>
-            <a href="#"> Contact Us</a>
-        </div>
-        <div class="col">
-            <h4>My Account</h4>
-            <a href="#"> Sign In</a>
-            <a href="#"> View Cart</a>
-            <a href="#"> My Wishlist</a>
-            <a href="#"> Track My Order</a>
-            <a href="#"> Help</a>
-        </div>
-
-        <div class="col install">
-            <h4>Install App</h4>
-            <p>Form App Store or Google Play</p>
-            <div class="row">
-                <img src="img/pay/app.jpg" alt="">
-                <img src="img/pay/play.jpg" alt="">
-
-            </div>
-            <p>Secured Payment Gateways</p>
-            <img src="img/pay/pay.png" alt="">
-
-        </div>
-
-        <!--  tôn trọng tác giả -->
-        <div class="copyright">
-            <p>© 2021, Tech2 etc - HTML CSS Ecommerce Template</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assert/javascript/script.js"></script>
 </body>
 
 </html>

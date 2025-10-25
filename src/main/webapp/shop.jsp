@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <%@ taglib prefix ="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,46 +11,14 @@
     <title>Tech2etc Ecommerce Tutorial</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="style.css">
+     <link rel="stylesheet" href="${pageContext.request.contextPath}/assert/css/style.css">
+
 </head>
 
 <body>
-    <section id=header>
-        <a href="#"> <img src="img/logo.png" class="logo" alt=""></a>
+		<c:set var="ctx" value="${pageContext.request.contextPath }"/>
 
-        <div>
-            <ul id="navbar">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shop.html" class="active">Shop</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li id="lg-bag"><a href="cart.html"><i class="bi bi-cart"></i></a>
-                    <span id="cart_count">0</span>
-                </li> <!-- login succsess -->
-                <li><a href="signup.html" class="signup">Sign Up</a></li>
-                <!-- <li class="user-menu">
-                    <div class="avatar">
-                        <img src="" alt="">
-                        <span>tên tài khoản</span>
-                    </div> -->
-                <!-- Dropdown menu -->
-                <!-- <ul class="dropdown">
-                    <li><a href="#"> <i class="bi bi-gear"></i> Settings & Privacy</a></li>
-                    <li><a href="#"> <i class="bi bi-question-circle"></i> Help & Support </a></li>
-                    <li><a href="#"> <i class="bi bi-box-arrow-right"></i> Logout</a></li>
-                </ul>
-                </li> -->
-                <a href="#" id="close"> <i class="bi bi-x-lg"></i></a>
-            </ul>
-
-        </div>
-        <div id="mobile">
-            <a href="cart.html"><i class="bi bi-bag"></i></a>
-            <i id="bar" class="fas fa-outdent"></i>
-
-        </div>
-    </section>
+    <jsp:include page="/header.jsp"></jsp:include>
 
 
     <section id="page-header">
@@ -87,7 +57,7 @@
 
         <div class="pro-container">
             <div class="pro" onclick="window.location.href='sproduct.html';">
-                <img src="img/products/f1.jpg" alt="">
+                <img src="${ctx }/assert/img/products/f1.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -103,7 +73,7 @@
                 <a href="#"><i class="bi bi-cart cart"></i></a>
             </div>
             <div class="pro">
-                <img src="img/products/f2.jpg" alt="">
+                <img src="${ctx }/assert/img/products/f2.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -119,7 +89,7 @@
                 <a href="#"><i class="bi bi-cart cart"></i></a>
             </div>
             <div class="pro">
-                <img src="img/products/f3.jpg" alt="">
+                <img src="${ctx }/assert/img/products/f3.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -135,7 +105,7 @@
                 <a href="#"><i class="bi bi-cart cart"></i></a>
             </div>
             <div class="pro">
-                <img src="img/products/f4.jpg" alt="">
+                <img src="${ctx }/assert/img/products/f4.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -151,7 +121,7 @@
                 <a href="#"><i class="bi bi-cart cart"></i></a>
             </div>
             <div class="pro">
-                <img src="img/products/f5.jpg" alt="">
+                <img src="${ctx }/assert/img/products/f5.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -167,7 +137,7 @@
                 <a href="#"><i class="bi bi-cart cart"></i></a>
             </div>
             <div class="pro">
-                <img src="img/products/f6.jpg" alt="">
+                <img src="${ctx }/assert/img/products/f6.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -183,7 +153,7 @@
                 <a href="#"><i class="bi bi-cart cart"></i></a>
             </div>
             <div class="pro">
-                <img src="img/products/f7.jpg" alt="">
+                <img src="${ctx }/assert/img/products/f7.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -199,7 +169,7 @@
                 <a href="#"><i class="bi bi-cart cart"></i></a>
             </div>
             <div class="pro">
-                <img src="img/products/f8.jpg" alt="">
+                <img src="${ctx }/assert/img/products/f8.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -216,7 +186,7 @@
             </div>
 
             <div class="pro">
-                <img src="img/products/n1.jpg" alt="">
+                <img src="${ctx }/assert/img/products/n1.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -232,7 +202,7 @@
                 <a href="#"><i class="bi bi-cart cart"></i></a>
             </div>
             <div class="pro">
-                <img src="img/products/n2.jpg" alt="">
+                <img src="${ctx }/assert/img/products/n2.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -248,7 +218,7 @@
                 <a href="#"><i class="bi bi-cart cart"></i></a>
             </div>
             <div class="pro">
-                <img src="img/products/n3.jpg" alt="">
+                <img src="${ctx }/assert/img/products/n3.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -264,7 +234,7 @@
                 <a href="#"><i class="bi bi-cart cart"></i></a>
             </div>
             <div class="pro">
-                <img src="img/products/n4.jpg" alt="">
+                <img src="${ctx }/assert/img/products/n4.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -280,7 +250,7 @@
                 <a href="#"><i class="bi bi-cart cart"></i></a>
             </div>
             <div class="pro">
-                <img src="img/products/n5.jpg" alt="">
+                <img src="${ctx }/assert/img/products/n5.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -296,7 +266,7 @@
                 <a href="#"><i class="bi bi-cart cart"></i></a>
             </div>
             <div class="pro">
-                <img src="img/products/n6.jpg" alt="">
+                <img src="${ctx }/assert/img/products/n6.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -312,7 +282,7 @@
                 <a href="#"><i class="bi bi-cart cart"></i></a>
             </div>
             <div class="pro">
-                <img src="img/products/n7.jpg" alt="">
+                <img src="${ctx }/assert/img/products/n7.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -328,7 +298,7 @@
                 <a href="#"><i class="bi bi-cart cart"></i></a>
             </div>
             <div class="pro">
-                <img src="img/products/n8.jpg" alt="">
+                <img src="${ctx }/assert/img/products/n8.jpg" alt="">
                 <div class="des">
                     <span>adidas</span>
                     <h5>Cartoon Astronaut T-Shirts</h5>
@@ -365,63 +335,11 @@
     </section>
 
 
-    <footer class="section-p1">
-        <div class=" col">
-            <img class="logo" src="img/logo.png" alt="">
-            <h4>Contact</h4>
-            <p><Strong>Address:</Strong> 562 Wellington Rood. Street 32. San Francisco</p>
-            <p><Strong>Phone:</Strong> +01 2222 365 /(+91) 01 2345 6789</p>
-            <p><Strong>Hours:</Strong> 10:00 - 18:00, Mon - Sa</p>
+    <%@ include file="/footer.jsp" %>
 
-            <div class="follow">
-                <h4>Follow us</h4>
-                <div class="icon">
-                    <i class="fab fa-facebook-f"></i>
-                    <i class="fab fa-twitter"></i>
-                    <i class="fab fa-instagram"></i>
-                    <i class="fab fa-pinterest-p"></i>
-                    <i class="fab fa-youtube"></i>
-                </div>
-            </div>
-        </div>
+   
+       <script src="${ctx}/assert/javascript/script.js"></script>
 
-        <div class="col">
-            <h4>About</h4>
-            <a href="#"> About us</a>
-            <a href="#"> Delivery Information</a>
-            <a href="#"> Privacy Policy</a>
-            <a href="#"> Terms & Conditions</a>
-            <a href="#"> Contact Us</a>
-        </div>
-        <div class="col">
-            <h4>My Account</h4>
-            <a href="#"> Sign In</a>
-            <a href="#"> View Cart</a>
-            <a href="#"> My Wishlist</a>
-            <a href="#"> Track My Order</a>
-            <a href="#"> Help</a>
-        </div>
-
-        <div class="col install">
-            <h4>Install App</h4>
-            <p>Form App Store or Google Play</p>
-            <div class="row">
-                <img src="img/pay/app.jpg" alt="">
-                <img src="img/pay/play.jpg" alt="">
-
-            </div>
-            <p>Secured Payment Gateways</p>
-            <img src="img/pay/pay.png" alt="">
-
-        </div>
-
-        <!--  tôn trọng tác giả -->
-        <div class="copyright">
-            <p>© 2021, Tech2 etc - HTML CSS Ecommerce Template</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
 </body>
 
 </html>
