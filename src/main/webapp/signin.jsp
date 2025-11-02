@@ -17,7 +17,7 @@
       <jsp:include page="/header.jsp"></jsp:include>
 
 
-    <section id="signup">
+   <section id="signup">
         <form action="">
             <div class="signup_Header">
                 <h1> Cara Clothes</h1>
@@ -25,7 +25,9 @@
             </div>
             <div class="signup_Main">
                 <input type="text" placeholder="User name" required>
-                <input type="password" placeholder="Password" required>
+                <input type="password" name="password_sigin" placeholder="Password" id="pwd" required>
+                <span id="icon_show" class="icon_show_signin"><i class="bi bi-eye"></i></span>
+                <span id="msg_pwd"></span>
             </div>
 
             <div class="forgot">
@@ -38,7 +40,7 @@
 
             <button type="submit">Sign in</button>
             <hr>
-            <p>Don't have an account? <a href="#">Sign up</a></p>
+            <p>Don't have an account? <a href="signup.jsp">Sign up</a></p>
         </form>
     </section>
 
@@ -48,6 +50,9 @@
       <%@ include file="/footer.jsp" %>
 
        <script src="${pageContext.request.contextPath}/assert/javascript/script.js"></script>
+       <script>
+        showHiddenPassword("pwd", "icon_show");
+    </script>
 </body>
 
 </html>

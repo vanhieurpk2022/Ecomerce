@@ -80,11 +80,13 @@
                             <span id="icon_show_up_0" class="icon_show"><i class="bi bi-eye"></i></span>
 
                         </div>
+
                         <div class="password">
                             <label for="person_confirm">Confirm Password</label>
                             <input type="password" name="person_confirm" id="person_confirm">
                             <span id="icon_show_up_1" class="icon_show"><i class="bi bi-eye"></i></span>
                         </div>
+                        <span id="msg_pwd_security"></span>
                         <div>
                             <label>
                                 <input type="checkbox" id="twofa"> Enable 2FA (Two-Factor Authentication)
@@ -108,7 +110,7 @@
                         </ul>
                     </div>
                     <div class="account_content_footer">
-                        <button class="normal footer_button">Update</button>
+                        <button class="normal footer_button" id="update_security">Update</button>
                         <button class="normal footer_button">Cancel</button>
 
                     </div>
@@ -181,6 +183,14 @@
 
          <script src="${pageContext.request.contextPath}/assert/javascript/script.js"></script>
 
+    <script>
+        showHiddenPassword("person_newPassword", "icon_show_up_0");
+        showHiddenPassword("person_confirm", "icon_show_up_1");
+        </script>
+        
+    <script src="${pageContext.request.contextPath}/assert/javascript/swarpTabInSettings.js"></script>
+                <script src="${pageContext.request.contextPath}/assert/javascript/checkPassword.js"></script>
+    
 </body>
 
 </html>

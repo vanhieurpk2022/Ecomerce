@@ -18,20 +18,31 @@
     <!-- delete-->
 
     <section id="signup">
-        <form action="">
+        <form id="register" action="controller" method="POST">
+			<input type="hidden" value="login" name="action"/>
             <div class="signup_Header">
                 <h1> Cara Clothes</h1>
                 <h2>Sign up</h2>
             </div>
             <div class="signup_Main">
                 <div class="signup_main_div">
-                    <input type="text" placeholder="First name">
-                    <input type="text" placeholder="Last name">
+                    <input type="text" placeholder="First name" required name="firstname">
+                    <input type="text" placeholder="Last name" required name="lastname">
                 </div>
-                <input type="text" placeholder="User name">
-                <input type="text" placeholder="Email">
-                <input type="text" name="" placeholder="Password" id="">
-                <input type="text" name="" placeholder="Confirm password" id="">
+                <input type="text" placeholder="User name" required name="username">
+                <input type="text" placeholder="Email" required name="email">
+                <div class="verify">
+					
+                    <button type="button" id="btn_verify">Send</button>
+                    <input type="text" placeholder="Enter code" required name="verifyCode">
+                 
+                </div>
+                <input type="password"  placeholder="Password" required id="pwd" name="password">
+                <span id="icon_show" class="icon_show"><i class="bi bi-eye"></i></span>
+
+                <input type="password" placeholder="Confirm password" required id="pwd_confirm"  name="password_confirm">
+                <span id="icon_show_confirm" class="icon_show_confirm"><i class="bi bi-eye"></i></span>
+                <span id="msg_pwd"></span>
 
             </div>
             <span class="visible"></span>
@@ -39,7 +50,7 @@
                 <input type="checkbox" required>
                 I agree to the <a href="#">Terms of Service</a> & <a href="#">Privacy Policy</a>
             </label>
-            <button>Sign up</button>
+            <button id="signup_btn">Sign up</button>
             <hr>
             <p>Have account ? <a href="#">Sign in</a></p>
         </form>
@@ -48,10 +59,17 @@
 
 
 
-
         <%@ include file="/footer.jsp" %>
-
+        
+   
     <script src="${pageContext.request.contextPath}/assert/javascript/script.js"></script>
+    <script>
+        showHiddenPassword("pwd", "icon_show");
+        showHiddenPassword("pwd_confirm", "icon_show_confirm");
+    </script>
+     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assert/javascript/checkPassword.js"></script>
+    
 </body>
 
 </html>

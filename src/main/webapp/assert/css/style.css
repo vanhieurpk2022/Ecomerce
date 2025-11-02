@@ -1576,6 +1576,70 @@ footer .copyright {
     padding: 5px;
 }
 
+#signup .signup_Main .verify {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#signup form .verify button {
+    margin-top: 0;
+}
+
+#signup form .verify input {
+    width: 200px;
+}
+
+#signup form .verify button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+/* password */
+#signup form .password {
+    position: relative;
+}
+
+#signup form .icon_show {
+    position: absolute;
+    top: 58%;
+    left: 58%;
+    cursor: pointer;
+}
+
+/* password confirm */
+#signup form .password_confirm {
+    position: relative;
+}
+
+#signup form .icon_show_confirm {
+    position: absolute;
+    top: 64.5%;
+    left: 58%;
+    cursor: pointer;
+}
+
+/* password singin */
+#signup .signup_Main .password_sigin {
+    position: relative;
+}
+
+#signup .signup_Main .icon_show_signin {
+    position: absolute;
+    top: 38.5%;
+    left: 58%;
+    cursor: pointer;
+}
+
+.no-sytle-inform{
+	  all: unset;         /* Xóa toàn bộ style kế thừa */
+  all: revert;        /* Hoặc revert nếu muốn về mặc định của trình duyệt */
+  font: revert;
+  color: revert;
+  background: revert;
+}
+
 /* Start Media Query */
 /* ipad */
 @media (max-width: 920px) {
@@ -1751,6 +1815,27 @@ footer .copyright {
 
     #paymentMethod {
         padding: 5px;
+    }
+
+    #signup form .icon_show {
+        position: absolute;
+        top: 47%;
+        left: 68%;
+        cursor: pointer;
+    }
+
+    #signup form .icon_show_confirm {
+        position: absolute;
+        top: 52.5%;
+        left: 68%;
+        cursor: pointer;
+    }
+
+    #signup .signup_Main .icon_show_signin {
+        position: absolute;
+        top: 31.5%;
+        left: 68%;
+        cursor: pointer;
     }
 }
 
@@ -2004,5 +2089,30 @@ footer .copyright {
     .address .address_main div h4 {
         margin-right: 10px;
         margin: auto;
+    }
+
+    #signup form .verify input {
+        width: 150px;
+    }
+
+    #signup form .icon_show {
+        position: absolute;
+        top: 66%;
+        left: 78%;
+        cursor: pointer;
+    }
+
+    #signup form .icon_show_confirm {
+        position: absolute;
+        top: 74%;
+        left: 78%;
+        cursor: pointer;
+    }
+
+    #signup .signup_Main .icon_show_signin {
+        position: absolute;
+        top: 43%;
+        left: 78%;
+        cursor: pointer;
     }
 }

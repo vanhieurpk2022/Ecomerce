@@ -162,6 +162,11 @@
     <artifactId>javax.mail-api</artifactId>
     <version>1.6.2</version>
 </dependency>
+<dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20231013</version>
+</dependency>
 <!-- https://mvnrepository.com/artifact/jakarta.activation/jakarta.activation-api -->
 <dependency>
     <groupId>jakarta.activation</groupId>
