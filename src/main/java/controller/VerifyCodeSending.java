@@ -44,48 +44,13 @@ public class VerifyCodeSending extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		// giải mã json file
-		   request.setCharacterEncoding("UTF-8");
-	        response.setContentType("application/json");
-	        response.setCharacterEncoding("UTF-8");
-	        
-	        PrintWriter out = response.getWriter();
-	        
-	        try {
-	            // Đọc JSON
-	            StringBuilder sb = new StringBuilder();
-	            BufferedReader reader = request.getReader();
-	            String line;
-	            while ((line = reader.readLine()) != null) {
-	                sb.append(line);
-	            }
-	            
-	            // Parse bằng org.json
-	            JSONObject jsonRequest = new JSONObject(sb.toString());
-	            String email = jsonRequest.getString("email");
-	            
-	            
-	            // Xử lý logic...
-	            String code = RandomCode.getInstance().getCode();
-	            Mail mail = new Mail();
-	            mail.SendVerifyMail(email);
-	         
-	            // ✅ TẠO và GỬI success response
-	            JSONObject jsonResponse = new JSONObject();
-	            jsonResponse.put("success", true);
-	            jsonResponse.put("message", "Mã đã được gửi!");
-	            
-	            out.print(jsonResponse.toString());  // ✅ Gửi về client
-	            out.flush();  // ✅ Đẩy data đi ngay
-	        } catch (Exception e) {
-	            JSONObject errorResponse = new JSONObject();
-	            errorResponse.put("success", false);
-	            errorResponse.put("message", e.getMessage());
-	            
-
-	            out.print(errorResponse.toString());  // ✅ Gửi về client
-	            out.flush();  // ✅ Đẩy data đi ngay
-	        }
+		   request.setCharacterEncoding("UTF-8"); // Đảm bảo tiếng Việt không bị lỗi
+		   String email = request.getParameter("email");
+		   Mail mail = new Mail();
+		   System.out.println(email);
+		   mail.SendVerifyMail(email);
+		   
+	
 	}
 
 }

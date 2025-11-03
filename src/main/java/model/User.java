@@ -6,16 +6,30 @@ public class User {
 	private Integer idUser;
 	private String firstName;
 	private String lastName;
+	private String email;
 	private List<String> address;
 	private Boolean verify;
 	private String username;
 	private String password;
-	public User(Integer idUser, String firstName, String lastName, List<String> address, Boolean verify,
+	
+	public User(Integer idUser, String firstName, String lastName, String email, List<String> address, Boolean verify,
 			String username, String password) {
 		super();
 		this.idUser = idUser;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.email = email;
+		this.address = address;
+		this.verify = verify;
+		this.username = username;
+		this.password = password;
+	}
+	public User( String firstName, String lastName,String email, Boolean verify,
+			String username, String password) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
 		this.address = address;
 		this.verify = verify;
 		this.username = username;
@@ -62,6 +76,12 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	

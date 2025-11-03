@@ -19,21 +19,21 @@
 
     <section id="signup">
         <form id="register" action="controller" method="POST">
-			<input type="hidden" value="login" name="action"/>
+			<input type="hidden" value="register" name="action"/>
             <div class="signup_Header">
                 <h1> Cara Clothes</h1>
                 <h2>Sign up</h2>
             </div>
             <div class="signup_Main">
                 <div class="signup_main_div">
-                    <input type="text" placeholder="First name" required name="firstname">
-                    <input type="text" placeholder="Last name" required name="lastname">
+                    <input type="text" placeholder="First name" required name="firstname" value="${firstname}"> 
+                    <input type="text" placeholder="Last name" required name="lastname" value="${lastname}">
                 </div>
-                <input type="text" placeholder="User name" required name="username">
-                <input type="text" placeholder="Email" required name="email">
+                <input type="text" placeholder="User name" required name="username" value="${username}">
+                <input type="text" placeholder="Email" id="email_signup" required name="email">
                 <div class="verify">
 					
-                    <button type="button" id="btn_verify">Send</button>
+                    <button type="button" id="btn_verify" onclick="sendData();">Send</button>
                     <input type="text" placeholder="Enter code" required name="verifyCode">
                  
                 </div>
@@ -42,7 +42,7 @@
 
                 <input type="password" placeholder="Confirm password" required id="pwd_confirm"  name="password_confirm">
                 <span id="icon_show_confirm" class="icon_show_confirm"><i class="bi bi-eye"></i></span>
-                <span id="msg_pwd"></span>
+                <span id="msg_pwd" style="Color:RED;text-align:center;">${error}</span>
 
             </div>
             <span class="visible"></span>

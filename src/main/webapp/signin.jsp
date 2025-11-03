@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,16 +20,24 @@
 
 
    <section id="signup">
-        <form action="">
+        <form action="controller" method="POST">
+			<input type="hidden" value="login" name="action"/>
             <div class="signup_Header">
                 <h1> Cara Clothes</h1>
                 <h2>Sign in</h2>
             </div>
             <div class="signup_Main">
-                <input type="text" placeholder="User name" required>
-                <input type="password" name="password_sigin" placeholder="Password" id="pwd" required>
+                <input type="text" placeholder="User name" required name="username">
+                <input type="password"  placeholder="Password" id="pwd" required name="password_sigin">
                 <span id="icon_show" class="icon_show_signin"><i class="bi bi-eye"></i></span>
-                <span id="msg_pwd"></span>
+                <c:choose>
+                <c:when test ="${msgtype =='sus' }">
+                <span id="msg_pwd" style="Color:green;text-align:center;">${msg }</span>
+                </c:when>
+                  <c:when test ="${msgtype =='error' }">
+                <span id="msg_pwd" style="Color:red;text-align:center;">${msg }</span>
+                </c:when>
+                </c:choose>
             </div>
 
             <div class="forgot">

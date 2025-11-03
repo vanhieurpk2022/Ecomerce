@@ -14,10 +14,9 @@ import java.util.Random;
 
 
 public class Mail {
-	private final String password ="qvhe jipg dnjy ofha";
-	private final String from = "ClotheStore.support@gmail.com";
+	private final String password ="qvcvpgktrdqzphuo";
+	private final String from = "nobihaza115@gmail.com";
 	private Session session;
-	private RandomCode rdc;
 	// properties: khai báo các thuộc tính
 	
 	public Mail() {
@@ -51,7 +50,8 @@ public class Mail {
 			msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(To));
 			
 			msg.setSubject("Your verification code");
-			msg.setText("Hello,\n\nYour verification code is: "+rdc.getInstance().getCode()+"\nPlease enter this code to verify your account.\n\nBest regards,\nSupport Team");
+			msg.setContent("<p>Hello</p>"+"\n"+"<p>Your verify code is: <strong>"+RandomCode.getInstance().getCode()+"</strong></p>" +"\n"+
+			"<p>Please enter this code to verify your account</p>"+"\n"+"<p>Best regards,</p>"+"\n"+"<p>Support team</p>","text/html");
 			Transport.send(msg);
 		} catch (Exception e) {
 			System.out.println("lỗi gửi mail");

@@ -1,6 +1,26 @@
 /**
  * kiểm tra và nhận code ở signup
  */
+function sendData() {
+
+         const email = document.getElementById("email_signup").value;
+		 const contextPath = window.location.pathname.split("/")[1];
+
+         // Gửi POST request đến servlet
+         fetch(`/${contextPath}/verifyCode`, {
+             method: "POST",
+             headers: {
+                 "Content-Type": "application/x-www-form-urlencoded"
+             },
+             body: `email=${encodeURIComponent(email)}`
+         })
+         .then(response => response.text())
+         .then(data => {
+             console.log("Response from servlet:", data);
+             alert(data);
+         })
+         .catch(error => console.error("Error:", error));
+     }
 function timeCodeVerify() {
     try {
         const btn = document.getElementById("btn_verify");
@@ -86,6 +106,7 @@ function checkPasswordRealtime(pwdId, confirmId, msgId, btnId) {
         console.error("Error in checkPasswordRealtime:", error);
     }
 }
+
 
  
 
