@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
         <section id=header>
         <a href="#"> <img src="${ pageContext.request.contextPath}/assert/img/logo.png" class="logo" alt=""></a>
@@ -14,20 +15,27 @@
                 <li id="lg-bag"><a href="cart.jsp"><i class="bi bi-cart"></i></a>
                     <span id="cart_count">0</span>
                 </li> <!-- login succsess -->
-                <li><a href="signup.jsp" class="signup">Sign Up</a></li>
-                <!-- <li class="user-menu">
+                <c:choose>
+                <c:when test="${sessionScope.user !=null }">
+                <li class="user-menu">
                     <div class="avatar">
                         <img src="" alt="">
-                        <span>tên tài khoản</span>
-                    </div> -->
+                        <span>${sessionScope.user.firstName} ${ sessionScope.user.lastName }</span>
+                    </div> 
                 <!-- Dropdown menu -->
-                <!-- <ul class="dropdown">
-                    <li><a href="#"> <i class="bi bi-gear"></i> Settings & Privacy</a></li>
+                 <ul class="dropdown">
+                    <li><a href="settings.jsp"> <i class="bi bi-gear"></i> Settings & Privacy</a></li>
                     <li><a href="#"> <i class="bi bi-question-circle"></i> Help & Support </a></li>
-                    <li><a href="#"> <i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                    <li><a href="controller?action=logout"> <i class="bi bi-box-arrow-right"></i> Logout</a></li>
                 </ul>
-                </li> -->
-
+                </li> 
+                </c:when>
+                <c:otherwise>
+                                <li><a href="signup.jsp" class="signup">Sign Up</a></li>
+                
+                </c:otherwise>
+                </c:choose>
+               
                 <a href="#" id="close"> <i class="bi bi-x-lg"></i></a>
             </ul>
 

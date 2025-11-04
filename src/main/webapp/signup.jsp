@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,8 +44,14 @@
 
                 <input type="password" placeholder="Confirm password" required id="pwd_confirm"  name="password_confirm">
                 <span id="icon_show_confirm" class="icon_show_confirm"><i class="bi bi-eye"></i></span>
-                <span id="msg_pwd" style="Color:RED;text-align:center;">${error}</span>
-
+ 				<c:choose>
+                <c:when test ="${msgtype =='sus' }">
+                <span id="msg_pwd" style="Color:green;text-align:center;">${msg }</span>
+                </c:when>
+                  <c:when test ="${msgtype =='error' }">
+                <span id="msg_pwd" style="Color:red;text-align:center;">${msg }</span>
+                </c:when>
+                </c:choose>
             </div>
             <span class="visible"></span>
             <label>
@@ -52,7 +60,7 @@
             </label>
             <button id="signup_btn">Sign up</button>
             <hr>
-            <p>Have account ? <a href="#">Sign in</a></p>
+            <p>Have account ? <a href="signin.jsp">Sign in</a></p>
         </form>
 
     </section>

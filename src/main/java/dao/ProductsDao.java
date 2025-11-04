@@ -10,4 +10,22 @@ public class ProductsDao implements IDao{
 		return false;
 	}
 
+	@Override
+	public boolean checkAccount(String username) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean SelectUsernameIsContains(String username) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public User getFullName(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

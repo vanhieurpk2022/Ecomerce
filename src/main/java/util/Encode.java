@@ -1,4 +1,4 @@
-package util;
+	package util;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -7,7 +7,7 @@ import java.util.Base64;
 
 public class Encode {
 	public static String toSHA1(String str) throws UnsupportedEncodingException {
-		String salt = "jahsjhdjaj@1312512adsjadhsabdbadagavbahsdj";
+		String salt = "jahsjhdjaj@1312512a";
 		String result = null;
 		
 		str =str+salt;
