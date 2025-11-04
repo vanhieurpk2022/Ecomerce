@@ -74,16 +74,8 @@ function showHiddenPassword(inputID, iconID) {
 }
 
 
-function safeRun(fn, name = "") {
-    try {
-        fn();
-    } catch (error) {
-        console.error(`Lỗi trong ${name || "function"}:`, e);
-
-    }
-}
-safeRun(getActiveBar(), "getActiveBar");
-safeRun(dropDownWhenLogin(), "dropDownWhenLogin")
+getActiveBar();
+dropDownWhenLogin();
 
 
 

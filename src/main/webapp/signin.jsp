@@ -30,6 +30,7 @@
                 <input type="text" placeholder="User name" required name="username">
                 <input type="password"  placeholder="Password" id="pwd" required name="password_sigin">
                 <span id="icon_show" class="icon_show_signin"><i class="bi bi-eye"></i></span>
+                
                 <c:choose>
                 <c:when test ="${msgtype =='sus' }">
                 <span id="msg_pwd" style="Color:green;text-align:center;">${msg }</span>

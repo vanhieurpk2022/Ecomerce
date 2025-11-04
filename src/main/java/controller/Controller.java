@@ -8,10 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.IDao;
 import dao.UserDao;
 import model.User;
+import util.Encode;
 import util.RandomCode;
 
 /**
@@ -20,7 +22,7 @@ import util.RandomCode;
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -46,10 +48,24 @@ public class Controller extends HttpServlet {
 		case "login":
 			Login(request, response);
 			break;
+		case "logout":
+			Logout(request,response);
+			break;
 				
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + action);
 		}
+	}
+
+	private void Logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(false);
+		
+		if(session!=null) {
+			session.invalidate();
+		}
+		response.sendRedirect("index.jsp");
+
 	}
 
 	/**
@@ -71,9 +87,10 @@ public class Controller extends HttpServlet {
 		String password = request.getParameter("password");
 		String msg="";
 		String url="/signin.jsp";
+		
 		// lấy code hiện có
 		String rdc = RandomCode.getInstance().getCode();
-		UserDao userDao = new UserDao();
+		 IDao idao = new UserDao();
 		
 		if(!rdc.equals(verifyCode)) {
 			msg ="Code Verify not match";
@@ -86,8 +103,10 @@ public class Controller extends HttpServlet {
 		    getServletContext().getRequestDispatcher(url).forward(request, response);
 		    return;
 		}
+		
+		
 		// kiểm tra account đó có tồn tại chưa
-		if(!userDao.SelectUsernameIsContains(username)) {
+		if(!idao.SelectUsernameIsContains(username)) {
 			url = "/signup.jsp";
 			msg ="Account is exits";
 			request.setAttribute("error", msg);
@@ -98,9 +117,10 @@ public class Controller extends HttpServlet {
 			    return;
 		}
 		if(rdc.equals(verifyCode)) {
-			User user = new User( firstname, lastname,email, true, username, password);
+			User user = new User( firstname, lastname,email, true, username, Encode.toSHA1(password));
+			
 		
-			userDao.addUser(user);
+			idao.addUser(user);
 			msg="Susscess register";
 			
 			request.setAttribute("msg", msg);
@@ -114,6 +134,29 @@ public class Controller extends HttpServlet {
 	public void Login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password_sigin");
+		String url="/signin.jsp";
+		String msg ="";
+		
+		IDao dao = new UserDao();
+
+		if(dao.checkAccount(username) ) {
+			User user = dao.getFullName(username);
+			boolean checkPass = Encode.toSHA1(password).equals(user.getPassword());
+			if(checkPass) {
+				HttpSession session = request.getSession();
+				
+				session.setAttribute("user", user);
+				url="/index.jsp";
+				getServletContext().getRequestDispatcher(url).forward(request, response);
+			}
+			
+		}else {
+			msg = "Wrong username or password";
+			request.setAttribute("msg", msg);
+			request.setAttribute("msgtype", "error");
+			getServletContext().getRequestDispatcher(url).forward(request, response);
+		}
+		
 		
 		
 	}

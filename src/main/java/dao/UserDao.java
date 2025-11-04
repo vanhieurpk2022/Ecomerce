@@ -41,15 +41,55 @@ public class UserDao implements IDao {
 			PreparedStatement pst = conn.prepareStatement(sql);
 			pst.setString(1, username);
 			ResultSet result = pst.executeQuery();
-			if(result.next()) {
-				return false;
-			}
+			return result.next();
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}	
 		
 		
-		return true;
+		return false;
 	}
+	
+	public boolean checkAccount(String username) {
+		try {
+			Connection conn = JDBCUtil.getConnection();
+			String sql = "SELECT * FROM USERS WHERE username=?";
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setString(1, username);
+			ResultSet result = pst.executeQuery();
+			if(result.next()) {
+				return true;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return false;
+	}
+	public User getFullName(String username) {
+		try {
+			Connection conn = JDBCUtil.getConnection();
+			String sql = "SELECT * FROM USERS WHERE username=?";
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setString(1, username);
+			ResultSet result = pst.executeQuery();
+			User user = new User();
+			while(result.next()) {
+			user.setIdUser(result.getInt("userID"));
+			user.setFirstName(result.getString("firstName"));
+			user.setLastName(result.getString("lastName"));
+			user.setEmail(result.getString("email"));
+			//user.setAddress(result.getInt("address"));
+			
+			user.setVerify((result.getInt("verify") ==1)?true:false);
+			user.setUsername(result.getString("username"));
+			user.setPassword(result.getString("password"));
+
+			}
+			return user;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	} 
 }
