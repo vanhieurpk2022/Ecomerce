@@ -28,9 +28,10 @@
             </div>
             <div class="signup_Main">
                 <input type="text" placeholder="User name" required name="username">
+                <div class="input-wrapper">
                 <input type="password"  placeholder="Password" id="pwd" required name="password_sigin">
-                <span id="icon_show" class="icon_show_signin"><i class="bi bi-eye"></i></span>
-                
+                <span id="icon_show" class="icon_show"><i class="bi bi-eye"></i></span>
+                </div>
                 <c:choose>
                 <c:when test ="${msgtype =='sus' }">
                 <span id="msg_pwd" style="Color:green;text-align:center;">${msg }</span>

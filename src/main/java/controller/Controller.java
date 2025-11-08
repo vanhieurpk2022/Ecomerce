@@ -91,8 +91,22 @@ public class Controller extends HttpServlet {
 		// lấy code hiện có
 		String rdc = RandomCode.getInstance().getCode();
 		 IDao idao = new UserDao();
-		
+		 
+		 System.out.println(idao.checkAccount(username));
+			// kiểm tra account đó có tồn tại chưa
+			if(idao.checkAccount(username)) {
+				System.out.println("Đã vào đây 1");
+				url = "/signup.jsp";
+				msg ="Account is exits";
+				request.setAttribute("error", msg);
+				request.setAttribute("username", username);
+				request.setAttribute("firstname", firstname);
+				request.setAttribute("lastname", lastname);
+				 getServletContext().getRequestDispatcher(url).forward(request, response);
+				    return;
+			}
 		if(!rdc.equals(verifyCode)) {
+			System.out.println("Đã vào đây 2 ");
 			msg ="Code Verify not match";
 			request.setAttribute("error", msg);
 			request.setAttribute("username", username);
@@ -102,31 +116,19 @@ public class Controller extends HttpServlet {
 			url = "/signup.jsp";
 		    getServletContext().getRequestDispatcher(url).forward(request, response);
 		    return;
-		}
-		
-		
-		// kiểm tra account đó có tồn tại chưa
-		if(!idao.SelectUsernameIsContains(username)) {
-			url = "/signup.jsp";
-			msg ="Account is exits";
-			request.setAttribute("error", msg);
-			request.setAttribute("username", username);
-			request.setAttribute("firstname", firstname);
-			request.setAttribute("lastname", lastname);
-			 getServletContext().getRequestDispatcher(url).forward(request, response);
-			    return;
-		}
-		if(rdc.equals(verifyCode)) {
+		}else {
 			User user = new User( firstname, lastname,email, true, username, Encode.toSHA1(password));
-			
-		
+			System.out.println("Đã vào đây 3");
+
 			idao.addUser(user);
 			msg="Susscess register";
 			
 			request.setAttribute("msg", msg);
 			request.setAttribute("msgtype", "sus");
-
 		}
+		
+	
+		
 	    getServletContext().getRequestDispatcher(url).forward(request, response);
 
 		

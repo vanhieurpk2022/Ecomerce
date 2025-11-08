@@ -5,7 +5,6 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   <dependencies>
-  
     <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-annotations-api</artifactId>
@@ -151,27 +150,6 @@
       <artifactId>tomcat-websocket-api</artifactId>
       <version>8.5.96</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina -->
-
-<!-- https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core -->
-<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina -->
-<dependency>
-    <groupId>org.apache.tomcat</groupId>
-    <artifactId>tomcat-catalina</artifactId>
-    <version>9.0.87</version> <!-- bạn có thể đổi bản mới nhất -->
-    <scope>provided</scope>
-</dependency>
-
-<!-- Tomcat JSP Engine (nếu cần chạy JSP bằng embedded Tomcat) -->
-<dependency>
-    <groupId>org.apache.tomcat</groupId>
-    <artifactId>tomcat-jasper</artifactId>
-    <version>9.0.87</version>
-    <scope>provided</scope>
-</dependency>
-
-    <!-- https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core -->
-
     <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
 <dependency>
     <groupId>com.mysql</groupId>
@@ -201,7 +179,6 @@
     <artifactId>jakarta.activation-api</artifactId>
     <version>2.1.4</version>
 </dependency>
-<!-- https://mvnrepository.com/artifact/javax.servlet.jsp/javax.servlet.jsp-api -->
 <dependency>
     <groupId>org.json</groupId>
     <artifactId>json</artifactId>
@@ -214,7 +191,6 @@
     <artifactId>jstl</artifactId>
     <version>1.2</version>
 </dependency>
-
   </dependencies>
   <build>
     <plugins>

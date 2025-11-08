@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import model.User;
 import util.JDBCUtil;
 
-public class UserDao implements IDao {
+public class UserDao extends BaseDao {
 
 	public boolean addUser(User user) {
 		  String sql = "INSERT INTO USERS(firstname,lastname,email,verify,username,password) VALUES (?,?,?,?,?,?)";
@@ -32,12 +32,12 @@ public class UserDao implements IDao {
 		    } catch (SQLException e) {
 		        e.printStackTrace();
 		    }
-		return true;
+		return result >0;
 	}
 	public boolean SelectUsernameIsContains(String username) {
 		try {
 			Connection conn = JDBCUtil.getConnection();
-			String sql = "SELECT * FROM USER WHERE username=?";
+			String sql = "SELECT * FROM USERS WHERE username=?";
 			PreparedStatement pst = conn.prepareStatement(sql);
 			pst.setString(1, username);
 			ResultSet result = pst.executeQuery();
@@ -45,6 +45,7 @@ public class UserDao implements IDao {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}	
 		
 		
@@ -58,11 +59,10 @@ public class UserDao implements IDao {
 			PreparedStatement pst = conn.prepareStatement(sql);
 			pst.setString(1, username);
 			ResultSet result = pst.executeQuery();
-			if(result.next()) {
-				return true;
-			}
+			return result.next();
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return false;
 	}
@@ -89,6 +89,8 @@ public class UserDao implements IDao {
 			return user;
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
+
 		}
 		return null;
 	} 

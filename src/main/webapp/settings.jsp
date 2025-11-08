@@ -16,166 +16,213 @@
 <body>
    <jsp:include page="/header.jsp"></jsp:include>
 
-    <section id="settings">
-        <div class="settings_header">
-            <h1>Settings</h1>
+     <div class="container-fluid">
+        <!-- Main Content -->
 
-            <div class="setting_header_nav">
-                <ul class="settings_nav">
-                    <li><a id="tab_account" href="#account" class="settings_active">Account</a></li>
-                    <li><a id="tab_security" href="#settings_security">Security</a></li>
-                    <li><a id="tab_address" href="#settings_address">Address</a></li>
-                </ul>
-                <!-- account -->
-                <div id="settings_account">
-                    <div class="account_content_header">
-                        <div class="avatar"></div>
-                        <span>Tên người dùng</span>
-                        <hr>
-                    </div>
-                    <div class="account_content_main">
-                        <div>
-                            <label for="person_firstname ">First name</label>
-                            <input type="text" name="person_firstname " id="person_firstname">
-                            <label>Last name</label>
-                            <input type="text" name="person_lastname" id="person_lastname">
-                        </div>
-                        <div>
+        <div class="container">
+            <h1 class="page-title"><i class="fas fa-cog"></i> Settings</h1>
 
+            <div class="settings-wrapper">
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <h3>Settings</h3>
+                    <ul class="sidebar-menu">
+                        <li><a href="#account" class="active"><i class="fas fa-user-circle"></i> Account</a></li>
+                        <li><a href="#security"><i class="fas fa-shield-alt"></i> Security</a></li>
+                        <li><a href="#address"><i class="fas fa-map-marker-alt"></i> Address</a></li>
+                    </ul>
+                </aside>
 
-                            <label for="person_birthday ">Birthday</label>
-                            <input type="date" name="person_birthday" id="person_birthday">
-                            <label for="person_phone">Phone</label>
-                            <input type="text" name="person_phone" id="person_phone">
-                        </div>
-                        <div>
-
-                            <label for="person_email">Email</label>
-                            <input type="text" name="person_email" id="person_email">
-
-                            <label for="">Gender</label>
-                            <input type="text" name="" id="" value="Female" disabled>
-                        </div>
-
-
-                    </div>
-                    <div class="account_content_footer">
-                        <button class="normal footer_button">Update</button>
-                        <button class="normal footer_button">Cancel</button>
-
-                    </div>
-                </div>
-
-                <!-- Securtiry -->
-                <div class="security" id="settings_security">
-                    <h3>Change Password</h3>
-                    <div class="settings_security_manage">
-                        <div>
-                            <label for="person_password ">Password current</label>
-                            <input type="password" name="person_password " id="person_password">
-                        </div>
-                        <div class="password">
-                            <label for="person_newPassword">New Password</label>
-                            <input type="password" name="person_newPassword" id="person_newPassword">
-                            <span id="icon_show_up_0" class="icon_show"><i class="bi bi-eye"></i></span>
-
-                        </div>
-
-                        <div class="password">
-                            <label for="person_confirm">Confirm Password</label>
-                            <input type="password" name="person_confirm" id="person_confirm">
-                            <span id="icon_show_up_1" class="icon_show"><i class="bi bi-eye"></i></span>
-                        </div>
-                        <span id="msg_pwd_security"></span>
-                        <div>
-                            <label>
-                                <input type="checkbox" id="twofa"> Enable 2FA (Two-Factor Authentication)
-                            </label>
-                            <div class="twofa-options" style="display:none;">
-                                <p>Select verification method:</p>
-                                <select>
-                                    <option>Email verification</option>
-                                    <option>Authenticator app (Google Authenticator)</option>
-                                    <option>SMS verification</option>
+                <!-- Content Area -->
+                <div class="content-area">
+                    <!-- Account Section -->
+                    <section class="section" id="account">
+                        <h2 class="section-title"><i class="fas fa-user-circle"></i> Account Information</h2>
+                        <form class="form-grid">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" placeholder="Enter username">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                                <label for="firstname">First Name</label>
+                                <input type="text" id="firstname" placeholder="Enter first name">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname">Last Name</label>
+                                <input type="text" id="lastname" placeholder="Enter last name">
+                            </div>
+                            <div class="form-group">
+                                <label for="birthday">Birthday</label>
+                                <input type="date" id="birthday">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="tel" id="phone" placeholder="Enter phone number">
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Gender</label>
+                                <select id="gender">
+                                    <option value="">Select gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
                                 </select>
                             </div>
+                        </form>
+                        <div class="btn-group">
+                            <button class="btn btn-primary"><i class="fas fa-save"></i> Update</button>
+                            <button class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</button>
                         </div>
-                    </div>
-                    <h3>Recent login activity</h3>
+                    </section>
 
-                    <div class="login-activity">
-                        <ul>
-                            <li>Chrome - Windows 10 - 2 hours ago</li>
-                            <li>Edge - Android - Yesterday</li>
-                        </ul>
-                    </div>
-                    <div class="account_content_footer">
-                        <button class="normal footer_button" id="update_security">Update</button>
-                        <button class="normal footer_button">Cancel</button>
+                    <!-- Security Section -->
+                    <section class="section" id="security">
+                        <h2 class="section-title"><i class="fas fa-shield-alt"></i> Security</h2>
 
-                    </div>
+                        <h3 style="margin-bottom: 1rem; color: #555;">Change Password</h3>
+                        <form class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="current-password">Current Password</label>
+                                <input type="password" id="current-password" placeholder="Enter current password"
+                                    disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="new-password">New Password</label>
+                                <div class="input-wrapper">
+                                    <input type="password" id="new-password" placeholder="Enter new password">
+                                    <span id="icon_show" class="icon_show"><i class="bi bi-eye"></i></span>
 
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm-password">Confirm Password</label>
+                                <div class="input-wrapper">
+                                    <input type="password" id="confirm-password" placeholder="Confirm new password">
+                                    <span id="icon_show_0" class="icon_show"><i class="bi bi-eye"></i></span>
+
+                                </div>
+                            </div>
+                        </form>
+
+                        <div style="margin-top: 2rem;">
+                            <h3 style="margin-bottom: 1rem; color: #555;">Two-Factor Authentication</h3>
+                            <div class="twofa-toggle">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="2fa-toggle">
+                                    <span class="slider"></span>
+                                </label>
+                                <span><strong>Enable 2FA</strong> for enhanced security</span>
+                            </div>
+
+                            <p style="color: #666; margin-bottom: 1rem;">Select verification method:</p>
+                            <div class="verification-methods">
+                                <div class="method-card selected">
+                                    <i class="fas fa-envelope"></i>
+                                    <p>Email</p>
+                                </div>
+                                <div class="method-card">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <p>Authenticator</p>
+                                </div>
+                                <div class="method-card">
+                                    <i class="fas fa-sms"></i>
+                                    <p>SMS</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 2rem;">
+                            <h3 style="margin-bottom: 1rem; color: #555;">Recent Login Activity</h3>
+                            <ul class="activity-list">
+                                <li class="activity-item">
+                                    <div class="activity-icon">
+                                        <i class="fab fa-chrome"></i>
+                                    </div>
+                                    <div class="activity-info">
+                                        <strong>Chrome - Windows 10</strong>
+                                        <span>2 hours ago</span>
+                                    </div>
+                                </li>
+                                <li class="activity-item">
+                                    <div class="activity-icon">
+                                        <i class="fab fa-edge"></i>
+                                    </div>
+                                    <div class="activity-info">
+                                        <strong>Edge - Android</strong>
+                                        <span>Yesterday</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="btn-group">
+                            <button class="btn btn-primary"><i class="fas fa-save"></i> Update</button>
+                            <button class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</button>
+                        </div>
+                    </section>
+
+                    <!-- Address Section -->
+                    <section class="section" id="address">
+                        <h2 class="section-title"><i class="fas fa-map-marker-alt"></i> Address</h2>
+                        <form class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="address1">Address Line 1</label>
+                                <input type="text" id="address1" placeholder="Enter your address">
+                            </div>
+                            <div class="form-group">
+                                <label for="district">District</label>
+                                <input type="text" id="district" placeholder="Enter district">
+                            </div>
+                            <div class="form-group">
+                                <label for="city">City / Province</label>
+                                <input type="text" id="city" placeholder="Enter city">
+                            </div>
+                            <div class="form-group">
+                                <label for="country">Country</label>
+                                <select id="country">
+                                    <option value="vn">Việt Nam</option>
+                                    <option value="cn">Trung Quốc</option>
+                                    <option value="tw">Đài Loan</option>
+                                    <option value="kr">Hàn Quốc</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="postal">Postal Code</label>
+                                <input type="text" id="postal" placeholder="Enter postal code">
+                            </div>
+                        </form>
+
+                        <div class="location-display">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Current Location</strong>
+                                <p style="color: #666; margin-top: 0.5rem;">798A Đ. Nguyễn Thị Minh Khai, Tân Đông Hiệp,
+                                    Dĩ
+                                    An, Bình Dương, VN.</p>
+                            </div>
+                        </div>
+                        <!-- <div class="location-display">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Current Location</strong>
+                                <p style="color: #666; margin-top: 0.5rem;">798A Đ. Nguyễn Thị Minh Khai, Tân Đông Hiệp,
+                                    Dĩ
+                                    An, Bình Dương, VN.</p>
+                            </div>
+                        </div> -->
+                        <div class="btn-group">
+                            <button class="btn btn-primary"><i class="fas fa-save"></i> Update</button>
+                            <button class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</button>
+                        </div>
+                    </section>
                 </div>
-
-                <!-- end Security -->
-
-
-                <!--Address Start -->
-                <div id="settings_address" class="address">
-                    <h3>Address</h3>
-                    <div class="address_info">
-                        <div>
-                            <label for="address1">Address Line 1</label>
-                            <input type="text" id="address1">
-                            <label for="district">District</label>
-                            <input type="text" id="district">
-                        </div>
-
-                        <div>
-                            <label for="city">City / Province</label>
-                            <input type="text" id="city">
-                            <label for="country">Country</label>
-                            <select name="" id="">
-                                <option value="0">Việt nam</option>
-                                <option value="1">Trung quốc</option>
-                                <option value="2">Đài loan</option>
-                                <option value="3">Hàn</option>
-
-                            </select>
-                        </div>
-
-                        <div>
-                            <label for="postal">Postal Code</label>
-                            <input type="text" id="postal">
-                        </div>
-                        <div>
-
-                        </div>
-                    </div>
-                    <h3> Location current</h3>
-                    <div class="address_main">
-                        <div>
-                            <h4><i class="bi bi-geo-alt-fill"></i> </h4>
-                            <select name="" id="">
-                                <option value="0">798A Đ. Nguyễn Thị Minh Khai, Tân Đông Hiệp, Dĩ An, Bình Dương, VN.
-                                </option>
-                                <option value="1">798A Đ. Nguyễn Thị Minh Khai, Tân Đông Hiệp, Dĩ An, Bình Dương, VN.
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="account_content_footer">
-                        <button class="normal footer_button">Update</button>
-                        <button class="normal footer_button">Cancel</button>
-
-                    </div>
-                </div>
-                <!-- Address End -->
             </div>
-
         </div>
-
-    </section>
+    </div>
 
 
 
@@ -184,8 +231,8 @@
          <script src="${pageContext.request.contextPath}/assert/javascript/script.js"></script>
 
     <script>
-        showHiddenPassword("person_newPassword", "icon_show_up_0");
-        showHiddenPassword("person_confirm", "icon_show_up_1");
+    showHiddenPassword("new-password", "icon_show");
+    showHiddenPassword("confirm-password", "icon_show_0");
         </script>
         
     <script src="${pageContext.request.contextPath}/assert/javascript/swarpTabInSettings.js"></script>

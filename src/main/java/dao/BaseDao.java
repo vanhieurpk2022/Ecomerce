@@ -2,7 +2,7 @@ package dao;
 
 import model.User;
 
-public class ProductsDao extends BaseDao{
+public class BaseDao implements IDao{
 
 	@Override
 	public boolean addUser(User user) {
