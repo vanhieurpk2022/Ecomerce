@@ -4,6 +4,10 @@
 function sendData() {
 
          const email = document.getElementById("email_signup").value;
+		 
+		if(email === null || email.trim() === ""){
+			return;
+		}
 		 const contextPath = window.location.pathname.split("/")[1];
 
          // Gửi POST request đến servlet
@@ -17,7 +21,7 @@ function sendData() {
          .then(response => response.text())
          .then(data => {
              console.log("Response from servlet:", data);
-             alert(data);
+             
          })
          .catch(error => console.error("Error:", error));
      }
@@ -110,6 +114,6 @@ function checkPasswordRealtime(pwdId, confirmId, msgId, btnId) {
 
  
 
-checkPasswordRealtime("pwd", "pwd_confirm", "msg_pwd", "signup_btn");
+checkPasswordRealtime("pwd", "pwd_confirm", "msg_js", "signup_btn");
 checkPasswordRealtime("person_newPassword", "person_confirm", "msg_pwd_security", "update_security");
 timeCodeVerify();

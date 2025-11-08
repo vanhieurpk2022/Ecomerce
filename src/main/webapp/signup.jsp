@@ -39,11 +39,15 @@
                     <input type="text" placeholder="Enter code" required name="verifyCode">
                  
                 </div>
+                 <div class="input-wrapper">
                 <input type="password"  placeholder="Password" required id="pwd" name="password">
                 <span id="icon_show" class="icon_show"><i class="bi bi-eye"></i></span>
-
+					</div>
+					
+					<div class="input-wrapper">
                 <input type="password" placeholder="Confirm password" required id="pwd_confirm"  name="password_confirm">
-                <span id="icon_show_confirm" class="icon_show_confirm"><i class="bi bi-eye"></i></span>
+                <span id="icon_show_confirm" class="icon_show"><i class="bi bi-eye"></i></span>
+                </div>
  				<c:choose>
                 <c:when test ="${msgtype =='sus' }">
                 <span id="msg_pwd" style="Color:green;text-align:center;">${msg }</span>
@@ -52,6 +56,7 @@
                 <span id="msg_pwd" style="Color:red;text-align:center;">${msg }</span>
                 </c:when>
                 </c:choose>
+                <span id="msg_js"></span>
             </div>
             <span class="visible"></span>
             <label>
@@ -64,7 +69,6 @@
         </form>
 
     </section>
-
 
 
         <%@ include file="/footer.jsp" %>
