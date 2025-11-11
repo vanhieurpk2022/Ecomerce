@@ -1,42 +1,44 @@
-/**
- *  chuyển tab của settings
- */
-function activeBarSettings() {
-    try {
-        // Ẩn các phần không active ban đầu
-        document.getElementById("settings_security").style.display = "none";
-        document.getElementById("settings_address").style.display = "none";
+// Method card selection
+document.querySelectorAll('.method-card').forEach(card => {
+    card.addEventListener('click', function () {
+        document.querySelectorAll('.method-card').forEach(c => c.classList.remove('selected'));
+        this.classList.add('selected');
+    });
+});
 
-        const tabs = document.querySelectorAll(".settings_nav a");
-        const contents = {
-            tab_account: document.getElementById("settings_account"),
-            tab_security: document.getElementById("settings_security"),
-            tab_address: document.getElementById("settings_address")
-        };
+// Smooth scroll for sidebar links
+document.querySelectorAll('.sidebar-menu a').forEach(link => {
+    link.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelectorAll('.sidebar-menu a').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
 
-        // Xử lý click cho từng tab
-        tabs.forEach(tab => {
-            tab.addEventListener("click", (e) => {
-                e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+});
 
-                // Xóa class active của tất cả tab
-                tabs.forEach(t => t.classList.remove("settings_active"));
+const sections = document.querySelectorAll('.section');
+const menuLinks = document.querySelectorAll('.sidebar-menu a');
 
-                // Ẩn tất cả nội dung
-                for (let key in contents) {
-                    contents[key].style.display = "none";
+function highlightMenu() {
+    let scrollPosition = window.scrollY + 150;
+
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute('id');
+
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            menuLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + sectionId) {
+                    link.classList.add('active');
                 }
-
-                // Active tab được click
-                tab.classList.add("settings_active");
-
-                // Hiển thị nội dung tương ứng
-                const targetId = tab.id.replace("tab_", "settings_");
-                contents[tab.id].style.display = "block";
             });
-        });
-    } catch (error) {
-        console.log("Lỗi active các thanh settings", error)
-    }
+        }
+    });
 }
-activeBarSettings();
+
+window.addEventListener('scroll', highlightMenu);
+highlightMenu(); // Run on page load
