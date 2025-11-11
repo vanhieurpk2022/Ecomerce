@@ -10,16 +10,8 @@
       <artifactId>tomcat-annotations-api</artifactId>
       <version>8.5.96</version>
     </dependency>
-    <dependency>   
-      <groupId>org.apache.tomcat</groupId>
-      <artifactId>tomcat-catalina-ant</artifactId>
-      <version>8.5.96</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat</groupId>
-      <artifactId>tomcat-catalina-ha</artifactId>
-      <version>8.5.96</version>
-    </dependency>
+
+ 
     <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-storeconfig</artifactId>
@@ -30,11 +22,7 @@
       <artifactId>tomcat-tribes</artifactId>
       <version>8.5.96</version>
     </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat</groupId>
-      <artifactId>tomcat-catalina</artifactId>
-      <version>8.5.96</version>
-    </dependency>
+
     <dependency>
       <groupId>org.eclipse.jdt</groupId>
       <artifactId>ecj</artifactId>
