@@ -12,6 +12,6 @@
                 
         <property name="java-output-path" value="/ClotheStore/build/classes"/>
             
-    </wb-module>
+    </wb-module>   
     
 </project-modules>

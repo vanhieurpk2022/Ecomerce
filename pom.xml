@@ -10,7 +10,7 @@
       <artifactId>tomcat-annotations-api</artifactId>
       <version>8.5.96</version>
     </dependency>
-    <dependency>
+    <dependency>   
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-catalina-ant</artifactId>
       <version>8.5.96</version>
