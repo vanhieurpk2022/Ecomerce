@@ -22,20 +22,20 @@
 
     <section id="prodetails" class="section-p1">
         <div class="single-pro-image">
-            <img src="${ctx }/assert/img/products/f1.jpg" width="100%" id="MainImg" alt="">
+            <img src="${ctx }${sproduct.img}" width="100%" id="MainImg" alt="">
 
             <div class="small-img-group">
                 <div class="small-img-col">
-                    <img src="${ctx }/assert/img/products/f1.jpg" width="100%" class="small-img" alt="">
+                    <img src="${ctx }${sproduct.img}" width="100%" class="small-img" alt="">
                 </div>
                 <div class="small-img-col">
-                    <img src="${ctx }/assert/img/products/f2.jpg" width="100%" class="small-img" alt="">
+                    <img src="${ctx }${sproduct.img}" width="100%" class="small-img" alt="">
                 </div>
                 <div class="small-img-col">
-                    <img src="${ctx }/assert/img/products/f3.jpg" width="100%" class="small-img" alt="">
+                    <img src="${ctx }${sproduct.img}" width="100%" class="small-img" alt="">
                 </div>
                 <div class="small-img-col">
-                    <img src="${ctx }/assert/img/products/f4.jpg" width="100%" class="small-img" alt="">
+                    <img src="${ctx }${sproduct.img}" width="100%" class="small-img" alt="">
                 </div>
             </div>
 
@@ -43,8 +43,8 @@
 
         <div class="sing-pro-details">
             <h6>Home / T-Shirt</h6>
-            <h4>Men's Fashion T Shirt</h4>
-            <h2>$139.00</h2>
+            <h4>${sproduct.productName }</h4>
+            <h2>${sproduct.price }</h2>
             <select>
                 <option>Select Size</option>
                 <option>XL</option>
@@ -54,23 +54,24 @@
             </select>
             <input type="number" value="1">
             <button class="normal">Add To Cart</button>
-            <h4>products Details</h4>
-            <span>The Gildan Ultra Cotton T-shirt is made from a substantial 6.0 oz. per sq. yd. fabric constructed from
-                100% cotton, this classic fit preshrunk jersey knit provides unmatched comfort with each wear. Featuring
-                a taped neck and shoulder, and a seamless double-needle collar, and available in a range of colors, it
-                offers it all in the ultimate head-turning package.</span>
+            <h4> <p style="opacity=50%;">Remain:  ${sproduct.stock } </p><br>
+            products Details</h4>
+            <span>${sproduct.description }</span>
         </div>
     </section>
+    
 
     <section id="product1" class="section-p1">
         <h2>Featured Products</h2>
         <p>Summer Collection New Morden Design</p>
         <div class="pro-container">
+        <c:forEach var="rq" items="${TypeClothe }">
+        	
             <div class="pro">
-                <img src="${ctx }/assert/img/products/n1.jpg" alt="">
+                <img src="${ctx }${rq.img}" alt="">
                 <div class="des">
                     <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
+                    <h5>${rq.productName }</h5>
                     <div class="star">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -78,58 +79,13 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                     </div>
-                    <h4>$78</h4>
+                    <h4>${rq.price }</h4>
                 </div>
-                <a href="#"><i class="bi bi-cart cart"></i></a>
+                <a href="${pageContext.request.contextPath}/shop?action=SProduct&productID=${rq.productID}&type=${rq.categoryID}"><i class="bi bi-cart cart"></i></a>
             </div>
-            <div class="pro">
-                <img src="${ctx }/assert/img/products/n2.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#"><i class="bi bi-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="${ctx }/assert/img/products/n3.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#"><i class="bi bi-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="${ctx }/assert/img/products/n4.jpg" alt="">
-                <div class="des">
-                    <span>adidas</span>
-                    <h5>Cartoon Astronaut T-Shirts</h5>
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#"><i class="bi bi-cart cart"></i></a>
-            </div>
+           </c:forEach>
+          
+            
 
         </div>
     </section>
