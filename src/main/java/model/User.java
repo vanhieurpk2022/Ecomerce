@@ -11,6 +11,8 @@ public class User {
 	private Boolean verify;
 	private String username;
 	private String password;
+	private Integer role;
+	
 	
 	public User(Integer idUser, String firstName, String lastName, String email, List<String> address, Boolean verify,
 			String username, String password) {
@@ -23,9 +25,11 @@ public class User {
 		this.verify = verify;
 		this.username = username;
 		this.password = password;
+		
+		
 	}
 	public User( String firstName, String lastName,String email, Boolean verify,
-			String username, String password) {
+			String username, String password, Integer role) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -34,6 +38,7 @@ public class User {
 		this.verify = verify;
 		this.username = username;
 		this.password = password;
+		this.role=role;
 	}
 	public User() {
 		super();

@@ -7,23 +7,24 @@ public class Products {
 	private String productName;
 	private Integer categoryID;
 	private BigDecimal price;
-	private Integer quanity;
 	private Integer stock;
 	private String status;
 	private String img;
 	private String description;
-	public Products(Integer productID, String productName, Integer categoryID, BigDecimal price, Integer quanity,
+	public Products(Integer productID, String productName, Integer categoryID, BigDecimal price,
 			Integer stock, String status, String img, String description) {
 		super();
 		this.productID = productID;
 		this.productName = productName;
 		this.categoryID = categoryID;
 		this.price = price;
-		this.quanity = quanity;
 		this.stock = stock;
 		this.status = status;
 		this.img = img;
 		this.description = description;
+	}
+	public Products() {
+		super();
 	}
 	public Integer getProductID() {
 		return productID;
@@ -49,12 +50,7 @@ public class Products {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-	public Integer getQuanity() {
-		return quanity;
-	}
-	public void setQuanity(Integer quanity) {
-		this.quanity = quanity;
-	}
+
 	public Integer getStock() {
 		return stock;
 	}
@@ -78,6 +74,12 @@ public class Products {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	@Override
+	public String toString() {
+		return "Products [productID=" + productID + ", productName=" + productName + ", categoryID=" + categoryID
+				+ ", price=" + price + ", stock=" + stock + ", status=" + status + ", img=" + img + ", description="
+				+ description + "]";
 	}
 
 	

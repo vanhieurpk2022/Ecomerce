@@ -4,15 +4,16 @@
 
         <section id=header>
         <a href="#"> <img src="${ pageContext.request.contextPath}/assert/img/logo.png" class="logo" alt=""></a>
+    
 
         <div>
             <ul id="navbar">
-                <li><a href="index.jsp" class="active">Home</a></li>
-                <li><a href="shop.jsp">Shop</a></li>
-                <li><a href="blog.jsp">Blog</a></li>
-                <li><a href="about.jsp" >About</a></li>
-                <li><a href="contact.jsp">Contact</a></li>
-                <li id="lg-bag"><a href="cart.jsp"><i class="bi bi-cart"></i></a>
+                <li><a href="${pageContext.request.contextPath}/home" class="${active=='index'?'active':'' }" >Home</a></li>
+                <li><a href="${pageContext.request.contextPath}/shop?action=showCard&page=0" class="${active=='shop'?'active':'' }" >Shop</a></li>
+                <li><a href="${pageContext.request.contextPath}/blog" class="${active=='blog'?'active':'' }" >Blog</a></li>
+                <li><a href="${pageContext.request.contextPath}/about" class="${active=='about'?'active':'' }" >About</a></li>
+                <li><a href="${pageContext.request.contextPath}/contact" class="${active=='contact'?'active':'' }" >Contact</a></li>
+                <li id="lg-bag"><a href="${pageContext.request.contextPath}/cart"  class="${active=='cart'?'active':'' }"><i class="bi bi-cart"></i></a>
                     <span id="cart_count">0</span>
                 </li> <!-- login succsess -->
                 <c:choose>
@@ -41,29 +42,9 @@
 
         </div>
         <div id="mobile">
-            <a href="cart.jsp"><i class="bi bi-bag"></i></a>
+            <a href="cart.jsp" data-page="cart" ><i class="bi bi-bag"></i></a>
             <i id="bar" class="fas fa-outdent"></i>
 
         </div>
     </section>
-    <script>
-  // Lấy URL hiện tại
-  // http://localhost:8080/ClotheStore/shop.jsp
-  
-  const currentPage = window.location.pathname; // /ClotheStore/shop.jsp
-  const navLinks = document.querySelectorAll("#navbar a");
 
-  navLinks.forEach(link => {
-	  const href = link.getAttribute("href");
-	  
-    if(href === "signup.jsp"){
-        return;
-}
-    
-    if (currentPage.includes(href)) {
-      link.classList.add("active");
-    } else { // với các trang khác thì xóa active
-      link.classList.remove("active");
-    }
-  });
-</script>

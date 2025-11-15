@@ -1,0 +1,76 @@
+package controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import dao.IDao;
+import dao.ProductsDao;
+import model.Products;
+
+/**
+ * Servlet implementation class ShopController
+ */
+@WebServlet("/shop")
+public class ShopController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ShopController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String action= request.getParameter("action");
+		request.setAttribute("active", "shop");
+		switch (action) {
+		case "showCard":
+			int getOffSet = Integer.parseInt(request.getParameter("page"));
+			ShopShowCard(request, response, getOffSet);
+			break;
+		case "SProduct":
+			ShowSProduct(request,response);
+			break;
+	
+		}
+	}
+	private void ShowSProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+			int getID = Integer.parseInt( request.getParameter("productID"));
+			int getType = Integer.parseInt(request.getParameter("type"));
+			IDao dao= new ProductsDao();
+		Products product=	dao.SelectByProductID(getID);
+		List<Products> rq = dao.SelectByCategory(getType);
+		request.setAttribute("TypeClothe", rq);
+		request.setAttribute("sproduct", product);
+		getServletContext().getRequestDispatcher("/sproduct.jsp").forward(request, response);
+	}
+
+
+	public void ShopShowCard(HttpServletRequest request, HttpServletResponse response, int offset)
+			throws ServletException, IOException {
+		String url = "/shop.jsp";
+		IDao dao = new ProductsDao();
+		List<Products> products = dao.SelectAll(offset,20);
+
+		request.setAttribute("ListProducts", products);
+
+		getServletContext().getRequestDispatcher(url).forward(request, response);
+	}
+	
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
