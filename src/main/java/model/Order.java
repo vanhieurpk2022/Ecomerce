@@ -4,13 +4,13 @@ import java.sql.Date;
 
 public class Order {
 	private Integer orderID;
-	private Integer productsID;
+	private Integer userID;
 	private Date orderDate;
 	private String status;
-	public Order(Integer orderID, Integer productsID, Date orderDate, String status) {
+	public Order(Integer orderID, Integer userID, Date orderDate, String status) {
 		super();
 		this.orderID = orderID;
-		this.productsID = productsID;
+		this.userID = userID;
 		this.orderDate = orderDate;
 		this.status = status;
 	}
@@ -20,11 +20,12 @@ public class Order {
 	public void setOrderID(Integer orderID) {
 		this.orderID = orderID;
 	}
-	public Integer getProductsID() {
-		return productsID;
+	
+	public Integer getUserID() {
+		return userID;
 	}
-	public void setProductsID(Integer productsID) {
-		this.productsID = productsID;
+	public void setUserID(Integer userID) {
+		this.userID = userID;
 	}
 	public Date getOrderDate() {
 		return orderDate;
