@@ -39,30 +39,19 @@
 
             </thead>
             <tbody>
+            <c:if test="${sessionScope.Cart.items !=null}">  
+            <c:forEach var ="items" items="${sessionScope.Cart.items}">
                 <tr>
-                    <td> <a href="#"><i class="bi bi-x-circle"></i></a></td>
-                    <td><img src="${ctx }/assert/img/products/f1.jpg" alt=""></td>
-                    <td>Cartoon Astronaut T-Shirts</td>
-                    <td>$118.19</td>
-                    <td><input type="number" value="1"></td>
-                    <td>$118.19</td>
+				
+                    <td> <a href="${ctx}/cart?action=RemoveProducts&id=${items.products.productID}"><i class="bi bi-x-circle"></i></a></td>
+                    <td><img src="${ctx }${items.products.img }" alt=""></td>
+                    <td>${items.products.productName }</td>
+                    <td>${items.products.price }</td>
+                    <td><input type="number" value="${items.quanity}" onchange="changeQuanity(${items.products.productID},this)"></td>
+                    <td>${items.subtotal}</td>
                 </tr>
-                <tr>
-                    <td> <a href="#"><i class="bi bi-x-circle"></i></a></td>
-                    <td><img src="${ctx }/assert/img/products/f2.jpg" alt=""></td>
-                    <td>Cartoon Astronaut T-Shirts</td>
-                    <td>$118.19</td>
-                    <td><input type="number" value="1"></td>
-                    <td>$118.19</td>
-                </tr>
-                <tr>
-                    <td> <a href="#"><i class="bi bi-x-circle"></i></a></td>
-                    <td><img src="${ctx }/assert/img/products/f3.jpg" alt=""></td>
-                    <td>Cartoon Astronaut T-Shirts</td>
-                    <td>$118.19</td>
-                    <td><input type="number" value="1"></td>
-                    <td>$118.19</td>
-                </tr>
+                  </c:forEach>
+                  </c:if>
             </tbody>
         </table>
     </section>
@@ -99,7 +88,7 @@
                 </tr>
                 <tr>
                     <td><strong>Total</strong></td>
-                    <td><strong>$ 335</strong></td>
+                    <td><strong>${sessionScope.Cart.price}</strong></td>
                 </tr>
             </table>
             <button class="normal">Proceed to checkout</button>
@@ -110,6 +99,8 @@
 
 
     <script src="${ctx}/assert/javascript/script.js"></script>
+         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                      <script src="${ctx}/assert/javascript/ajaxJquerry.js"></script>
 </body>
 
 </html>

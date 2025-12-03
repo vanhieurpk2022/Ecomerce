@@ -83,7 +83,7 @@
 
     <section id="pagination" class="section-p1">
             <c:set var="currentPage" value="${param.page != null ? param.page : 1}" />
-    
+      <a href="${pageContext.request.contextPath}/shop?action=showCard&page=0">0</a>
         <a href="${pageContext.request.contextPath}/shop?action=showCard&page=1">1</a>
         <a href="${pageContext.request.contextPath}/shop?action=showCard&page=2">2</a>
         

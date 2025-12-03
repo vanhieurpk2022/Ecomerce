@@ -40,7 +40,6 @@
             </div>
 
         </div>
-
         <div class="sing-pro-details">
             <h6>Home / T-Shirt</h6>
             <h4>${sproduct.productName }</h4>
@@ -52,11 +51,13 @@
                 <option>Small</option>
                 <option>Large</option>
             </select>
-            <input type="number" value="1">
-            <button class="normal">Add To Cart</button>
+            <input style="margin-top:15px;" id="quanity" type="number" value="1">
+            <button class="normal" id="btn_AddToCart" onclick="sendDataCart(${sproduct.productID},document.getElementById('quanity').value);">Add To Cart</button>
+    
+            
             <h4> <p style="opacity=50%;">Remain:  ${sproduct.stock } </p><br>
             products Details</h4>
-            <span>${sproduct.description }</span>
+            <span>${sproduct.description}</span>
         </div>
     </section>
     
@@ -126,6 +127,9 @@
     </script>
 
            <script src="${ctx}/assert/javascript/script.js"></script>
+               <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                      <script src="${ctx}/assert/javascript/ajaxJquerry.js"></script>
+           
 
 </body>
 

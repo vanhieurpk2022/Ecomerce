@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class JDBCUtil {
 	private static final String URL ="jdbc:mysql://localhost:3306/clothestore";
 	private static final String USER ="root";
-	private static final String PASSWORD="123456";
+	private static final String PASSWORD="";
 	
 	public static Connection getConnection() {
 		Connection con = null;
@@ -17,7 +17,6 @@ public class JDBCUtil {
 		try {
 			
             Class.forName("com.mysql.cj.jdbc.Driver");
-            
             
             // tạo kết nối
             con =DriverManager.getConnection(URL,USER,PASSWORD);

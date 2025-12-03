@@ -24,8 +24,8 @@ public class ProductsDao extends BaseDao {
 			ps.setInt(2, getOff);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				products.add(new Products(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getBigDecimal(4),
-						rs.getInt(5), rs.getString(6), rs.getString(7), rs.getString(8)));
+				products.add(new Products(rs.getInt("productID"), rs.getString("productName"), rs.getInt("categoryID"), rs.getBigDecimal("price"),
+						rs.getInt("stock"), rs.getString("status"), rs.getString("img"), rs.getString("DESCRIPTION")));
 
 			}
 			rs.close();
@@ -48,8 +48,8 @@ public class ProductsDao extends BaseDao {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				product = new Products(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getBigDecimal(4), rs.getInt(5),
-						rs.getString(6), rs.getString(7), rs.getString(8));
+				product = new Products(rs.getInt("productID"), rs.getString("productName"), rs.getInt("categoryID"), rs.getBigDecimal("price"),
+						rs.getInt("stock"), rs.getString("status"), rs.getString("img"), rs.getString("DESCRIPTION"));
 			}
 			rs.close();
 			JDBCUtil.closeConnection(conn);
@@ -70,8 +70,8 @@ public class ProductsDao extends BaseDao {
 			ps.setInt(1, type);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add( new Products(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getBigDecimal(4), rs.getInt(5),
-						rs.getString(6), rs.getString(7), rs.getString(8)));
+				list.add( new Products(rs.getInt("productID"), rs.getString("productName"), rs.getInt("categoryID"), rs.getBigDecimal("price"),
+						rs.getInt("stock"), rs.getString("status"), rs.getString("img"), rs.getString("DESCRIPTION")));
 			}
 			rs.close();
 			JDBCUtil.closeConnection(conn);
