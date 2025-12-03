@@ -1,11 +1,18 @@
 package controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import model.Cart;
+import util.CookieUtil;
 
 /**
  * Servlet implementation class CartController
@@ -26,10 +33,70 @@ public class CartController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.setAttribute("active", "cart");
+		String action = request.getParameter("action");
+		if(action != null) {
+			switch (action) {
+			case "AddProduct":
+				AddProductToCart(request,response);			
+				break;
+			case "RemoveProducts":
+				removeProducts(request,response);			
+				break;
+			case "OnchangeQuanity":
+				changeQuanity(request,response);			
+				break;
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + action);
+			}
+		}else {
+			request.setAttribute("active", "cart");
+			request.getRequestDispatcher("/cart.jsp").forward(request, response);
 
-		request.getRequestDispatcher("/cart.jsp").forward(request, response);
+		}
+		
+		
+	}
+
+
+	
+	private void changeQuanity(HttpServletRequest request, HttpServletResponse response) {
+		int getProductsId = Integer.parseInt(request.getParameter("id"));
+		int getQuanity = Integer.parseInt(request.getParameter("quanity"));
+		HttpSession session = request.getSession();
+		
+		Cart getCart = (Cart) session.getAttribute("Cart");
+		
+		getCart.changeQuanity(getProductsId,getQuanity);
+	}
+
+	private void removeProducts(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		int getProductsId = Integer.parseInt(request.getParameter("id"));
+		HttpSession session = request.getSession();
+		
+		Cart getCart = (Cart) session.getAttribute("Cart");
+		
+		getCart.removeItems(getProductsId);
+		if(getCart.getSize() <= 0) {
+			CookieUtil.clearCart(response);
+		}
+		response.sendRedirect("cart");
+		
+	}
+
+	private void AddProductToCart(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		int getProductId =Integer.parseInt( request.getParameter("productsID"));
+		int getQuanity = Integer.parseInt(request.getParameter("quanity"));
+		HttpSession session = request.getSession();
+		Cart cart = (Cart) session.getAttribute("Cart");
+
+		if (cart == null) {
+			cart = (Cart) CookieUtil.getCart(request);
+		
+		}
+		cart.addItem(getProductId, getQuanity);
+	    session.setAttribute("Cart", cart);
+	    CookieUtil.saveCart(response, cart); 
 	}
 
 	/**

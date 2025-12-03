@@ -79,7 +79,7 @@
             </div>
 
             <div>
-                <img src="img/people/2.png" alt="">
+                <img src="${ctx }/assert/img/people/2.png" alt="">
                 <p><span>John Doe </span> Senior Marketing Manager <br> Phone: + 000 123 444889 <br> Email:
                     contact@example.com</p>
             </div>

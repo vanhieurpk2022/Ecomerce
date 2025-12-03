@@ -1,11 +1,12 @@
+<%@page import="util.CookieUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
         <section id=header>
-        <a href="#"> <img src="${ pageContext.request.contextPath}/assert/img/logo.png" class="logo" alt=""></a>
+        <a href="${pageContext.request.contextPath}/home" class="${active=='index'?'active':'' }" > <img src="${ pageContext.request.contextPath}/assert/img/logo.png" class="logo" alt=""></a>
     
-
+	
         <div>
             <ul id="navbar">
                 <li><a href="${pageContext.request.contextPath}/home" class="${active=='index'?'active':'' }" >Home</a></li>
@@ -14,7 +15,15 @@
                 <li><a href="${pageContext.request.contextPath}/about" class="${active=='about'?'active':'' }" >About</a></li>
                 <li><a href="${pageContext.request.contextPath}/contact" class="${active=='contact'?'active':'' }" >Contact</a></li>
                 <li id="lg-bag"><a href="${pageContext.request.contextPath}/cart"  class="${active=='cart'?'active':'' }"><i class="bi bi-cart"></i></a>
-                    <span id="cart_count">0</span>
+                <c:choose>
+    				<c:when test="${sessionScope.Cart != null}">
+                              <span id="cart_count">${sessionScope.Cart.size }</span>
+    					</c:when>
+    				<c:otherwise>
+                                      <span id="cart_count">0</span>
+
+   						 </c:otherwise>
+						</c:choose>
                 </li> <!-- login succsess -->
                 <c:choose>
                 <c:when test="${sessionScope.user !=null }">
