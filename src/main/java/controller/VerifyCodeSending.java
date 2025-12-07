@@ -42,15 +42,16 @@ public class VerifyCodeSending extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		   request.setCharacterEncoding("UTF-8"); // Đảm bảo tiếng Việt không bị lỗi
-		   String email = request.getParameter("email");
-		   Mail mail = new Mail();
-		   System.out.println(email);
-		   mail.SendVerifyMail(email);
-		   
-	
+	    request.setCharacterEncoding("UTF-8");
+	    String email = request.getParameter("email");
+	    // Sinh code mới
+	    String code = RandomCode.generateCode(6);
+	    // Lưu code vào session đúng email
+	    request.getSession().setAttribute("register_email", email);
+	    request.getSession().setAttribute("register_code", code);
+
+	    Mail mail = new Mail();
+	    mail.SendVerifyMail(email, code);
 	}
 
 }

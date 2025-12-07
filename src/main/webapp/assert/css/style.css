@@ -1764,6 +1764,7 @@ input:checked+.slider:before {
 
 
 
+
 /* Start Media Query */
 /* ipad */
 @media (max-width: 920px) {
@@ -2190,5 +2191,7 @@ input:checked+.slider:before {
     #signup form .verify input {
     width: 10rem;
 }
+
+
    
 }

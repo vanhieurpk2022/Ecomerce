@@ -47,7 +47,7 @@
                     <input type="checkbox" id="remember">
                     <span>Remember me</span>
                 </label>
-                <div> <a href="#">Forgot password?</a></div>
+                <div> <a href="forgotpassword.jsp">Forgot password?</a></div>
             </div>
 
             <button type="submit">Sign in</button>

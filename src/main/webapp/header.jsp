@@ -34,8 +34,9 @@
                     </div> 
                 <!-- Dropdown menu -->
                  <ul class="dropdown">
+                   <li><a href="order_history.jsp"> <i class="bi bi-cart"></i> Order History</a></li>
                     <li><a href="settings.jsp"> <i class="bi bi-gear"></i> Settings & Privacy</a></li>
-                    <li><a href="#"> <i class="bi bi-question-circle"></i> Help & Support </a></li>
+                    <li><a href="help.jsp"> <i class="bi bi-question-circle"></i> Help & Support </a></li>
                     <li><a href="controller?action=logout"> <i class="bi bi-box-arrow-right"></i> Logout</a></li>
                 </ul>
                 </li> 
