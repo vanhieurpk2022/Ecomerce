@@ -17,15 +17,13 @@
                 <li id="lg-bag"><a href="${pageContext.request.contextPath}/cart"  class="${active=='cart'?'active':'' }"><i class="bi bi-cart"></i></a>
                 <c:choose>
     				<c:when test="${sessionScope.Cart != null}">
-                              <span id="cart_count">${sessionScope.Cart.size }</span>
+                              <span id="cart_count" >${sessionScope.Cart.size }</span>
     					</c:when>
-    				<c:otherwise>
-                                      <span id="cart_count">0</span>
-
-   						 </c:otherwise>
 						</c:choose>
+						
                 </li> <!-- login succsess -->
                 <c:choose>
+                
                 <c:when test="${sessionScope.user !=null }">
                 <li class="user-menu">
                     <div class="avatar">

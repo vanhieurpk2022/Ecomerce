@@ -43,11 +43,11 @@
             <c:forEach var ="items" items="${sessionScope.Cart.items}">
                 <tr>
 				
-                    <td> <a href="${ctx}/cart?action=RemoveProducts&id=${items.products.productID}"><i class="bi bi-x-circle"></i></a></td>
+                    <td> <a href="${ctx}/cart?action=RemoveProducts&id=${items.variant.variantID}"><i class="bi bi-x-circle"></i></a></td>
                     <td><img src="${ctx }${items.products.img }" alt=""></td>
-                    <td>${items.products.productName }</td>
+                    <td>${items.products.productName } - Size: ${items.variant.size} - color: ${items.variant.color} </td>
                     <td>${items.products.price }</td>
-                    <td><input type="number" value="${items.quanity}" onchange="changeQuanity(${items.products.productID},this)"></td>
+                    <td><input type="number" value="${items.quanity}" onchange="changeQuanity(${items.variant.variantID},this)"></td>
                     <td>${items.subtotal}</td>
                 </tr>
                   </c:forEach>

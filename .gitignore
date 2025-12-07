@@ -1,4 +1,4 @@
-/target/
-/bin/
-/.metadata/
-/RemoteSystemsTempFiles/
+target/
+bin/
+.metadata/
+RemoteSystemsTempFiles/

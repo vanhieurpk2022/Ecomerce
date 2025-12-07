@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.ProductVariants;
 import model.Products;
 import model.User;
 import util.JDBCUtil;
@@ -18,18 +19,16 @@ public class ProductsDao extends BaseDao {
 		try {
 			int getOff = offset*limit;
 			Connection conn = JDBCUtil.getConnection();
-			String sql = "Select * from Products order by productID Limit ? offset ?;";
+			String sql = "Select * from Products order by ProductsID Limit ? offset ?;";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, limit);
 			ps.setInt(2, getOff);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				products.add(new Products(rs.getInt("productID"), rs.getString("productName"), rs.getInt("categoryID"), rs.getBigDecimal("price"),
-						rs.getInt("stock"), rs.getString("status"), rs.getString("img"), rs.getString("DESCRIPTION")));
+				products.add(new Products(rs.getInt("ProductsID"), rs.getString("productsName"), rs.getInt("categoryID"), rs.getBigDecimal("price"),
+						 rs.getString("status"), rs.getString("img"), rs.getString("DESCRIPTION")));
 
 			}
-			rs.close();
-			JDBCUtil.closeConnection(conn);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -43,16 +42,14 @@ public class ProductsDao extends BaseDao {
 		try {
 
 			Connection conn = JDBCUtil.getConnection();
-			String sql = "Select * from Products WHERE productID = ? LIMIT 1";
+			String sql = "Select * from Products WHERE ProductsID = ? LIMIT 1";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				product = new Products(rs.getInt("productID"), rs.getString("productName"), rs.getInt("categoryID"), rs.getBigDecimal("price"),
-						rs.getInt("stock"), rs.getString("status"), rs.getString("img"), rs.getString("DESCRIPTION"));
+				product = new Products(rs.getInt("ProductsID"), rs.getString("productsName"), rs.getInt("categoryID"), rs.getBigDecimal("price"),
+						 rs.getString("status"), rs.getString("img"), rs.getString("DESCRIPTION"));
 			}
-			rs.close();
-			JDBCUtil.closeConnection(conn);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -70,14 +67,13 @@ public class ProductsDao extends BaseDao {
 			ps.setInt(1, type);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add( new Products(rs.getInt("productID"), rs.getString("productName"), rs.getInt("categoryID"), rs.getBigDecimal("price"),
-						rs.getInt("stock"), rs.getString("status"), rs.getString("img"), rs.getString("DESCRIPTION")));
+				list.add( new Products(rs.getInt("ProductsID"), rs.getString("productsName"), rs.getInt("categoryID"), rs.getBigDecimal("price"),
+						 rs.getString("status"), rs.getString("img"), rs.getString("DESCRIPTION")));
 			}
-			rs.close();
-			JDBCUtil.closeConnection(conn);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
+	
 }

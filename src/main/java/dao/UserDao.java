@@ -14,7 +14,8 @@ public class UserDao extends BaseDao {
 		  String sql = "INSERT INTO USERS(firstname,lastname,email,verify,username,password) VALUES (?,?,?,?,?,?)";
 		    
 		    int result =0;
-		    try (Connection conn = JDBCUtil.getConnection();
+		    try (
+		    		Connection conn = JDBCUtil.getConnection();
 		         PreparedStatement ps = conn.prepareStatement(sql)) {
 		        
 		        ps.setString(1, user.getFirstName());
@@ -29,7 +30,7 @@ public class UserDao extends BaseDao {
 		        System.out.println("số dòng ảnh hưởng:"+sql);
 		        System.out.println("số dòng ảnh hưởng:"+result);
 		        
-		    } catch (SQLException e) {
+		    } catch (Exception e) {
 		        e.printStackTrace();
 		    }
 		return result >0;

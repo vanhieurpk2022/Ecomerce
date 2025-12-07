@@ -1762,7 +1762,11 @@ input:checked+.slider:before {
     margin: auto;
 }
 
-
+#cart-count.updated {
+    transform: scale(1.2);
+    transition: 0.3s ease;
+    color: #ff4d4f;
+}
 
 /* Start Media Query */
 /* ipad */

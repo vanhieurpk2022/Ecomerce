@@ -2,55 +2,93 @@ package model;
 
 public class Address {
 	private Integer addressID;
-	private String address;
-	private String district;
+	private Integer userID;
+	private String fullAddress;
 	private String city;
-	private String country;
-	private String postalCode;
-	public Address(Integer addressID, String address, String district, String city, String country, String postalCode) {
+	private String district;
+	private String ward;
+	private String phone;
+	private Boolean isDefault;
+
+	public Address(Integer addressID, Integer userID, String fullAddress, String city, String district, String ward,
+			String phone, Boolean isDefault) {
 		super();
 		this.addressID = addressID;
-		this.address = address;
-		this.district = district;
+		this.userID = userID;
+		this.fullAddress = fullAddress;
 		this.city = city;
-		this.country = country;
-		this.postalCode = postalCode;
+		this.district = district;
+		this.ward = ward;
+		this.phone = phone;
+		this.isDefault = isDefault;
 	}
+
+	public Address() {
+		super();
+	}
+
 	public Integer getAddressID() {
 		return addressID;
 	}
+
 	public void setAddressID(Integer addressID) {
 		this.addressID = addressID;
 	}
-	public String getAddress() {
-		return address;
+
+	public Integer getUserID() {
+		return userID;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+
+	public void setUserID(Integer userID) {
+		this.userID = userID;
 	}
-	public String getDistrict() {
-		return district;
+
+	public String getFullAddress() {
+		return fullAddress;
 	}
-	public void setDistrict(String district) {
-		this.district = district;
+
+	public void setFullAddress(String fullAddress) {
+		this.fullAddress = fullAddress;
 	}
+
 	public String getCity() {
 		return city;
 	}
+
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public String getCountry() {
-		return country;
+
+	public String getDistrict() {
+		return district;
 	}
-	public void setCountry(String country) {
-		this.country = country;
+
+	public void setDistrict(String district) {
+		this.district = district;
 	}
-	public String getPostalCode() {
-		return postalCode;
+
+	public String getWard() {
+		return ward;
 	}
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
+
+	public void setWard(String ward) {
+		this.ward = ward;
 	}
-	
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public Boolean getIsDefault() {
+		return isDefault;
+	}
+
+	public void setIsDefault(Boolean isDefault) {
+		this.isDefault = isDefault;
+	}
+
 }
