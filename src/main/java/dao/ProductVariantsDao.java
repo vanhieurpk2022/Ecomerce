@@ -14,11 +14,12 @@ public class ProductVariantsDao extends BaseDao{
 	public ProductVariants SelectByProductVariantID(int variantID) {
 		// TODO Auto-generated method stub
 				ProductVariants variants=null;
-				try {
+				String sql = "Select * from products_variants  WHERE variantID = ? LIMIT 1";
 
-					Connection conn = JDBCUtil.getConnection();
-					String sql = "Select * from products_variants  WHERE variantID = ? LIMIT 1";
-					PreparedStatement ps = conn.prepareStatement(sql);
+				try(	Connection conn = JDBCUtil.getConnection();
+						PreparedStatement ps = conn.prepareStatement(sql);) {
+
+				
 					ps.setInt(1, variantID);
 					ResultSet rs = ps.executeQuery();
 					while (rs.next()) {
@@ -41,11 +42,12 @@ public class ProductVariantsDao extends BaseDao{
 		// TODO Auto-generated method stub
 		ProductVariants productVariants=null;
 		List<ProductVariants> list = new ArrayList<>();
-		try {
+		String sql = "Select * from products_variants WHERE productID = ?";
 
-			Connection conn = JDBCUtil.getConnection();
-			String sql = "Select * from products_variants WHERE productID = ?";
-			PreparedStatement ps = conn.prepareStatement(sql);
+		try(	Connection conn = JDBCUtil.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql);) {
+
+		
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			System.out.println("Đã thực thi câu lệnh:" +sql);
@@ -68,11 +70,12 @@ public class ProductVariantsDao extends BaseDao{
 	}
 	public Products getProductFromVariant(int variantID) {
 		Products products=null;
-		try {
+		String sql = "Select p.img,p.productsName,p.price from products_variants v  JOIN products p ON p.ProductsID = v.productID WHERE v.variantID = ?";
+		try(
+				Connection conn = JDBCUtil.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql);) {
 
-			Connection conn = JDBCUtil.getConnection();
-			String sql = "Select p.img,p.productsName,p.price from products_variants v  JOIN products p ON p.ProductsID = v.productID WHERE v.variantID = ?";
-			PreparedStatement ps = conn.prepareStatement(sql);
+			
 			ps.setInt(1, variantID);
 			ResultSet rs = ps.executeQuery();
 			

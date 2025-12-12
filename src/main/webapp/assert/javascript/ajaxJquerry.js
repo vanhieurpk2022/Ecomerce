@@ -12,18 +12,21 @@ function sendDataCart(variantId, quanity) {
 		},
 		success: function(cartSize) {
 			var cleanCartSize = cartSize.toString().trim();
-
-			
 		
-			$("#cart_count").text(cleanCartSize);
-			if(cartSize === "1"){
-				location.reload();
-			}
-			$("#cart_count").addClass("updated");
+			// Cập nhật số
+			    $("#cart_count_mobile").text(cleanCartSize);
+			    $("#cart_count").text(cleanCartSize);
+
+			    // ===== ẨN / HIỆN BADGE =====
+			    if (cleanCartSize > 0) {
+			        $("#cart_count_mobile").show();
+			        $("#cart_count").show();
+			    } else {
+			        $("#cart_count_mobile").hide();
+			        $("#cart_count").hide();
+			    }
+		
 			
-			setTimeout(() => {
-				$("#cart_count").removeClass("updated");
-			}, 500);
 		},
 		error: function(xhr, status, error) {
 			alert('Lỗi! ' + xhr.status + " - " + xhr.responseText);

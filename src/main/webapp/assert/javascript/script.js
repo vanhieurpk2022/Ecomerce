@@ -34,7 +34,14 @@ function getActiveBar() {
     } catch (error) {
         console.log(error);
     }
-
+	try {
+	       const displayCount = document.getElementById("cart_count_mobile");
+	       if (displayCount.textContent == "0") {
+	           document.getElementById("cart_count_mobile").style.display = "none";
+	       }
+	   } catch (error) {
+	       console.log(error);
+	   }
 
 
 function dropDownWhenLogin() {

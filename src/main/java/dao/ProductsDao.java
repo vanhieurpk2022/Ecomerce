@@ -14,19 +14,21 @@ import util.JDBCUtil;
 public class ProductsDao extends BaseDao {
 
 	@Override
-	public List<Products> SelectAll(int offset,int limit) {
+	public List<Products> SelectAll(int offset, int limit) {
 		List<Products> products = new ArrayList<>();
-		try {
-			int getOff = offset*limit;
-			Connection conn = JDBCUtil.getConnection();
-			String sql = "Select * from Products order by ProductsID Limit ? offset ?;";
-			PreparedStatement ps = conn.prepareStatement(sql);
+		String sql = "Select * from Products order by ProductsID Limit ? offset ?;";
+		try (Connection conn = JDBCUtil.getConnection();
+
+				PreparedStatement ps = conn.prepareStatement(sql);) {
+			int getOff = offset * limit;
+
 			ps.setInt(1, limit);
 			ps.setInt(2, getOff);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				products.add(new Products(rs.getInt("ProductsID"), rs.getString("productsName"), rs.getInt("categoryID"), rs.getBigDecimal("price"),
-						 rs.getString("status"), rs.getString("img"), rs.getString("DESCRIPTION")));
+				products.add(new Products(rs.getInt("ProductsID"), rs.getString("productsName"),
+						rs.getInt("categoryID"), rs.getBigDecimal("price"), rs.getString("status"), rs.getString("img"),
+						rs.getString("DESCRIPTION")));
 
 			}
 		} catch (Exception e) {
@@ -38,42 +40,43 @@ public class ProductsDao extends BaseDao {
 
 	public Products SelectByProductID(int id) {
 		// TODO Auto-generated method stub
-		Products product=null;
-		try {
+		String sql = "Select * from Products WHERE ProductsID = ? LIMIT 1";
 
-			Connection conn = JDBCUtil.getConnection();
-			String sql = "Select * from Products WHERE ProductsID = ? LIMIT 1";
-			PreparedStatement ps = conn.prepareStatement(sql);
+		Products product = null;
+		try (Connection conn = JDBCUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
+
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				product = new Products(rs.getInt("ProductsID"), rs.getString("productsName"), rs.getInt("categoryID"), rs.getBigDecimal("price"),
-						 rs.getString("status"), rs.getString("img"), rs.getString("DESCRIPTION"));
+				product = new Products(rs.getInt("ProductsID"), rs.getString("productsName"), rs.getInt("categoryID"),
+						rs.getBigDecimal("price"), rs.getString("status"), rs.getString("img"),
+						rs.getString("DESCRIPTION"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return product;
 	}
+
 	@Override
 	public List<Products> SelectByCategory(int type) {
 		// TODO Auto-generated method stub
 		List<Products> list = new ArrayList<Products>();
-		try {
+		String sql = "Select * from Products WHERE CategoryID=? LIMIT 4";
 
-			Connection conn = JDBCUtil.getConnection();
-			String sql = "Select * from Products WHERE CategoryID=? LIMIT 4";
-			PreparedStatement ps = conn.prepareStatement(sql);
+		try (Connection conn = JDBCUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
+
 			ps.setInt(1, type);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add( new Products(rs.getInt("ProductsID"), rs.getString("productsName"), rs.getInt("categoryID"), rs.getBigDecimal("price"),
-						 rs.getString("status"), rs.getString("img"), rs.getString("DESCRIPTION")));
+				list.add(new Products(rs.getInt("ProductsID"), rs.getString("productsName"), rs.getInt("categoryID"),
+						rs.getBigDecimal("price"), rs.getString("status"), rs.getString("img"),
+						rs.getString("DESCRIPTION")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
-	
+
 }

@@ -45,7 +45,7 @@
 				
                     <td> <a href="${ctx}/cart?action=RemoveProducts&id=${items.variant.variantID}"><i class="bi bi-x-circle"></i></a></td>
                     <td><img src="${ctx }${items.products.img }" alt=""></td>
-                    <td>${items.products.productName } - Size: ${items.variant.size} - color: ${items.variant.color} </td>
+                    <td>${items.products.productName } - <strong>${items.variant.size}</strong>  - <strong>${items.variant.color}</strong> </td>
                     <td>${items.products.price }</td>
                     <td><input type="number" value="${items.quanity}" onchange="changeQuanity(${items.variant.variantID},this)"></td>
                     <td>${items.subtotal}</td>

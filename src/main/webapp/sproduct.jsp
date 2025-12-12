@@ -118,7 +118,9 @@
 
 
     <%@ include file="/footer.jsp" %>
-
+	  <script src="${ctx}/assert/javascript/script.js"></script>
+               <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                      <script src="${ctx}/assert/javascript/ajaxJquerry.js"></script>
     <script>
         var MainImg = document.getElementById("MainImg");
         var smallimg = document.getElementsByClassName("small-img");
@@ -139,9 +141,7 @@
 
 
     </script>
-           <script src="${ctx}/assert/javascript/script.js"></script>
-               <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                      <script src="${ctx}/assert/javascript/ajaxJquerry.js"></script>
+         
   
 
 </body>
