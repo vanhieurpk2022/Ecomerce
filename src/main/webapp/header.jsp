@@ -15,17 +15,11 @@
                 <li><a href="${pageContext.request.contextPath}/about" class="${active=='about'?'active':'' }" >About</a></li>
                 <li><a href="${pageContext.request.contextPath}/contact" class="${active=='contact'?'active':'' }" >Contact</a></li>
                 <li id="lg-bag"><a href="${pageContext.request.contextPath}/cart"  class="${active=='cart'?'active':'' }"><i class="bi bi-cart"></i></a>
-                <c:choose>
-    				<c:when test="${sessionScope.Cart != null}">
-                              <span id="cart_count">${sessionScope.Cart.size }</span>
-    					</c:when>
-    				<c:otherwise>
-                                      <span id="cart_count">0</span>
-
-   						 </c:otherwise>
-						</c:choose>
+                              <span id="cart_count"    >${sessionScope.Cart != null ? sessionScope.Cart.size : 0}</span>
+						
                 </li> <!-- login succsess -->
                 <c:choose>
+                
                 <c:when test="${sessionScope.user !=null }">
                 <li class="user-menu">
                     <div class="avatar">
@@ -37,6 +31,7 @@
                    <li><a href="order_history.jsp"> <i class="bi bi-cart"></i> Order History</a></li>
                     <li><a href="settings.jsp"> <i class="bi bi-gear"></i> Settings & Privacy</a></li>
                     <li><a href="help.jsp"> <i class="bi bi-question-circle"></i> Help & Support </a></li>
+
                     <li><a href="controller?action=logout"> <i class="bi bi-box-arrow-right"></i> Logout</a></li>
                 </ul>
                 </li> 
@@ -52,8 +47,10 @@
 
         </div>
         <div id="mobile">
-            <a href="cart.jsp" data-page="cart" ><i class="bi bi-bag"></i></a>
+            <a href="${pageContext.request.contextPath}/cart" class="${active=='cart'?'active':'' }" data-page="cart" ><i class="bi bi-cart"></i></a>
             <i id="bar" class="fas fa-outdent"></i>
+                             <span id="cart_count_mobile"    >${sessionScope.Cart != null ? sessionScope.Cart.size : 0}</span>
+						
 
         </div>
     </section>

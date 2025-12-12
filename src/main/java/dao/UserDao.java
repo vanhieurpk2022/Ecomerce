@@ -11,52 +11,51 @@ import util.JDBCUtil;
 public class UserDao extends BaseDao {
 
 	public boolean addUser(User user) {
-		  String sql = "INSERT INTO USERS(firstname,lastname,email,verify,username,password) VALUES (?,?,?,?,?,?)";
-		    
-		    int result =0;
-		    try (Connection conn = JDBCUtil.getConnection();
-		         PreparedStatement ps = conn.prepareStatement(sql)) {
-		        
-		        ps.setString(1, user.getFirstName());
-		        ps.setString(2, user.getLastName());
-		        ps.setString(3, user.getEmail());
-		        ps.setInt(4, user.getVerify() ? 1 : 0); // Thử đổi từ setBoolean sang setInt
-		        ps.setString(5, user.getUsername());
-		        ps.setString(6, user.getPassword());
-		        
-		        result= ps.executeUpdate();
-		        
-		        System.out.println("số dòng ảnh hưởng:"+sql);
-		        System.out.println("số dòng ảnh hưởng:"+result);
-		        
-		    } catch (SQLException e) {
-		        e.printStackTrace();
-		    }
-		return result >0;
+		String sql = "INSERT INTO USERS(firstname,lastname,email,verify,username,password) VALUES (?,?,?,?,?,?)";
+
+		int result = 0;
+		try (Connection conn = JDBCUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			ps.setString(1, user.getFirstName());
+			ps.setString(2, user.getLastName());
+			ps.setString(3, user.getEmail());
+			ps.setInt(4, user.getVerify() ? 1 : 0); // Thử đổi từ setBoolean sang setInt
+			ps.setString(5, user.getUsername());
+			ps.setString(6, user.getPassword());
+
+			result = ps.executeUpdate();
+
+			System.out.println("số dòng ảnh hưởng:" + sql);
+			System.out.println("số dòng ảnh hưởng:" + result);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result > 0;
 	}
+
 	public boolean SelectUsernameIsContains(String username) {
-		try {
-			Connection conn = JDBCUtil.getConnection();
-			String sql = "SELECT * FROM USERS WHERE username=?";
-			PreparedStatement pst = conn.prepareStatement(sql);
+		String sql = "SELECT * FROM USERS WHERE username=?";
+
+		try (Connection conn = JDBCUtil.getConnection(); PreparedStatement pst = conn.prepareStatement(sql);) {
+
 			pst.setString(1, username);
 			ResultSet result = pst.executeQuery();
 			return result.next();
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-		}	
-		
-		
+		}
+
 		return false;
 	}
-	
+
 	public boolean checkAccount(String username) {
-		try {
-			Connection conn = JDBCUtil.getConnection();
-			String sql = "SELECT * FROM USERS WHERE username=?";
-			PreparedStatement pst = conn.prepareStatement(sql);
+		String sql = "SELECT * FROM USERS WHERE username=?";
+
+		try (Connection conn = JDBCUtil.getConnection(); PreparedStatement pst = conn.prepareStatement(sql);) {
+
 			pst.setString(1, username);
 			ResultSet result = pst.executeQuery();
 			return result.next();
@@ -66,24 +65,25 @@ public class UserDao extends BaseDao {
 		}
 		return false;
 	}
+
 	public User getFullName(String username) {
-		try {
-			Connection conn = JDBCUtil.getConnection();
-			String sql = "SELECT * FROM USERS WHERE username=?";
-			PreparedStatement pst = conn.prepareStatement(sql);
+		String sql = "SELECT * FROM USERS WHERE username=?";
+
+		try (Connection conn = JDBCUtil.getConnection(); PreparedStatement pst = conn.prepareStatement(sql);) {
+
 			pst.setString(1, username);
 			ResultSet result = pst.executeQuery();
 			User user = new User();
-			while(result.next()) {
-			user.setIdUser(result.getInt("userID"));
-			user.setFirstName(result.getString("firstName"));
-			user.setLastName(result.getString("lastName"));
-			user.setEmail(result.getString("email"));
-			//user.setAddress(result.getInt("address"));
-			
-			user.setVerify((result.getInt("verify") ==1)?true:false);
-			user.setUsername(result.getString("username"));
-			user.setPassword(result.getString("password"));
+			while (result.next()) {
+				user.setIdUser(result.getInt("userID"));
+				user.setFirstName(result.getString("firstName"));
+				user.setLastName(result.getString("lastName"));
+				user.setEmail(result.getString("email"));
+				// user.setAddress(result.getInt("address"));
+
+				user.setVerify((result.getInt("verify") == 1) ? true : false);
+				user.setUsername(result.getString("username"));
+				user.setPassword(result.getString("password"));
 
 			}
 			return user;
@@ -93,32 +93,34 @@ public class UserDao extends BaseDao {
 
 		}
 		return null;
-	} 
+	}
+
 	// kiểm tra email có tồn tại không
 	public boolean checkEmail(String email) {
-	    try (Connection conn = JDBCUtil.getConnection()) {
-	        String sql = "SELECT * FROM users WHERE email=?";
-	        PreparedStatement ps = conn.prepareStatement(sql);
-	        ps.setString(1, email);
-	        ResultSet rs = ps.executeQuery();
-	        return rs.next();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return false;
+		String sql = "SELECT * FROM users WHERE email=?";
+		try (Connection conn = JDBCUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
+
+			ps.setString(1, email);
+			ResultSet rs = ps.executeQuery();
+			return rs.next();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
+
 	// hàm đổi mật khẩu
 	public boolean updatePasswordByEmail(String email, String passwordHash) {
-	    try (Connection conn = JDBCUtil.getConnection()) {
-	        String sql = "UPDATE users SET password=? WHERE email=?";
-	        PreparedStatement ps = conn.prepareStatement(sql);
-	        ps.setString(1, passwordHash);
-	        ps.setString(2, email);
-	        int result = ps.executeUpdate();
-	        return result > 0;
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return false;
+		String sql = "UPDATE users SET password=? WHERE email=?";
+		try (Connection conn = JDBCUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
+
+			ps.setString(1, passwordHash);
+			ps.setString(2, email);
+			int result = ps.executeUpdate();
+			return result > 0;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

@@ -111,6 +111,7 @@ public class Controller extends HttpServlet {
 
 	    HttpSession session = request.getSession();
 
+
 	    // Kiểm tra nếu chưa gửi mã thì gửi code mới (ví dụ bạn có nút "Send" riêng)
 	    if (verifyCode == null || verifyCode.isEmpty()) {
 	        String randomCode = RandomCode.generateCode(6);

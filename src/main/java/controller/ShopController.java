@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.IDao;
+import dao.ProductVariantsDao;
 import dao.ProductsDao;
+import model.ProductVariants;
 import model.Products;
 
 /**
@@ -48,8 +50,13 @@ public class ShopController extends HttpServlet {
 			int getID = Integer.parseInt( request.getParameter("productID"));
 			int getType = Integer.parseInt(request.getParameter("type"));
 			IDao dao= new ProductsDao();
+			IDao product_variantsDao = new ProductVariantsDao();
+			
+		List<ProductVariants> productVariant = product_variantsDao.SelectByProductIDInProductVariants(getID);
 		Products product=	dao.SelectByProductID(getID);
+		System.out.println(productVariant);
 		List<Products> rq = dao.SelectByCategory(getType);
+		request.setAttribute("getVariants", productVariant);
 		request.setAttribute("TypeClothe", rq);
 		request.setAttribute("sproduct", product);
 		getServletContext().getRequestDispatcher("/sproduct.jsp").forward(request, response);
