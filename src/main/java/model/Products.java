@@ -7,79 +7,87 @@ public class Products {
 	private String productName;
 	private Integer categoryID;
 	private BigDecimal price;
-	private Integer stock;
+
 	private String status;
 	private String img;
 	private String description;
-	public Products(Integer productID, String productName, Integer categoryID, BigDecimal price,
-			Integer stock, String status, String img, String description) {
+
+	public Products(Integer productID, String productName, Integer categoryID, BigDecimal price, String status,
+			String img, String description) {
 		super();
 		this.productID = productID;
 		this.productName = productName;
 		this.categoryID = categoryID;
 		this.price = price;
-		this.stock = stock;
 		this.status = status;
 		this.img = img;
 		this.description = description;
 	}
+
 	public Products() {
 		super();
 	}
+
 	public Integer getProductID() {
 		return productID;
 	}
+
 	public void setProductID(Integer productID) {
 		this.productID = productID;
 	}
+
 	public String getProductName() {
 		return productName;
 	}
+
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
+
 	public Integer getCategoryID() {
 		return categoryID;
 	}
+
 	public void setCategoryID(Integer categoryID) {
 		this.categoryID = categoryID;
 	}
+
 	public BigDecimal getPrice() {
 		return price;
 	}
+
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
-	public Integer getStock() {
-		return stock;
-	}
-	public void setStock(Integer stock) {
-		this.stock = stock;
-	}
 	public String getStatus() {
 		return status;
 	}
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
 	public String getImg() {
 		return img;
 	}
+
 	public void setImg(String img) {
 		this.img = img;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	@Override
 	public String toString() {
 		return "Products [productID=" + productID + ", productName=" + productName + ", categoryID=" + categoryID
-				+ ", price=" + price + ", stock=" + stock + ", status=" + status + ", img=" + img + ", description="
-				+ description + "]";
+				+ ", price=" + price + ", status=" + status + ", img=" + img + ", description=" + description + "]";
 	}
 
 }

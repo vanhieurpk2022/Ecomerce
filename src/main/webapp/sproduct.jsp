@@ -1,61 +1,75 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech2etc Ecommerce Tutorial</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assert/css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech2etc Ecommerce Tutorial</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assert/css/style.css">
 </head>
 
 <body>
-		<c:set var="ctx" value="${pageContext.request.contextPath }"/>
-		<!--  thêm header -->
-     <jsp:include page="/header.jsp"></jsp:include>
+	<c:set var="ctx" value="${pageContext.request.contextPath }" />
+	<!--  thêm header -->
+	<jsp:include page="/header.jsp"></jsp:include>
 
 
 
-    <section id="prodetails" class="section-p1">
-        <div class="single-pro-image">
-            <img src="${ctx }${sproduct.img}" width="100%" id="MainImg" alt="">
+	<section id="prodetails" class="section-p1">
+		<div class="single-pro-image">
+			<img src="${ctx }${sproduct.img}" width="100%" id="MainImg" alt="">
 
-            <div class="small-img-group">
-                <div class="small-img-col">
-                    <img src="${ctx }${sproduct.img}" width="100%" class="small-img" alt="">
-                </div>
-                <div class="small-img-col">
-                    <img src="${ctx }${sproduct.img}" width="100%" class="small-img" alt="">
-                </div>
-                <div class="small-img-col">
-                    <img src="${ctx }${sproduct.img}" width="100%" class="small-img" alt="">
-                </div>
-                <div class="small-img-col">
-                    <img src="${ctx }${sproduct.img}" width="100%" class="small-img" alt="">
-                </div>
-            </div>
+			<div class="small-img-group">
+				<div class="small-img-col">
+					<img src="${ctx }${sproduct.img}" width="100%" class="small-img"
+						alt="">
+				</div>
+				<div class="small-img-col">
+					<img src="${ctx }${sproduct.img}" width="100%" class="small-img"
+						alt="">
+				</div>
+				<div class="small-img-col">
+					<img src="${ctx }${sproduct.img}" width="100%" class="small-img"
+						alt="">
+				</div>
+				<div class="small-img-col">
+					<img src="${ctx }${sproduct.img}" width="100%" class="small-img"
+						alt="">
+				</div>
+			</div>
 
-        </div>
-        <div class="sing-pro-details">
-            <h6>Home / T-Shirt</h6>
-            <h4>${sproduct.productName }</h4>
-            <h2>${sproduct.price }</h2>
-            <select>
-                <option>Select Size</option>
-                <option>XL</option>
-                <option>XXL</option>
-                <option>Small</option>
-                <option>Large</option>
-            </select>
-            <input style="margin-top:15px;" id="quanity" type="number" value="1">
-            <button class="normal" id="btn_AddToCart" onclick="sendDataCart(${sproduct.productID},document.getElementById('quanity').value);">Add To Cart</button>
+		</div>
+		<div class="sing-pro-details">
+		
+			<h6>Home / T-Shirt</h6>
+			<h4>${sproduct.productName }</h4>
+			<fmt:setLocale value="vi_VN"/>
+			
+			<h2 id="displayPrice"><fmt:formatNumber value="${sproduct.price }" pattern="#,##0 VNĐ"/></h2>
+			
+			<select id="selectTagSize"  >
+				<c:forEach var="v" items="${getVariants}">
+				    <option value="${v.size}" data-variantid="${v.variantID}" data-stock="${v.stock }" data-final-price = "${v.priceAdjustment + sproduct.price}" <c:if test="${v.stock <= 0}">disabled</c:if>>${v.size}</option>
+				</c:forEach>
+
+				
+			</select>
+            <input style="margin-top:15px;" id="quanity" type="number" value="1" min ="1">
+			<button class="normal" id="btn_AddToCart" onclick="addToCart()">Add To Cart</button>
     
             
-            <h4> <p style="opacity=50%;">Remain:  ${sproduct.stock } </p><br>
+            <h4> <p style="opacity=50%;">Remain: <span id="remainSpan"></span>  </p><br>
             products Details</h4>
             <span>${sproduct.description}</span>
         </div>
@@ -104,7 +118,9 @@
 
 
     <%@ include file="/footer.jsp" %>
-
+	  <script src="${ctx}/assert/javascript/script.js"></script>
+               <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                      <script src="${ctx}/assert/javascript/ajaxJquerry.js"></script>
     <script>
         var MainImg = document.getElementById("MainImg");
         var smallimg = document.getElementsByClassName("small-img");
@@ -125,11 +141,8 @@
 
 
     </script>
-
-           <script src="${ctx}/assert/javascript/script.js"></script>
-               <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                      <script src="${ctx}/assert/javascript/ajaxJquerry.js"></script>
-           
+         
+  
 
 </body>
 

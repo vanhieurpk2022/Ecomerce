@@ -3,56 +3,86 @@ package model;
 import java.math.BigDecimal;
 
 import dao.IDao;
+import dao.ProductVariantsDao;
 import dao.ProductsDao;
 
 public class CartItems {
-	private int productsID;
-	private int quanity;
-	private Products product;
+	private int variantID;
+
+	private int quantity;
+
+	// thông tin để hiển thị
+	private ProductVariants variant;
+	private Products products;
 
 	public CartItems() {
-
 	}
-
-	public int getProductsID() {
-		return productsID;
-	}
-
-	public void setProductsID(int productsID) {
-		this.productsID = productsID;
-	}
-
 	public int getQuanity() {
-		return quanity;
+		return quantity;
 	}
 
 	public void setQuanity(int quanity) {
-		this.quanity = quanity;
+		this.quantity = quanity;
 	}
 
-	public CartItems(int productsID, int quanity) {
+	public CartItems(int variantID, int quanity) {
 		super();
-		this.productsID = productsID;
-		this.quanity = quanity;
+		this.variantID = variantID;
+
+		this.quantity = quanity;
 	}
 
-	public Products getProduct() {
-		return product;
-	}
-
-	public void setProduct(Products product) {
-		this.product = product;
-	}
-
-	public Products getProducts() {
-		if (product == null) {
-			IDao dao = new ProductsDao();
-			product = dao.SelectByProductID(this.productsID);
+	public ProductVariants getVariant() {
+		if(variant == null) {
+			IDao dao = new ProductVariantsDao();
+			variant = dao.SelectByProductVariantID(variantID);
 		}
-		return product;
+		
+		return variant;
+	}
+	public Products getProducts() {
+		if(products ==null) {
+			IDao dao = new ProductVariantsDao();
+			products = dao.getProductFromVariant(variantID);
+		}
+		
+		return products;
 	}
 	public BigDecimal getSubtotal() {
-		BigDecimal tmp = new BigDecimal(quanity);
-	    return getProduct().getPrice().multiply(tmp);
+		BigDecimal quan = new BigDecimal(quantity);
+		return getFinalPriceCart().multiply(quan);
 	}
+
+	public BigDecimal getFinalPriceCart() {
+		  Products prod = getProducts();
+	        ProductVariants var = getVariant();
+	        
+	        if (prod == null || var == null) {
+	            return BigDecimal.ZERO;
+	        }
+	        
+	        return var.getFinalPrice(prod.getPrice());
+	}
+
+
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public int getVariantID() {
+		return variantID;
+	}
+
+	public void setVariantID(int variantID) {
+		this.variantID = variantID;
+	}
+
+
+	
+
 }

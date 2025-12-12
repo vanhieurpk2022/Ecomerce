@@ -49,10 +49,10 @@
                 <span id="icon_show_confirm" class="icon_show"><i class="bi bi-eye"></i></span>
                 </div>
  				<c:choose>
-                <c:when test ="${msgtype =='sus' }">
+                <c:when test ="${msgtype eq'sus' }">
                 <span id="msg_pwd" style="Color:green;text-align:center;">${msg }</span>
                 </c:when>
-                  <c:when test ="${msgtype =='error' }">
+                  <c:when test ="${msgtype eq 'error' }">
                 <span id="msg_pwd" style="Color:red;text-align:center;">${msg }</span>
                 </c:when>
                 </c:choose>
@@ -81,7 +81,8 @@
     </script>
      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/assert/javascript/checkPassword.js"></script>
-    
+  
+    	
 </body>
 
 </html>

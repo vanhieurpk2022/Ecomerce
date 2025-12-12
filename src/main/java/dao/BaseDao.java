@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import model.ProductVariants;
 import model.Products;
 import model.User;
 
@@ -48,5 +49,24 @@ public class BaseDao implements IDao{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public ProductVariants SelectByProductVariantID(int variantID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ProductVariants> SelectByProductIDInProductVariants(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Products getProductFromVariant(int variantID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

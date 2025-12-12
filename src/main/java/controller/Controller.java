@@ -107,7 +107,9 @@ public class Controller extends HttpServlet {
 			System.out.println("Đã vào đây 1");
 			url = "/signup.jsp";
 			msg = "Account is exits";
-			request.setAttribute("error", msg);
+			request.setAttribute("msg", msg);
+			request.setAttribute("msgtype", "error");
+			
 			request.setAttribute("username", username);
 			request.setAttribute("firstname", firstname);
 			request.setAttribute("lastname", lastname);
@@ -117,7 +119,8 @@ public class Controller extends HttpServlet {
 		if (!rdc.equals(verifyCode)) {
 			System.out.println("Đã vào đây 2 ");
 			msg = "Code Verify not match";
-			request.setAttribute("error", msg);
+			request.setAttribute("msg", msg);
+			request.setAttribute("msgtype", "error");
 			request.setAttribute("username", username);
 			request.setAttribute("firstname", firstname);
 			request.setAttribute("lastname", lastname);

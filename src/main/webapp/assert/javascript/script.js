@@ -34,7 +34,14 @@ function getActiveBar() {
     } catch (error) {
         console.log(error);
     }
-
+	try {
+	       const displayCount = document.getElementById("cart_count_mobile");
+	       if (displayCount.textContent == "0") {
+	           document.getElementById("cart_count_mobile").style.display = "none";
+	       }
+	   } catch (error) {
+	       console.log(error);
+	   }
 
 
 function dropDownWhenLogin() {
@@ -72,7 +79,13 @@ function showHiddenPassword(inputID, iconID) {
         }
     });
 }
-
+// Sau 10 giây (10000 ms) sẽ ẩn thẻ thông báo
+    setTimeout(function() {
+        var msg = document.getElementById("msg_pwd");
+        if (msg) {
+            msg.style.display = "none";
+        }
+    }, 10000);
 
 getActiveBar();
 dropDownWhenLogin();
