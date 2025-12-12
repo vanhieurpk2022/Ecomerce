@@ -94,4 +94,33 @@ public class UserDao extends BaseDao {
 		}
 		return null;
 	}
+
+	// kiểm tra email có tồn tại không
+	public boolean checkEmail(String email) {
+		String sql = "SELECT * FROM users WHERE email=?";
+		try (Connection conn = JDBCUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
+
+			ps.setString(1, email);
+			ResultSet rs = ps.executeQuery();
+			return rs.next();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	// hàm đổi mật khẩu
+	public boolean updatePasswordByEmail(String email, String passwordHash) {
+		String sql = "UPDATE users SET password=? WHERE email=?";
+		try (Connection conn = JDBCUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
+
+			ps.setString(1, passwordHash);
+			ps.setString(2, email);
+			int result = ps.executeUpdate();
+			return result > 0;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

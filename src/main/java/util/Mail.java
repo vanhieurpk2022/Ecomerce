@@ -40,23 +40,22 @@ public class Mail {
 	
 	}
 	
-	public void SendVerifyMail(String To) {
-		Message msg = new MimeMessage(session);
-		try {
-			msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
-			// người gửi
-			msg.setFrom(new InternetAddress(from));
-			// người nhận
-			msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(To));
-			
-			msg.setSubject("Your verification code");
-			msg.setContent("<p>Hello</p>"+"\n"+"<p>Your verify code is: <strong>"+RandomCode.getInstance().getCode()+"</strong></p>" +"\n"+
-			"<p>Please enter this code to verify your account</p>"+"\n"+"<p>Best regards,</p>"+"\n"+"<p>Support team</p>","text/html");
-			Transport.send(msg);
-		} catch (Exception e) {
-			System.out.println("lỗi gửi mail");
-			e.printStackTrace();
-		}
+	public void SendVerifyMail(String To, String code) {
+	    Message msg = new MimeMessage(session);
+	    try {
+	        msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+	        msg.setFrom(new InternetAddress(from));
+	        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(To));
+	        msg.setSubject("Your verification code");
+	        msg.setContent("<p>Hello</p>" + "\n"
+	                + "<p>Your verify code is: <strong>" + code + "</strong></p>" + "\n"
+	                + "<p>Please enter this code to verify your account</p>" + "\n"
+	                + "<p>Best regards,</p>" + "\n" + "<p>Support team</p>", "text/html");
+	        Transport.send(msg);
+	    } catch (Exception e) {
+	        System.out.println("lỗi gửi mail");
+	        e.printStackTrace();
+	    }
 	}
 	
 }
