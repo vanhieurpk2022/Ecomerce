@@ -20,7 +20,7 @@
 
 	 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 
-     <jsp:include page="/header.jsp"></jsp:include>
+     <jsp:include page="../includes/header.jsp"></jsp:include>
 
     <section id="hero">
         <h4>Trade-in-offer</h4>
@@ -159,7 +159,7 @@
     </section>
 
 
-    	<%@ include file="/footer.jsp" %>
+    	<%@ include file="../includes/footer.jsp" %>
 
        <script src="${pageContext.request.contextPath}/assert/javascript/script.js"></script>
 

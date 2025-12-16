@@ -51,7 +51,7 @@ public class HomeController extends HttpServlet {
 		request.setAttribute("active", "index");
 		request.setAttribute("Product1", pro1);
 
-		request.getRequestDispatcher("/index.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
 
 	}
 

@@ -29,7 +29,7 @@ public class BlogController extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setAttribute("active", "blog");
 
-		request.getRequestDispatcher("/blog.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/blog.jsp").forward(request, response);
 	}
 
 	/**

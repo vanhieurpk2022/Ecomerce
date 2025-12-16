@@ -63,9 +63,11 @@
 </head>
 
 <body>
-    <jsp:include page="/header.jsp"></jsp:include>
+    <jsp:include page="../includes/header.jsp"></jsp:include>
+    			<c:set var="ctx" value="${pageContext.request.contextPath}" />
+    
     <section id="signup">
-        <form id="forgotform" action="controller" method="POST" autocomplete="off">
+        <form id="forgotform" action="login" method="POST" autocomplete="off">
             <input type="hidden" name="action" value="forgotpassword"/>
             <div class="signup_Header">
                 <h1>Cara Clothes</h1>
@@ -105,10 +107,10 @@
             <!-- Kiểm tra mã code nhập vào, nếu đúng sẽ chuyển trang -->
             <button type="submit" class="cara-btn" name="verifycode" value="verifycode" style="margin-top:30px;width:100%;">Reset Password</button>
             <hr>
-            <p>Remembered your password? <a href="signin.jsp">Sign in</a></p>
+            <p>Remembered your password? <a href="${ ctx}/login/signin">Sign in</a></p>
         </form>
     </section>
-    <%@ include file="/footer.jsp" %>
+    <%@ include file="../includes/footer.jsp" %>
     <script src="${pageContext.request.contextPath}/assert/javascript/checkPassword.js"></script>
     <script src="${pageContext.request.contextPath}/assert/javascript/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

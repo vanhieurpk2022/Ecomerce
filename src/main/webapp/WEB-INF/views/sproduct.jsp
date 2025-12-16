@@ -21,7 +21,7 @@
 <body>
 	<c:set var="ctx" value="${pageContext.request.contextPath }" />
 	<!--  thêm header -->
-	<jsp:include page="/header.jsp"></jsp:include>
+	<jsp:include page="../includes/header.jsp"></jsp:include>
 
 
 
@@ -171,7 +171,7 @@
             <button class="normal">Sign Up</button>
         </div>
     </section>
-    <%@ include file="/footer.jsp" %>
+    <%@ include file="../includes/footer.jsp" %>
 	  <script src="${ctx}/assert/javascript/script.js"></script>
                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                       <script src="${ctx}/assert/javascript/ajaxJquerry.js"></script>

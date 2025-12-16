@@ -29,7 +29,7 @@ public class AboutController extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setAttribute("active", "about");
 
-		request.getRequestDispatcher("/about.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/about.jsp").forward(request, response);
 	}
 
 	/**

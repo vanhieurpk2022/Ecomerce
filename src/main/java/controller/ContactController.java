@@ -28,7 +28,7 @@ public class ContactController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("active", "contact");
 
-		request.getRequestDispatcher("/contact.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/contact.jsp").forward(request, response);
 	}
 
 	/**

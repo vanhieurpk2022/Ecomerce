@@ -18,7 +18,7 @@
 
 		<c:set var = "ctx" value="${pageContext.request.contextPath}"/>
 
-   <jsp:include page="/header.jsp"></jsp:include>
+   <jsp:include page="../includes/header.jsp"></jsp:include>
 
     <section id="page-header" class="about-header">
         <h2>#let's_talk</h2>
@@ -95,7 +95,7 @@
         </div>
     </section>
 
-   	<%@ include file="/footer.jsp" %>
+   	<%@ include file="../includes/footer.jsp" %>
 
 
     <script src="${ctx}/assert/javascript/script.js"></script>

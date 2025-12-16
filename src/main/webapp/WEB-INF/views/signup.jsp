@@ -16,11 +16,13 @@
 </head>
 
 <body>
-      <jsp:include page="/header.jsp"></jsp:include>
+      <jsp:include page="../includes/header.jsp"></jsp:include>
+      			<c:set var="ctx" value="${pageContext.request.contextPath}" />
+      
     <!-- delete-->
 
     <section id="signup">
-        <form id="register" action="controller" method="POST">
+        <form id="register" action="login" method="POST">
 			<input type="hidden" value="register" name="action"/>
             <div class="signup_Header">
                 <h1> Cara Clothes</h1>
@@ -65,13 +67,13 @@
             </label>
             <button id="signup_btn">Sign up</button>
             <hr>
-            <p>Have account ? <a href="signin.jsp">Sign in</a></p>
+            <p>Have account ? <a href="${ctx }/login/signin">Sign in</a></p>
         </form>
 
     </section>
 
 
-        <%@ include file="/footer.jsp" %>
+        <%@ include file="../includes/footer.jsp" %>
         
    
     <script src="${pageContext.request.contextPath}/assert/javascript/script.js"></script>

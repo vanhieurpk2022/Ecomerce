@@ -22,7 +22,7 @@
 	<c:set var="ctx" value="${pageContext.request.contextPath}" />
 	
 		<!--  thêm header -->
-	<jsp:include page="/header.jsp"></jsp:include>
+	<jsp:include page="../includes/header.jsp"></jsp:include>
 	
 	
  <section id="page-header" class="blog-header">
@@ -83,7 +83,7 @@
 
 
 
-	<%@ include file="/footer.jsp"%>
+	<%@ include file="../includes/footer.jsp"%>
 
 	<script
 		src="${pageContext.request.contextPath}/assert/javascript/script.js"></script>
