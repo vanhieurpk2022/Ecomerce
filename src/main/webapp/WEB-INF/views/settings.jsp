@@ -14,7 +14,7 @@
 </head>
 
 <body>
-   <jsp:include page="/header.jsp"></jsp:include>
+   <jsp:include page="../includes/header.jsp"></jsp:include>
 
      <div class="container-fluid">
         <!-- Main Content -->
@@ -226,7 +226,7 @@
 
 
 
-   	<%@ include file="/footer.jsp" %>
+   	<%@ include file="../includes/footer.jsp" %>
 
          <script src="${pageContext.request.contextPath}/assert/javascript/script.js"></script>
 

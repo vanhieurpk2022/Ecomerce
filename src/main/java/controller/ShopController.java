@@ -59,13 +59,13 @@ public class ShopController extends HttpServlet {
 		request.setAttribute("getVariants", productVariant);
 		request.setAttribute("TypeClothe", rq);
 		request.setAttribute("sproduct", product);
-		getServletContext().getRequestDispatcher("/sproduct.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/WEB-INF/views/sproduct.jsp").forward(request, response);
 	}
 
 
 	public void ShopShowCard(HttpServletRequest request, HttpServletResponse response, int offset)
 			throws ServletException, IOException {
-		String url = "/shop.jsp";
+		String url = "/WEB-INF/views/shop.jsp";
 		IDao dao = new ProductsDao();
 		List<Products> products = dao.SelectAll(offset,20);
 

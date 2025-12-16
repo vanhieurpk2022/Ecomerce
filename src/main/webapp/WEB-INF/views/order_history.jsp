@@ -136,7 +136,7 @@
     </style>
 </head>
 <body>
-<jsp:include page="/header.jsp"></jsp:include>
+<jsp:include page="../includes/header.jsp"></jsp:include>
 <div class="order-history-wrapper">
     <div class="order-history-title"><i class="bi bi-clipboard2-data" style="color:#6176c6;"></i> Order History</div>
     <div class="order-history-desc">Track your purchases—shipping, delivery and rate products.</div>
@@ -439,7 +439,7 @@
         </form>
     </div>
 </div>
-<%@ include file="/footer.jsp" %>
+<%@ include file="../includes/footer.jsp" %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
 <script>
     function showTab(tab) {

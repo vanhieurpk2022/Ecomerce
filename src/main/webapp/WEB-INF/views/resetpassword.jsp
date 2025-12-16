@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assert/css/style.css">
 </head>
 <body>
-    <jsp:include page="/header.jsp"></jsp:include>
+    <jsp:include page="../includes/header.jsp"></jsp:include>
+    			<c:set var="ctx" value="${pageContext.request.contextPath}" />
+    
     <section id="signup">
         <form id="resetpwd" action="controller" method="POST" autocomplete="off">
             <input type="hidden" value="resetpassword" name="action"/>
@@ -42,10 +44,10 @@
             </div>
             <button type="submit" class="cara-btn" style="margin-top:30px;width:100%;">Reset Password</button>
             <hr>
-            <p>Remembered your password? <a href="signin.jsp">Sign in</a></p>
+            <p>Remembered your password? <a href="${ ctx}/login/signin">Sign in</a></p>
         </form>
     </section>
-    <%@ include file="/footer.jsp" %>
+    <%@ include file="../includes/footer.jsp" %>
     <script src="${pageContext.request.contextPath}/assert/javascript/script.js"></script>
     <script>
         showHiddenPassword("pwd_new", "icon_show_new");

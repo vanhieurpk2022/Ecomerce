@@ -24,14 +24,14 @@ import util.RandomCode;
 /**
  * Servlet implementation class controller
  */
-@WebServlet("/controller")
-public class Controller extends HttpServlet {
+@WebServlet("/login/*")
+public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public Controller() {
+	public LoginController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -43,46 +43,47 @@ public class Controller extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String action = request.getParameter("action");
-		switch (action) {
+		String path = request.getPathInfo();
 
-		
-		case "register":
-			Register(request, response);
-			break;
+	    if (path == null || "/".equals(path)) {
+	        request.getRequestDispatcher("/WEB-INF/views/signin.jsp")
+	               .forward(request, response);
+	        return;
+	    }
 
-		case "login":
-			Login(request, response);
-			break;
-		case "logout":
-			Logout(request, response);
-			break;
-		// Quên mật khẩu: nhập lại mật khẩu (giống register, thêm kiểm tra mã)
-        case "resetpassword":
-            ResetPassword(request, response);
-            break;
-        // Gửi mã xác thực về email (AJAX/fetch)
-        case "forgotpassword":
-            ForgotPassword(request, response);
-            break;
+	    switch (path) {
+	        case "/signin":
+	            request.getRequestDispatcher("/WEB-INF/views/signin.jsp").forward(request, response);
+	            break;
 
+	        case "/signup":
+	            request.getRequestDispatcher("/WEB-INF/views/signup.jsp").forward(request, response);
+	            break;
 
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + action);
-		}
+	        case "/forgot":
+	            request.getRequestDispatcher("/WEB-INF/views/forgotpassword.jsp").forward(request, response);
+	            break;
+
+	        case "/logout":
+	            Logout(request, response);
+	            break;
+
+	        default:
+	            response.sendError(404);
+	    }
 	}
 
 
 
 
-	private void Logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private void Logout(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession(false);
 
 		if (session != null) {
 			session.invalidate();
 		}
-		response.sendRedirect("index.jsp");
+		request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
 
 	}
 
@@ -92,8 +93,28 @@ public class Controller extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String path = request.getPathInfo();
+
+	    switch (path) {
+	        case "/login":
+	            Login(request, response);
+	            break;
+
+	        case "/register":
+	            Register(request, response);
+	            break;
+
+	        case "/forgotpassword":
+	            ForgotPassword(request, response);
+	            break;
+
+	        case "/resetpassword":
+	            ResetPassword(request, response);
+	            break;
+
+	        default:
+	            response.sendError(404);
+	    }
 	}
 
 	public void Register(HttpServletRequest request, HttpServletResponse response)
@@ -105,7 +126,7 @@ public class Controller extends HttpServlet {
 	    String verifyCode = request.getParameter("verifyCode");
 	    String password = request.getParameter("password");
 	    String msg = "";
-	    String url = "/signin.jsp";
+	    String url = "/WEB-INF/views/signin.jsp";
 
 	    IDao idao = new UserDao();
 
@@ -123,7 +144,7 @@ public class Controller extends HttpServlet {
 	        msg = "Đã gửi mã xác thực, vui lòng kiểm tra email.";
 	        request.setAttribute("msg", msg);
 	        request.setAttribute("msgtype", "sus");
-	        request.getRequestDispatcher("/signup.jsp").forward(request, response);
+	        request.getRequestDispatcher("/WEB-INF/views/signup.jsp").forward(request, response);
 	        return;
 	    }
 
@@ -132,7 +153,7 @@ public class Controller extends HttpServlet {
 	    String emailInSession = (String) session.getAttribute("register_email");
 
 	    if (idao.checkAccount(username)) {
-	        url = "/signup.jsp";
+	        url = "/WEB-INF/views/signup.jsp";
 	        msg = "Account is exits";
 	        request.setAttribute("error", msg);
 	        request.setAttribute("username", username);
@@ -147,7 +168,7 @@ public class Controller extends HttpServlet {
 	        request.setAttribute("username", username);
 	        request.setAttribute("firstname", firstname);
 	        request.setAttribute("lastname", lastname);
-	        url = "/signup.jsp";
+	        url = "/WEB-INF/views/signup.jsp";
 	        request.getRequestDispatcher(url).forward(request, response);
 	        return;
 	    } else {
@@ -167,7 +188,7 @@ public class Controller extends HttpServlet {
 	public void Login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password_sigin");
-		String url = "/signin.jsp";
+		String url = "/WEB-INF/views/signin.jsp";
 		String msg = "";
 
 		IDao dao = new UserDao();
@@ -179,7 +200,7 @@ public class Controller extends HttpServlet {
 				HttpSession session = request.getSession();
 
 				session.setAttribute("user", user);
-				url = "/index.jsp";
+				url = "/WEB-INF/views/index.jsp";
 				getServletContext().getRequestDispatcher(url).forward(request, response);
 			}
 
@@ -210,7 +231,7 @@ public class Controller extends HttpServlet {
 	        	request.setAttribute("email", email);
 	            request.setAttribute("msg", "Email không tồn tại!");
 	            request.setAttribute("msgtype", "error");
-	            request.getRequestDispatcher("/forgotpassword.jsp").forward(request, response);
+	            request.getRequestDispatcher("/WEB-INF/views/forgotpassword.jsp").forward(request, response);
 	        } else {
 	        	request.setAttribute("email", email);
 	        	
@@ -223,7 +244,7 @@ public class Controller extends HttpServlet {
 
 	            request.setAttribute("msg", "Đã gửi mã xác thực, vui lòng kiểm tra email.");
 	            request.setAttribute("msgtype", "sus");
-	            request.getRequestDispatcher("/forgotpassword.jsp").forward(request, response);
+	            request.getRequestDispatcher("/WEB-INF/views/forgotpassword.jsp").forward(request, response);
 	        }
 	    } 
 	    // 2. Nếu bấm Reset Password (form submit kèm verifyCode)
@@ -235,10 +256,10 @@ public class Controller extends HttpServlet {
 
 	            request.setAttribute("msg", "Code xác thực không đúng hoặc email không khớp, vui lòng kiểm tra lại!");
 	            request.setAttribute("msgtype", "error");
-	            request.getRequestDispatcher("/forgotpassword.jsp").forward(request, response);
+	            request.getRequestDispatcher("/WEB-INF/views/forgotpassword.jsp").forward(request, response);
 	        } else {
 	            // Đúng code + email, đến trang reset mật khẩu
-	            request.getRequestDispatcher("/resetpassword.jsp").forward(request, response);
+	            request.getRequestDispatcher("/WEB-INF/views/resetpassword.jsp").forward(request, response);
 	        }
 	    }
 	}
@@ -252,7 +273,7 @@ public class Controller extends HttpServlet {
 	    String newPwd = request.getParameter("password_new");
 	    String confirmPwd = request.getParameter("password_confirm_new");
 	    String msg = "";
-	    String url = "/resetpassword.jsp";
+	    String url = "/WEB-INF/views/resetpassword.jsp";
 
 	    // Kiểm tra session
 	    if (email == null) {
@@ -287,7 +308,7 @@ public class Controller extends HttpServlet {
 	        request.setAttribute("msg", msg);
 	        request.setAttribute("msgtype", "sus");
 	        // Chuyển về trang đăng nhập
-	        request.getRequestDispatcher("/signin.jsp").forward(request, response);
+	        request.getRequestDispatcher("/WEB-INF/views/signin.jsp").forward(request, response);
 	    } else {
 	        msg = "Đổi mật khẩu thất bại! Vui lòng thử lại.";
 	        request.setAttribute("msg", msg);

@@ -98,7 +98,7 @@
     </style>
 </head>
 <body>
-    <jsp:include page="/header.jsp"></jsp:include>
+    <jsp:include page="../includes/header.jsp"></jsp:include>
 
     <div class="help-container">
         <div class="help-header">
@@ -149,7 +149,7 @@
         </div>
     </div>
 
-    <%@ include file="/footer.jsp" %>
+    <%@ include file="../includes/footer.jsp" %>
     <script src="${pageContext.request.contextPath}/assert/javascript/script.js"></script>
 </body>
 </html>
