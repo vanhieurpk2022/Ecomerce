@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class UserController
  */
-@WebServlet("/user")
+@WebServlet("/user/*")
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -26,33 +26,53 @@ public class UserController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action = request.getParameter("action");
+		String path = request.getPathInfo();
 
-	        if (action == null) {
-	        	response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-	            return;
-	        }
-
-	        switch (action) {
-	            case "orders":
+	        switch (path) {
+	            case "/orders":
 	            	request.getRequestDispatcher("/WEB-INF/views/order_history.jsp")
 	                   .forward(request, response);
 	                break;
+	            case "/orders_his":
+	            	request.setAttribute("account",4);
 
-	            case "settings":
+	            	request.getRequestDispatcher("/WEB-INF/views/orders_his.jsp")
+	                   .forward(request, response);
+	                break;
+	            case "/orders_shipping":
+	            	request.setAttribute("account",5);
+
+	            	request.getRequestDispatcher("/WEB-INF/views/orders_his.jsp")
+	                   .forward(request, response);
+	                break;
+	            case "/orders_delivered":
+	            	request.setAttribute("account",6);
+
+	            	request.getRequestDispatcher("/WEB-INF/views/orders_his.jsp")
+	                   .forward(request, response);
+	                break;
+	            case "/settings":
+	            	
+	            	request.setAttribute("account", 1);
 	            	request.getRequestDispatcher("/WEB-INF/views/settings.jsp")
 	                   .forward(request, response);
 	                break;
-
-	            case "help":
+	            case "/security":
+	            	request.setAttribute("account", 2);
+	            	request.getRequestDispatcher("/WEB-INF/views/settings_security.jsp")
+	                   .forward(request, response);
+	                break;
+	            case "/address":
+	            	request.setAttribute("account", 3);
+	            	request.getRequestDispatcher("/WEB-INF/views/settings_address.jsp")
+	                   .forward(request, response);
+	                break;
+	            case "/help":
 	            	request.getRequestDispatcher("/WEB-INF/views/help.jsp")
 	                   .forward(request, response);
 	                break;
 
-	            case "logout":
-	            	request.getSession().invalidate();
-	            	response.sendRedirect(request.getContextPath() + "/index.jsp");
-	                break;
+	           
 
 	            default:
 	            	response.sendError(HttpServletResponse.SC_NOT_FOUND);

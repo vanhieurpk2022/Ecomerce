@@ -28,9 +28,9 @@
                 <h2>Sign in</h2>
             </div>
             <div class="signup_Main">
-                <input type="text" placeholder="User name" required name="username">
+                <input type="text" placeholder="User name" required name="username" value="${AccountCookies.username }">
                 <div class="input-wrapper">
-                <input type="password"  placeholder="Password" id="pwd" required name="password_sigin">
+                <input type="password"  placeholder="Password" id="pwd" required name="password_sigin" value="${AccountCookies.password }">
                 <span id="icon_show" class="icon_show"><i class="bi bi-eye"></i></span>
                 </div>
                 <c:choose>
@@ -45,7 +45,7 @@
 
             <div class="forgot">
                 <label for="remember" class="remember">
-                    <input type="checkbox" id="remember">
+                    <input type="checkbox" id="remember"  name="checkbox_re" ${not empty AccountCookies.remember ? 'checked' : ''}>
                     <span>Remember me</span>
                 </label>
                 <div> <a href="${ctx }/login/forgot">Forgot password?</a></div>

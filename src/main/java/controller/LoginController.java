@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,6 +18,7 @@ import dao.ProductsDao;
 import dao.UserDao;
 import model.Products;
 import model.User;
+import util.CookieUtil;
 import util.Encode;
 import util.Mail;
 import util.RandomCode;
@@ -53,6 +55,7 @@ public class LoginController extends HttpServlet {
 
 	    switch (path) {
 	        case "/signin":
+		        request.setAttribute("AccountCookies", CookieUtil.getLoginCookie(request));
 	            request.getRequestDispatcher("/WEB-INF/views/signin.jsp").forward(request, response);
 	            break;
 
@@ -188,6 +191,7 @@ public class LoginController extends HttpServlet {
 	public void Login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password_sigin");
+		String checked = request.getParameter("checkbox_re") ;
 		String url = "/WEB-INF/views/signin.jsp";
 		String msg = "";
 
@@ -198,7 +202,8 @@ public class LoginController extends HttpServlet {
 			boolean checkPass = Encode.toSHA1(password).equals(user.getPassword());
 			if (checkPass) {
 				HttpSession session = request.getSession();
-
+				
+				CookieUtil.saveLoginInfo(response, username, password, (checked !=null)?true:false);
 				session.setAttribute("user", user);
 				url = "/WEB-INF/views/index.jsp";
 				getServletContext().getRequestDispatcher(url).forward(request, response);
