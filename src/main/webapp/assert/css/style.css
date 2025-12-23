@@ -977,11 +977,23 @@ footer .copyright {
 }
 
 #cart table thead {
-    border: 1px solid #e2e9e1;
+	
     border-left: none;
     border-right: none;
 }
+#cart .table-warraper {
+    width: 100%;
+    position: relative;
+    max-height: 750px;
+    overflow-y: auto;
+}
 
+#cart table thead {
+    position: sticky;
+    top: 0px;
+    background: #fff;
+    z-index: 5;
+}
 #cart table thead td {
     font-weight: 700;
     text-transform: uppercase;

@@ -18,6 +18,7 @@ import dao.ProductsDao;
 import dao.UserDao;
 import model.Products;
 import model.User;
+import model.UserSession;
 import util.CookieUtil;
 import util.Encode;
 import util.Mail;
@@ -76,20 +77,6 @@ public class LoginController extends HttpServlet {
 	    }
 	}
 
-
-
-
-	private void Logout(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		HttpSession session = request.getSession(false);
-
-		if (session != null) {
-			session.invalidate();
-		}
-		request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
-
-	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -120,8 +107,24 @@ public class LoginController extends HttpServlet {
 	    }
 	}
 
+
+	private void Logout(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(false);
+
+		if (session != null) {
+			session.invalidate();
+		}
+		request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
+
+	}
+
+	
+
 	public void Register(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {
+		  request.setCharacterEncoding("UTF-8");
+		    response.setCharacterEncoding("UTF-8");
 	    String firstname = request.getParameter("firstname");
 	    String lastname = request.getParameter("lastname");
 	    String username = request.getParameter("username");
@@ -175,7 +178,7 @@ public class LoginController extends HttpServlet {
 	        request.getRequestDispatcher(url).forward(request, response);
 	        return;
 	    } else {
-	        User user = new User(firstname, lastname, email, true, username, Encode.toSHA1(password), 1);
+	        User user = new User(firstname, lastname, email, true, username, Encode.hash(password), 1);
 	        idao.addUser(user);
 	        msg = "Susscess register";
 	        request.setAttribute("msg", msg);
@@ -199,12 +202,16 @@ public class LoginController extends HttpServlet {
 
 		if (dao.checkAccount(username)) {
 			User user = dao.getFullName(username);
-			boolean checkPass = Encode.toSHA1(password).equals(user.getPassword());
+			UserSession userSession = new UserSession(user.getIdUser(), user.getUsername(), user.getFirstName()+" "+user.getLastName(), user.getRole());
+		
+			boolean checkPass = Encode.verify(password, user.getPassword());;
 			if (checkPass) {
 				HttpSession session = request.getSession();
 				
 				CookieUtil.saveLoginInfo(response, username, password, (checked !=null)?true:false);
-				session.setAttribute("user", user);
+				
+				session.setAttribute("user", userSession);
+				
 				url = "/WEB-INF/views/index.jsp";
 				getServletContext().getRequestDispatcher(url).forward(request, response);
 			}
@@ -305,7 +312,7 @@ public class LoginController extends HttpServlet {
 	    }
 	    // Đổi mật khẩu trên database
 	    UserDao userDao = new UserDao();
-	    boolean updateOk = userDao.updatePasswordByEmail(email, Encode.toSHA1(newPwd));
+	    boolean updateOk = userDao.updatePasswordByEmail(email, Encode.hash(newPwd));
 	    if (updateOk) {
 	        // Xóa session reset_email sau khi đổi xong
 	        session.removeAttribute("reset_email");

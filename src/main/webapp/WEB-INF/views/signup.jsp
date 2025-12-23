@@ -22,7 +22,7 @@
     <!-- delete-->
 
     <section id="signup">
-        <form id="register" action="login" method="POST">
+        <form id="register" action="${ctx }/login/register" method="POST">
 			<input type="hidden" value="register" name="action"/>
             <div class="signup_Header">
                 <h1> Cara Clothes</h1>

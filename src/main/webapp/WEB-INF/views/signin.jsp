@@ -21,8 +21,7 @@
 	
 
    <section id="signup">
-        <form action="login" method="POST">
-			<input type="hidden" value="login" name="action"/>
+        <form action="${ctx }/login/login" method="POST">
             <div class="signup_Header">
                 <h1> Cara Clothes</h1>
                 <h2>Sign in</h2>

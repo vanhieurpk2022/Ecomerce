@@ -10,6 +10,7 @@
     <title>Tech2etc Ecommerce Tutorial</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    
    <link rel="stylesheet" href="${pageContext.request.contextPath}/assert/css/style.css">
 </head>
 
@@ -26,7 +27,8 @@
     </section>
 
     <section id="cart" class="section-p1">
-        <table width="100%">
+    <div class="table-warraper">
+        <table >
             <thead>
                 <tr>
                     <td>Remove</td>
@@ -43,13 +45,13 @@
             <c:forEach var ="items" items="${sessionScope.Cart.items}">
                 <tr>
 				
-                    <td> <a href="${ctx}/cart?action=RemoveProducts&id=${items.variant.variantID}"><i class="bi bi-x-circle"></i></a></td>
+                    <td>   <button class="normal" data-variantid="${items.variant.variantID}" onclick="removeItem(this)" ><i class="bi bi-x-circle" style="font-size:25px;"></i></button></td>
                     <td><img src="${ctx }${items.products.img }" alt=""></td>
                     <td>${items.products.productName } - <strong>${items.variant.size}</strong>  - <strong>${items.variant.color}</strong> </td>
                     <td>${items.products.price }</td>
                     <td><input type="number" value="${items.quanity}" onchange="changeQuanity(${items.variant.variantID},this)"></td>
-                    <td>${items.subtotal}</td>
-                </tr>
+                    <td> ${items.subtotal}</td>
+                </tr>	
                   </c:forEach>
                   </c:if>
             </tbody>
@@ -88,9 +90,10 @@
                 </tr>
                 <tr>
                     <td><strong>Total</strong></td>
-                    <td><strong>${sessionScope.Cart.price}</strong></td>
+                    <td><strong id="TotalPrice">${sessionScope.Cart.price}</strong></td>
                 </tr>
             </table>
+            </div>
             <button class="normal">Proceed to checkout</button>
         </div>
     </section>
@@ -98,9 +101,10 @@
    	<%@ include file="../includes/footer.jsp" %>
 
 
-    <script src="${ctx}/assert/javascript/script.js"></script>
          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                      <script src="${ctx}/assert/javascript/ajaxJquerry.js"></script>
+    <script src="${ctx}/assert/javascript/script.js"></script>
+        <script src="${ctx}/assert/javascript/ajaxJquerry.js"></script>
+    
 </body>
 
 </html>

@@ -82,7 +82,11 @@ public class CartController extends HttpServlet {
 		if (getCart.getSize() <= 0) {
 			CookieUtil.clearCart(response);
 		}
-		response.sendRedirect("cart");
+		
+		
+     // Trong Controller, trả về dạng JSON
+        response.setContentType("application/json");
+        response.getWriter().write("{\"totalPrice\": " + getCart.getPrice() + ", \"cartCount\": " + getCart.getSize() + "}");
 
 	}
 

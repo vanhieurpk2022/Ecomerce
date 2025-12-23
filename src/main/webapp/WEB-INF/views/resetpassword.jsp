@@ -16,8 +16,7 @@
     			<c:set var="ctx" value="${pageContext.request.contextPath}" />
     
     <section id="signup">
-        <form id="resetpwd" action="controller" method="POST" autocomplete="off">
-            <input type="hidden" value="resetpassword" name="action"/>
+        <form id="resetpwd" action="${ctx }/login/resetpassword" method="POST" autocomplete="off">
             <div class="signup_Header">
                 <h1>Cara Clothes</h1>
                 <h2>Reset Password</h2>

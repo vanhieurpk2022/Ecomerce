@@ -25,7 +25,7 @@
                 <li class="user-menu">
                     <div class="avatar">
                         <img src="${ctx }/assert/img/avatar.jpg" alt="">
-                        <span class="overflow-x-hidden">${sessionScope.user.firstName} ${ sessionScope.user.lastName }</span>
+                        <span class="overflow-x-hidden">${sessionScope.user.fullName}</span>
                     </div> 
                 <!-- Dropdown menu -->
                  <ul class="dropdown">
