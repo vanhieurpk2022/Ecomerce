@@ -8,7 +8,6 @@ import java.util.List;
 
 import model.ProductVariants;
 import model.Products;
-import util.JDBCUtil;
 
 public class ProductVariantsDao extends BaseDao{
 	public ProductVariants SelectByProductVariantID(int variantID) {
@@ -16,7 +15,7 @@ public class ProductVariantsDao extends BaseDao{
 				ProductVariants variants=null;
 				String sql = "Select * from products_variants  WHERE variantID = ? LIMIT 1";
 
-				try(	Connection conn = JDBCUtil.getConnection();
+				try(	Connection conn = getConnection();
 						PreparedStatement ps = conn.prepareStatement(sql);) {
 
 				
@@ -44,7 +43,7 @@ public class ProductVariantsDao extends BaseDao{
 		List<ProductVariants> list = new ArrayList<>();
 		String sql = "Select * from products_variants WHERE productID = ?";
 
-		try(	Connection conn = JDBCUtil.getConnection();
+		try(	Connection conn =getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql);) {
 
 		
@@ -72,7 +71,7 @@ public class ProductVariantsDao extends BaseDao{
 		Products products=null;
 		String sql = "Select p.img,p.productsName,p.price from products_variants v  JOIN products p ON p.ProductsID = v.productID WHERE v.variantID = ?";
 		try(
-				Connection conn = JDBCUtil.getConnection();
+				Connection conn = getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql);) {
 
 			

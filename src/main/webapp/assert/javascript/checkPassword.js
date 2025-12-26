@@ -114,6 +114,4 @@ function checkPasswordRealtime(pwdId, confirmId, msgId, btnId) {
 
  
 
-checkPasswordRealtime("pwd", "pwd_confirm", "msg_js", "signup_btn");
-checkPasswordRealtime("person_newPassword", "person_confirm", "msg_pwd_security", "update_security");
 timeCodeVerify();

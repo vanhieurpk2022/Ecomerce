@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix ="c" uri="http://java.sun.com/jsp/jstl/core" %>
+        <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,14 +50,17 @@
                     <td>   <button class="normal" data-variantid="${items.variant.variantID}" onclick="removeItem(this)" ><i class="bi bi-x-circle" style="font-size:25px;"></i></button></td>
                     <td><img src="${ctx }${items.products.img }" alt=""></td>
                     <td>${items.products.productName } - <strong>${items.variant.size}</strong>  - <strong>${items.variant.color}</strong> </td>
-                    <td>${items.products.price }</td>
+                     <fmt:setLocale value="vi_VN"/>
+                    <td><fmt:formatNumber value="${items.products.price }" pattern="#,##0 VNĐ"/></td>
+                       
                     <td><input type="number" value="${items.quanity}" onchange="changeQuanity(${items.variant.variantID},this)"></td>
-                    <td> ${items.subtotal}</td>
+                    <td><fmt:formatNumber value="${items.subtotal}" pattern="#,##0 VNĐ"/> </td>
                 </tr>	
                   </c:forEach>
                   </c:if>
             </tbody>
         </table>
+        </div>
     </section>
 
     <section id="cart-add" class="section-p1">
@@ -72,7 +77,7 @@
             <table>
                 <tr>
                     <td>Cart Subtotal</td>
-                    <td>#335</td>
+                    <td><fmt:formatNumber value="${sessionScope.Cart.price}" pattern="#,##0 VNĐ"/> </td>
                 </tr>
                 <tr>
                     <td>Payment Options</td>
@@ -90,12 +95,12 @@
                 </tr>
                 <tr>
                     <td><strong>Total</strong></td>
-                    <td><strong id="TotalPrice">${sessionScope.Cart.price}</strong></td>
+                    <td><strong id="TotalPrice"> <fmt:formatNumber value="${sessionScope.Cart.price}" pattern="#,##0 VNĐ"/> </strong></td>
                 </tr>
             </table>
-            </div>
             <button class="normal">Proceed to checkout</button>
-        </div>
+            </div>
+        
     </section>
 
    	<%@ include file="../includes/footer.jsp" %>

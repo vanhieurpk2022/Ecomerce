@@ -18,6 +18,8 @@ CREATE TABLE Users (
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     Phone VARCHAR(50),
+    birthday DATE,
+    gender INT DEFAULT -1,
     createAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     Role INT DEFAULT 1
 );

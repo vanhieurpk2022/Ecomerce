@@ -1,5 +1,6 @@
 package model;
 
+// bỏ district
 public class Address {
 	private Integer addressID;
 	private Integer userID;
@@ -22,7 +23,16 @@ public class Address {
 		this.phone = phone;
 		this.isDefault = isDefault;
 	}
-
+	public Address( String fullAddress, String city, String ward,
+			String phone,Integer userID, boolean isDefault) {
+		super();
+		this.fullAddress = fullAddress;
+		this.city = city;
+		this.ward = ward;
+		this.phone = phone;
+		this.userID = userID;
+		this.isDefault = isDefault;
+	}
 	public Address() {
 		super();
 	}

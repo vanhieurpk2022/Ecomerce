@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 public class User {
@@ -8,23 +9,22 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private List<Address> address;
 	private Boolean verify;
 	private String username;
 	private String password;
 	private Integer role;
 	private Timestamp createdAt;
 	private String phone;
+	private LocalDate birthday;
+	private Integer gender;
 	
-	
-	public User(Integer idUser, String firstName, String lastName, String email, List<Address> address, Boolean verify,
+	public User(Integer idUser, String firstName, String lastName, String email , Boolean verify,
 			String username, String password) {
 		super();
 		this.idUser = idUser;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.address = address;
 		this.verify = verify;
 		this.username = username;
 		this.password = password;
@@ -77,12 +77,7 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public List<Address> getAddress() {
-		return address;
-	}
-	public void setAddress(List<Address> address) {
-		this.address = address;
-	}
+
 	public Boolean getVerify() {
 		return verify;
 	}
@@ -132,6 +127,22 @@ public class User {
 		this.phone = phone;
 	}
 
-	
+	public LocalDate getBirthday() {
+		return birthday;
+	}
 
+	public void setBirthday(LocalDate birthday) {
+		this.birthday = birthday;
+	}
+
+	public Integer getGender() {
+		return gender;
+	}
+
+	public void setGender(Integer gender) {
+		this.gender = gender;
+	}
+
+	
+	
 }

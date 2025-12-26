@@ -35,43 +35,54 @@
                     <!-- Account Section -->
                     <section class="section" id="account">
                         <h2 class="section-title"><i class="fas fa-user-circle"></i> Account Information</h2>
-                        <form class="form-grid">
+                        <form class="form-grid" method="POST" action="${ctx }/user/updateAccountInfo">
                             <div class="form-group">
                                 <label for="username">Username</label>
-                                <input type="text" id="username" value="${sessionScope.user.username }" placeholder="Enter username" disabled>
+                                <input type="text" id="username" value="${requestScope.getProfile.username }" placeholder="Enter username" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" id="email" value="${sessionScope.user.email }" placeholder="Enter email" disabled>
+                                <input type="email" id="email" value="${requestScope.getProfile.email }" placeholder="Enter email" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="firstname">First Name</label>
-                                <input type="text" id="firstname" value="${sessionScope.user.firstName }" placeholder="Enter first name">
+                                <input type="text" id="firstname" value="${sessionScope.user.firstname }" placeholder="Enter first name" name="firstname">
                             </div>
                             <div class="form-group">
                                 <label for="lastname">Last Name</label>
-                                <input type="text" id="lastname" value="${sessionScope.user.lastName }" placeholder="Enter last name">
+                                <input type="text" id="lastname" value="${sessionScope.user.lastname }" placeholder="Enter last name" name="lastname">
                             </div>
                             <div class="form-group">
                                 <label for="birthday">Birthday</label>
-                                <input type="date" id="birthday">
+                                <input type="date" id="birthday" name="birthday" value="${requestScope.getProfile.birthday }">
                             </div>
-                            <div class="form-group">
-                                <label for="phone">Phone</label>
-                                <input type="tel" id="phone" placeholder="Enter phone number">
-                            </div>
+                           
                             <div class="form-group">
                                 <label for="gender">Gender</label>
-                                <select id="gender">
-                                    <option value="">Select gender</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                    <option value="other">Other</option>
+                                <select id="gender" name ="gender">
+                                    <option value="-1" ${requestScope.getProfile.gender ==-1 ?"selected":""}>Select gender</option>
+                                    <option value="0" ${requestScope.getProfile.gender ==0 ?"selected":""}>Male</option>
+                                    <option value="1" ${requestScope.getProfile.gender ==1 ?"selected":""}>Female</option>
+                                    <option value="2" ${requestScope.getProfile.gender ==2 ?"selected":""}>Other</option>
                                 </select>
                             </div>
+                            
+                             <div class="form-group full-width mb-0">
+                           							 <!-- Thông báo lỗi -->
+                            	<c:choose>
+								    <c:when test="${msg_type == 'sus' }"> <!-- Sửa tyence -> type -->
+								        <div class="text-center"> <span style="color: green;">${msg}</span></div>
+								    </c:when>
+								    <c:when test="${msg_type == 'error' }"> <!-- Sửa tye -> type -->
+								        <div class="text-center"> <span  style="color: red;">${msg}</span></div>
+								    </c:when>
+								</c:choose>
+               				   
+                            </div>
+                            
                                <div class="btn-group">
-                            <button class="btn btn-primary"><i class="fas fa-save"></i> Update</button>
-                            <button class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Update</button>
+                            <button type="reset" class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</button>
                         </div>
                         </form>
                      

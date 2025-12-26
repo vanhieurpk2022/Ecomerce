@@ -2,7 +2,7 @@ package model;
 
 import java.math.BigDecimal;
 
-import dao.IDao;
+
 import dao.ProductVariantsDao;
 import dao.ProductsDao;
 
@@ -34,7 +34,7 @@ public class CartItems {
 
 	public ProductVariants getVariant() {
 		if(variant == null) {
-			IDao dao = new ProductVariantsDao();
+			ProductVariantsDao dao = new ProductVariantsDao();
 			variant = dao.SelectByProductVariantID(variantID);
 		}
 		
@@ -42,7 +42,7 @@ public class CartItems {
 	}
 	public Products getProducts() {
 		if(products ==null) {
-			IDao dao = new ProductVariantsDao();
+			ProductVariantsDao dao = new ProductVariantsDao();
 			products = dao.getProductFromVariant(variantID);
 		}
 		

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.IDao;
 import dao.ProductsDao;
 import model.Cart;
 import model.Products;
@@ -38,7 +37,7 @@ public class HomeController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		IDao dao = new ProductsDao();
+		ProductsDao dao = new ProductsDao();
 		List<Products> pro1 = dao.SelectAll(0, 16);
 		
 		HttpSession session = request.getSession();

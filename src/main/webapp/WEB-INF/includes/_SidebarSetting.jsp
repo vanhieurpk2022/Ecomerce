@@ -4,7 +4,7 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 
 <aside class="sidebar">
-   <h3 class="sidebar-title">Settings</h3>
+   <h3 class="sidebar-title">General </h3>
    <ul class="sidebar-menu list-unstyled">
       <li>
          <a href="${ctx}/user/settings" class="${account eq 1 ? 'active' : ''}">

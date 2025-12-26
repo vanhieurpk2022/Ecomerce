@@ -16,6 +16,8 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assert/css/style.css">
+	          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	
 </head>
  <style>
         .rating-flex {
@@ -203,7 +205,7 @@
 			<fmt:setLocale value="vi_VN"/>
 			
 			<h2 id="displayPrice"><fmt:formatNumber value="${sproduct.price }" pattern="#,##0 VNĐ"/></h2>
-			
+				
 			<select id="selectTagSize"  >
 				<c:forEach var="v" items="${getVariants}">
 				    <option value="${v.size}" data-variantid="${v.variantID}" data-stock="${v.stock }" data-final-price = "${v.priceAdjustment + sproduct.price}" <c:if test="${v.stock <= 0}">disabled</c:if>>${v.size}</option>
@@ -301,7 +303,8 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                     </div>
-                    <h4>${rq.price }</h4>
+                  <fmt:setLocale value="vi_VN"/>
+                    <h4><fmt:formatNumber value="${rq.price }" pattern="#,##0 VNĐ"/></h4>
                 </div>
                 <a href="${pageContext.request.contextPath}/shop?action=SProduct&productID=${rq.productID}&type=${rq.categoryID}"><i class="bi bi-cart cart"></i></a>
             </div>

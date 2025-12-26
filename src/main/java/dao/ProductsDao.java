@@ -6,18 +6,14 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.ProductVariants;
 import model.Products;
-import model.User;
-import util.JDBCUtil;
 
 public class ProductsDao extends BaseDao {
 
-	@Override
 	public List<Products> SelectAll(int offset, int limit) {
 		List<Products> products = new ArrayList<>();
 		String sql = "Select * from Products order by ProductsID Limit ? offset ?;";
-		try (Connection conn = JDBCUtil.getConnection();
+		try (Connection conn =getConnection();
 
 				PreparedStatement ps = conn.prepareStatement(sql);) {
 			int getOff = offset * limit;
@@ -43,7 +39,7 @@ public class ProductsDao extends BaseDao {
 		String sql = "Select * from Products WHERE ProductsID = ? LIMIT 1";
 
 		Products product = null;
-		try (Connection conn = JDBCUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
+		try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
@@ -58,13 +54,12 @@ public class ProductsDao extends BaseDao {
 		return product;
 	}
 
-	@Override
 	public List<Products> SelectByCategory(int type) {
 		// TODO Auto-generated method stub
 		List<Products> list = new ArrayList<Products>();
 		String sql = "Select * from Products WHERE CategoryID=? LIMIT 4";
 
-		try (Connection conn = JDBCUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
+		try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 
 			ps.setInt(1, type);
 			ResultSet rs = ps.executeQuery();

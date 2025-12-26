@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,11 +12,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+      
    <link rel="stylesheet" href="${pageContext.request.contextPath}/assert/css/style.css">
 </head>
 
 <body>
    <jsp:include page="../includes/header.jsp"></jsp:include>
+				<c:set var="ctx" value="${pageContext.request.contextPath}" />
 
      <div class="container-fluid">
         <!-- Main Content -->
@@ -36,16 +41,15 @@
                         <h2 class="section-title"><i class="fas fa-shield-alt"></i> Security</h2>
 
                         <h3 style="margin-bottom: 1rem; color: #555;">Change Password</h3>
-                        <form class="form-grid">
+                        <form class="form-grid" action="${ctx }/login/changePass" method="POST">
                             <div class="form-group full-width">
                                 <label for="current-password">Current Password</label>
-                                <input type="password" id="current-password" placeholder="Enter current password"
-                                    disabled>
+                                <input type="password" id="current-password" placeholder="Enter current password" name="currPass">
                             </div>
                             <div class="form-group">
                                 <label for="new-password">New Password</label>
                                 <div class="input-wrapper">
-                                    <input type="password" id="new-password" placeholder="Enter new password">
+                                    <input type="password" id="pwd" name="password" placeholder="Enter new password">
                                     <span id="icon_show" class="icon_show"><i class="bi bi-eye"></i></span>
 
                                 </div>
@@ -53,12 +57,31 @@
                             <div class="form-group">
                                 <label for="confirm-password">Confirm Password</label>
                                 <div class="input-wrapper">
-                                    <input type="password" id="confirm-password" placeholder="Confirm new password">
+                                    <input type="password" id="pwd_confirm"  name="password_confirm" placeholder="Confirm new password">
                                     <span id="icon_show_0" class="icon_show"><i class="bi bi-eye"></i></span>
 
                                 </div>
                             </div>
+                            <div class="form-group full-width mb-0">
+                           							 <!-- Thông báo lỗi -->
+                            	<c:choose>
+								    <c:when test="${msg_type == 'sus' }"> <!-- Sửa tyence -> type -->
+								        <div class="text-center"> <span style="color: green;">${msg}</span></div>
+								    </c:when>
+								    <c:when test="${msg_type == 'error' }"> <!-- Sửa tye -> type -->
+								        <div class="text-center"> <span  style="color: red;">${msg}</span></div>
+								    </c:when>
+								</c:choose>
+               				   <div class="text-center visible"> <span id="msg_js"></span></div>
+               				   
+                            </div>
+                                <div class="btn-group">
+                            <button type="submit" id="update" class="btn btn-primary"><i class="fas fa-save"></i> Update</button>
+                            <button type="reset" class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</button>
+                        </div>
                         </form>
+                          
+               				     
 
 
                         <div style="margin-top: 2rem;">
@@ -85,10 +108,7 @@
                             </ul>
                         </div>
 
-                        <div class="btn-group">
-                            <button class="btn btn-primary"><i class="fas fa-save"></i> Update</button>
-                            <button class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</button>
-                        </div>
+                    
                     </section>
 
                    
@@ -103,13 +123,15 @@
 
          <script src="${pageContext.request.contextPath}/assert/javascript/script.js"></script>
 
-    <script>
-    showHiddenPassword("new-password", "icon_show");
-    showHiddenPassword("confirm-password", "icon_show_0");
+ 
+                <script src="${pageContext.request.contextPath}/assert/javascript/checkPassword.js"></script>
+       <script>
+    showHiddenPassword("pwd", "icon_show");
+    showHiddenPassword("pwd_confirm", "icon_show_0");
+
+    checkPasswordRealtime("pwd", "pwd_confirm", "msg_js", "update");
         </script>
         
-                <script src="${pageContext.request.contextPath}/assert/javascript/checkPassword.js"></script>
-    
 </body>
 
 </html>

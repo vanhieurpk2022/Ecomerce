@@ -1802,6 +1802,11 @@ input:checked+.slider:before {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
+/*Address Setting*/
+#address .list-display-address {
+	overflow-y: scroll;
+	max-height: 550px;
+}
 
 
 /* Start Media Query */
