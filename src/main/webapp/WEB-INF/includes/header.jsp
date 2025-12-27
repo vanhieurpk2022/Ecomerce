@@ -9,7 +9,7 @@
     	
 	
         <div>
-            <ul id="navbar">
+            <ul id="navbar" class="m-0">
                 <li><a href="${ctx}/home" class="${active=='index'?'active':'' }" >Home</a></li>
                 <li><a href="${ctx}/shop?action=showCard&page=0" class="${active=='shop'?'active':'' }" >Shop</a></li>
                 <li><a href="${ctx}/blog" class="${active=='blog'?'active':'' }" >Blog</a></li>
@@ -24,16 +24,16 @@
                 <c:when test="${sessionScope.user !=null }">
                 <li class="user-menu">
                     <div class="avatar">
-                        <img src="" alt="">
-                        <span>${sessionScope.user.firstName} ${ sessionScope.user.lastName }</span>
+                        <img src="${ctx }/assert/img/avatar.jpg" alt="">
+                        <span class="overflow-x-hidden">${sessionScope.user.firstname} ${sessionScope.user.lastname}</span>
                     </div> 
                 <!-- Dropdown menu -->
                  <ul class="dropdown">
-                   <li><a href="${ctx }/user?action=orders"> <i class="bi bi-cart"></i> Order History</a></li>
-                    <li><a href="${ctx }/user?action=settings"> <i class="bi bi-gear"></i> Settings & Privacy</a></li>
-                    <li><a href="${ctx }/user?action=help"> <i class="bi bi-question-circle"></i> Help & Support </a></li>
+                   <li><a href="${ctx }/user/orders_his"> <i class="bi bi-cart"></i> Order History</a></li>
+                    <li><a href="${ctx }/user/settings"> <i class="bi bi-gear"></i> Settings & Privacy</a></li>
+                    <li><a href="${ctx }/user/help"> <i class="bi bi-question-circle"></i> Help & Support </a></li>
 
-                    <li><a href="login/logout"> <i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                    <li><a href="${ctx }/login/logout"> <i class="bi bi-box-arrow-right"></i> Logout</a></li>
                 </ul>
                 </li> 
                 </c:when>

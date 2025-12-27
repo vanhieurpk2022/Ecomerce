@@ -11,6 +11,9 @@ public class Products {
 	private String status;
 	private String img;
 	private String description;
+	
+	private Float avg_rating;
+	private Integer review_count;
 
 	public Products(Integer productID, String productName, Integer categoryID, BigDecimal price, String status,
 			String img, String description) {

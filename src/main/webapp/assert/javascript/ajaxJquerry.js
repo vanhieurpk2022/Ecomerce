@@ -1,7 +1,9 @@
 /**
  * 
  */
-function sendDataCart(variantId, quanity) {
+
+// sproduct thêm san pham vaoo cart
+function sendDataCart(variantId, quanity) { 
 
 	$.ajax({
 		url: 'cart?action=AddProduct',
@@ -33,8 +35,8 @@ function sendDataCart(variantId, quanity) {
 		}
 	});
 }
-
-function changeQuanity(productsId, element) {
+// (cart)
+function changeQuanity(productsId, element) { 
 	const getValue = element.value;
 
 	$.ajax({
@@ -56,7 +58,7 @@ function changeQuanity(productsId, element) {
 }
 
 
-// 1. Hàm hiển thị giá tiền (Đã sửa để không cần tham số đầu vào)
+// 1. Hàm hiển thị giá tiền (Đã sửa để không cần tham số đầu vào)(sproduct)
 function updatePriceDisplay() {
 	const select = document.getElementById("selectTagSize");
 	const displayPrice = document.getElementById("displayPrice");
@@ -74,7 +76,7 @@ function updatePriceDisplay() {
 	}
 }
 
-// 2. Hàm cập nhật số lượng tồn kho
+// 2. Hàm cập nhật số lượng tồn kho (shop)
 function updateStockDisplay() {
 	const select = document.getElementById("selectTagSize");
 	const remainSpan = document.getElementById("remainSpan");
@@ -85,7 +87,7 @@ function updateStockDisplay() {
 	}
 }
 
-// 3. Hàm thêm vào giỏ hàng (Giữ nguyên logic của bạn)
+// 3. Hàm thêm vào giỏ hàng (Giữ nguyên logic của bạn) (sproduct)
 function addToCart() {
 	const select = document.getElementById("selectTagSize");
 	const qtyInput = document.getElementById("quanity");
@@ -108,11 +110,12 @@ function addToCart() {
 		return;
 	}
 
-	// Gọi hàm AJAX gửi đi
+	// Gọi hàm AJAX gửi đi (sproduct)
 	sendDataCart(variantID, quantity);
 }
 
-// --- MAIN: Kích hoạt mọi thứ khi trang load ---
+
+// --- MAIN: Kích hoạt mọi thứ khi trang load --- -(sproduct)
 document.addEventListener("DOMContentLoaded", function() {
 	const select = document.getElementById("selectTagSize");
 
@@ -125,4 +128,5 @@ document.addEventListener("DOMContentLoaded", function() {
 	// Chạy 1 lần ngay khi vào trang để hiển thị thông tin của Size đầu tiên
 	updateStockDisplay();
 	updatePriceDisplay();
+
 });

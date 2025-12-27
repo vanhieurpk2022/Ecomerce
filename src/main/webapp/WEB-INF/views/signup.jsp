@@ -11,6 +11,8 @@
     <title>Tech2etc Ecommerce Tutorial</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+              <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
      <link rel="stylesheet" href="${pageContext.request.contextPath}/assert/css/style.css">
 
 </head>
@@ -22,7 +24,7 @@
     <!-- delete-->
 
     <section id="signup">
-        <form id="register" action="login" method="POST">
+        <form id="register" action="${ctx }/login/register" method="POST">
 			<input type="hidden" value="register" name="action"/>
             <div class="signup_Header">
                 <h1> Cara Clothes</h1>
@@ -77,13 +79,17 @@
         
    
     <script src="${pageContext.request.contextPath}/assert/javascript/script.js"></script>
+         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assert/javascript/checkPassword.js"></script>
+  
     <script>
         showHiddenPassword("pwd", "icon_show");
         showHiddenPassword("pwd_confirm", "icon_show_confirm");
+
+        checkPasswordRealtime("pwd", "pwd_confirm", "msg_js", "signup_btn");
+
     </script>
-     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assert/javascript/checkPassword.js"></script>
-  
+
     	
 </body>
 

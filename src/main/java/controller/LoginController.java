@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,11 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.IDao;
 import dao.ProductsDao;
 import dao.UserDao;
+import model.Cart;
 import model.Products;
 import model.User;
+import model.UserSession;
+import util.CookieUtil;
 import util.Encode;
 import util.Mail;
 import util.RandomCode;
@@ -53,6 +56,12 @@ public class LoginController extends HttpServlet {
 
 	    switch (path) {
 	        case "/signin":
+	        	String getMsg = request.getParameter("msg");
+	        		if(getMsg !=null && "changePassword".equals(getMsg)) {
+	        			request.setAttribute("msgtype", "sus");
+	        			request.setAttribute("msg", "Password change is success");
+	        		}
+		        request.setAttribute("AccountCookies", CookieUtil.getLoginCookie(request));
 	            request.getRequestDispatcher("/WEB-INF/views/signin.jsp").forward(request, response);
 	            break;
 
@@ -71,20 +80,6 @@ public class LoginController extends HttpServlet {
 	        default:
 	            response.sendError(404);
 	    }
-	}
-
-
-
-
-	private void Logout(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		HttpSession session = request.getSession(false);
-
-		if (session != null) {
-			session.invalidate();
-		}
-		request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
-
 	}
 
 	/**
@@ -111,14 +106,80 @@ public class LoginController extends HttpServlet {
 	        case "/resetpassword":
 	            ResetPassword(request, response);
 	            break;
+	            
+	        case "/changePass":
+	        	changePass(request, response);
+	        	break;
 
 	        default:
 	            response.sendError(404);
 	    }
 	}
+	private void changePass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String getCurPassForm = request.getParameter("currPass");
+		String getNewPassForm = request.getParameter("password");
+		String getNewPassCofirmForm = request.getParameter("password_confirm");
+		String url= "/WEB-INF/views/settings_security.jsp";
+	
+
+		if(!getNewPassCofirmForm.equals(getNewPassForm)) {
+
+			request.setAttribute("msg_type", "error");
+			request.setAttribute("msg", "Password is not match!");
+			request.getRequestDispatcher(url).forward(request, response);
+			return;
+		}
+		
+		String getNewPassFormHash = Encode.hash(getNewPassCofirmForm);
+		HttpSession session = request.getSession();
+		UserDao dao = new UserDao();
+		UserSession userSession =(UserSession) session.getAttribute("user");
+		User user = dao.selectUserByUserID(userSession.getIdUser());
+		
+		if(!Encode.verify(getCurPassForm, user.getPassword())) {
+
+			request.setAttribute("msg_type", "error");
+			request.setAttribute("msg", "Password Current is not match!");
+			
+			request.getRequestDispatcher(url).forward(request, response);
+			return;
+		}
+		if(	dao.updatePasswordByUserID(user.getIdUser(), getNewPassFormHash)){
+			HttpSession exists = request.getSession(false);
+			if(exists !=null) {
+				exists.invalidate();
+			}
+		
+			 response.sendRedirect(
+			            request.getContextPath() + "/login/signin?msg=changePassword"
+			        );
+			 return;
+		}
+	}
+
+	
+
+	private void Logout(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(false);
+
+		if (session != null) {
+			session.invalidate();
+		}
+		// cần thêm xóa login
+		
+		
+		request.getRequestDispatcher("/home").forward(request, response);
+
+	}
+
+	
 
 	public void Register(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {
+		  request.setCharacterEncoding("UTF-8");
+		    response.setCharacterEncoding("UTF-8");
 	    String firstname = request.getParameter("firstname");
 	    String lastname = request.getParameter("lastname");
 	    String username = request.getParameter("username");
@@ -128,7 +189,7 @@ public class LoginController extends HttpServlet {
 	    String msg = "";
 	    String url = "/WEB-INF/views/signin.jsp";
 
-	    IDao idao = new UserDao();
+	    UserDao idao = new UserDao();
 
 	    HttpSession session = request.getSession();
 
@@ -172,7 +233,7 @@ public class LoginController extends HttpServlet {
 	        request.getRequestDispatcher(url).forward(request, response);
 	        return;
 	    } else {
-	        User user = new User(firstname, lastname, email, true, username, Encode.toSHA1(password), 1);
+	        User user = new User(firstname, lastname, email, true, username, Encode.hash(password), 1);
 	        idao.addUser(user);
 	        msg = "Susscess register";
 	        request.setAttribute("msg", msg);
@@ -188,28 +249,39 @@ public class LoginController extends HttpServlet {
 	public void Login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password_sigin");
-		String url = "/WEB-INF/views/signin.jsp";
+		String checked = request.getParameter("checkbox_re") ;
+	    String url = "/WEB-INF/views/signin.jsp"; 
+
 		String msg = "";
 
-		IDao dao = new UserDao();
-
-		if (dao.checkAccount(username)) {
+		UserDao dao = new UserDao();
+		
+		if(!dao.checkAccount(username)) {
+			msg= "Account not exists";
+		}else {
 			User user = dao.getFullName(username);
-			boolean checkPass = Encode.toSHA1(password).equals(user.getPassword());
-			if (checkPass) {
+			UserSession userSession = new UserSession(user.getIdUser(), user.getFirstName(),user.getLastName(), user.getRole());
+			boolean checkPass = Encode.verify(password, user.getPassword());
+			
+			if(!checkPass) {
+				msg = "Wrong username or password";
+			}else {
 				HttpSession session = request.getSession();
-
-				session.setAttribute("user", user);
-				url = "/WEB-INF/views/index.jsp";
-				getServletContext().getRequestDispatcher(url).forward(request, response);
+				
+				CookieUtil.saveLoginInfo(response, username, password, (checked !=null)?true:false);
+				
+				session.setAttribute("user", userSession);
+				
+	            response.sendRedirect(request.getContextPath() + "/home"); 
+	            return;
 			}
-
-		} else {
-			msg = "Wrong username or password";
-			request.setAttribute("msg", msg);
-			request.setAttribute("msgtype", "error");
-			getServletContext().getRequestDispatcher(url).forward(request, response);
 		}
+	
+		request.setAttribute("msg", msg);
+	    request.setAttribute("msgtype", "error");
+	    
+	    // Forward về lại trang signin.jsp
+	    getServletContext().getRequestDispatcher(url).forward(request, response);
 
 	}
 
@@ -300,7 +372,7 @@ public class LoginController extends HttpServlet {
 	    }
 	    // Đổi mật khẩu trên database
 	    UserDao userDao = new UserDao();
-	    boolean updateOk = userDao.updatePasswordByEmail(email, Encode.toSHA1(newPwd));
+	    boolean updateOk = userDao.updatePasswordByEmail(email, Encode.hash(newPwd));
 	    if (updateOk) {
 	        // Xóa session reset_email sau khi đổi xong
 	        session.removeAttribute("reset_email");

@@ -9,6 +9,8 @@
     <title>Reset Password | Cara Clothes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+              <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assert/css/style.css">
 </head>
 <body>
@@ -16,8 +18,7 @@
     			<c:set var="ctx" value="${pageContext.request.contextPath}" />
     
     <section id="signup">
-        <form id="resetpwd" action="controller" method="POST" autocomplete="off">
-            <input type="hidden" value="resetpassword" name="action"/>
+        <form id="resetpwd" action="${ctx }/login/resetpassword" method="POST" autocomplete="off">
             <div class="signup_Header">
                 <h1>Cara Clothes</h1>
                 <h2>Reset Password</h2>
