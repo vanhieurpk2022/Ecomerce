@@ -57,7 +57,6 @@ CREATE TABLE Products_Variants (
     variantID INT AUTO_INCREMENT PRIMARY KEY,
     productID INT,
     size NVARCHAR(50),
-    color NVARCHAR(50),
     sku NVARCHAR(100),
     priceAdjustment DECIMAL(10,2) DEFAULT 0,
     stock INT,
@@ -73,6 +72,8 @@ CREATE TABLE Orders (
     status NVARCHAR(50), -- hủy đơn -> cancelled
     totalAmount DECIMAL(10,2),
     paymentMethod NVARCHAR(50),
+    voucherCode NVARCHAR(50),
+    discountAmount INT,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updateAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (userID) REFERENCES Users(userID),
@@ -103,3 +104,20 @@ CREATE TABLE ORDER_DETAILS (
 		FOREIGN KEY (user_id) REFERENCES users(userID),
 		FOREIGN KEY (product_id) REFERENCES products(ProductsID)
 	);
+	-- 10. tạo bảng vourche
+	CREATE TABLE Vouchers (
+    voucherID INT AUTO_INCREMENT PRIMARY KEY,
+    code VARCHAR(50) UNIQUE NOT NULL,
+    discount INT NOT NULL,        -- số tiền giảm
+    quantity INT,                 -- số lượt dùng
+    used INT DEFAULT 0,
+    status BIT DEFAULT 1          -- 1: dùng được, 0: khóa
+);
+
+ -- 11. remember me
+ 	CREATE TABLE RememberTokens (
+    userID INT PRIMARY KEY,
+    token VARCHAR(255),
+    expiredAt DATETIME,
+    FOREIGN KEY (userID) REFERENCES Users(userID)
+);
