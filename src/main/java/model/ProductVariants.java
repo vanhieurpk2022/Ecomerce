@@ -6,7 +6,6 @@ public class ProductVariants {
 	private Integer variantID;
 	private Integer productID;
 	private String size;
-	private String color;
 	private String sku;
 	private BigDecimal priceAdjustment;
 	private Integer stock;
@@ -15,12 +14,11 @@ public class ProductVariants {
 	public ProductVariants() {
 	}
 
-	public ProductVariants(Integer variantID, Integer productID, String size, String color, String sku,
+	public ProductVariants(Integer variantID, Integer productID, String size,  String sku,
 			BigDecimal priceAdjustment, Integer stock, String status) {
 		this.variantID = variantID;
 		this.productID = productID;
 		this.size = size;
-		this.color = color;
 		this.sku = sku;
 		this.priceAdjustment = priceAdjustment;
 		this.stock = stock;
@@ -62,13 +60,6 @@ public class ProductVariants {
 		this.size = size;
 	}
 
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
 
 	public String getSku() {
 		return sku;
@@ -104,8 +95,7 @@ public class ProductVariants {
 
 	@Override
 	public String toString() {
-		return "ProductVariants [variantID=" + variantID + ", productID=" + productID + ", size=" + size + ", color="
-				+ color + ", sku=" + sku + ", priceAdjustment=" + priceAdjustment + ", stock=" + stock + ", status="
+		return "ProductVariants [variantID=" + variantID + ", productID=" + productID + ", size=" + size  + ", sku=" + sku + ", priceAdjustment=" + priceAdjustment + ", stock=" + stock + ", status="
 				+ status + "]";
 	}
 	

@@ -1,9 +1,8 @@
 	package util;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
+
+import java.util.UUID;
+
 import org.mindrot.jbcrypt.BCrypt;
 
 public class Encode {
@@ -15,5 +14,9 @@ public class Encode {
 	
 	public static boolean verify(String plainPassword,String hashedPassword) {
 		return BCrypt.checkpw(plainPassword, hashedPassword);
+	}
+	
+	public static String createTokens() {
+		return UUID.randomUUID().toString();
 	}
 }

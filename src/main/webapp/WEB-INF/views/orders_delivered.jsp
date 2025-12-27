@@ -113,8 +113,8 @@
                                     <span class="fw-bold fs-6">Total:</span> 
                                     <span class="fs-4 text-primary fw-bold">100.000 VNĐ</span>
                                 </div>
-                                <button class="btn btn-warning text-light mt-2 mt-md-0 disabled">
-                                    <i class="bi bi-star"></i> Review
+                                 <button class="btn btn-danger text-light mt-2 mt-md-0 disabled">
+                                    <i class="bi bi-x-lg"></i> Cancel
                                 </button>
                             </div>
                         </div>
@@ -190,8 +190,8 @@
                                     <span class="fw-bold fs-6">Total:</span> 
                                     <span class="fs-4 text-primary fw-bold">100.000 VNĐ</span>
                                 </div>
-                                <button class="btn btn-warning text-light mt-2 mt-md-0 disabled">
-                                    <i class="bi bi-star"></i> Review
+                                  <button class="btn btn-danger text-light mt-2 mt-md-0 disabled">
+                                    <i class="bi bi-x-lg"></i> Cancel
                                 </button>
                             </div>
                         </div>

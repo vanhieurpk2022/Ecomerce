@@ -41,6 +41,11 @@
             <i class="bi bi-archive"></i> Delivered
          </a>
       </li>
+       <li>
+         <a href="${ctx}/user/review" class="${account eq 8 ? 'active' : ''}">
+            <i class="bi bi-star"></i> Rate
+         </a>
+      </li>
       <li>
          <a href="${ctx}/user/help" class="${account eq 7 ? 'active' : ''}">
             <i class="bi bi-info-circle"></i> Help & Support

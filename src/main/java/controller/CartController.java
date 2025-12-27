@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -18,7 +19,7 @@ import util.CookieUtil;
 /**
  * Servlet implementation class CartController
  */
-@WebServlet("/cart")
+@WebServlet("/cart/*")
 public class CartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -36,29 +37,37 @@ public class CartController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String action = request.getParameter("action");
-		if (action != null) {
-			switch (action) {
-			case "AddProduct":
-				AddProductToCart(request, response);
-				break;
-			case "RemoveProducts":
-				removeProducts(request, response);
-				break;
-			case "OnchangeQuanity":
-				changeQuanity(request, response);
-				break;
-		
-			default:
-				throw new IllegalArgumentException("Unexpected value: " + action);
-			}
-		} else {
-			request.setAttribute("active", "cart");
-			request.getRequestDispatcher("/WEB-INF/views/cart.jsp").forward(request, response);
+		String path = request.getPathInfo();
+		HttpSession session = request.getSession();
 
+		if(path != null) {
+			switch (path) {
+			case "/checkout": 
+				if(session.getAttribute("user" )!=null) {
+					request.getRequestDispatcher("/WEB-INF/views/checkout_user.jsp").forward(request, response);;
+					return;
+				}
+				request.getRequestDispatcher("/WEB-INF/views/checkout_guest.jsp").forward(request, response);;
+				return;
+			case "/order_guest": 
+				if(session.getAttribute("user" )!=null) {
+					response.sendRedirect(request.getContextPath() +"/user/orders_his");
+					return;
+				}
+				request.getRequestDispatcher("/WEB-INF/views/order_history.jsp").forward(request, response);;
+				return;
+					
+				
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + path);
+			}
 		}
+		
+		request.getRequestDispatcher("/WEB-INF/views/cart.jsp").forward(request, response);;
 
 	}
+
+
 
 
 	private void changeQuanity(HttpServletRequest request, HttpServletResponse response) {
@@ -78,6 +87,7 @@ public class CartController extends HttpServlet {
 		Cart getCart = (Cart) session.getAttribute("Cart");
 
 		getCart.removeItems(getVariantID);
+		CookieUtil.saveCart(response, getCart);
 		if (getCart.getSize() <= 0) {
 			CookieUtil.clearCart(response);
 		}
@@ -118,7 +128,27 @@ public class CartController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		String action = request.getParameter("action");
+		if (action != null) {
+			switch (action) {
+			case "AddProduct":
+				AddProductToCart(request, response);
+				break;
+			case "RemoveProducts":
+				removeProducts(request, response);
+				break;
+			case "OnchangeQuanity":
+				changeQuanity(request, response);
+				break;
+		
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + action);
+			}
+		} else {
+			request.setAttribute("active", "cart");
+			request.getRequestDispatcher("/WEB-INF/views/cart.jsp").forward(request, response);
+
+		}
 	}
 
 }

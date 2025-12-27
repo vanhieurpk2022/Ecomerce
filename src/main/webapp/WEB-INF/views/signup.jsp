@@ -79,6 +79,9 @@
         
    
     <script src="${pageContext.request.contextPath}/assert/javascript/script.js"></script>
+         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assert/javascript/checkPassword.js"></script>
+  
     <script>
         showHiddenPassword("pwd", "icon_show");
         showHiddenPassword("pwd_confirm", "icon_show_confirm");
@@ -86,9 +89,7 @@
         checkPasswordRealtime("pwd", "pwd_confirm", "msg_js", "signup_btn");
 
     </script>
-     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assert/javascript/checkPassword.js"></script>
-  
+
     	
 </body>
 

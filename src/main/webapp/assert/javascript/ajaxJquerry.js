@@ -114,6 +114,7 @@ function addToCart() {
 	sendDataCart(variantID, quantity);
 }
 
+
 // --- MAIN: Kích hoạt mọi thứ khi trang load --- -(sproduct)
 document.addEventListener("DOMContentLoaded", function() {
 	const select = document.getElementById("selectTagSize");
@@ -127,4 +128,5 @@ document.addEventListener("DOMContentLoaded", function() {
 	// Chạy 1 lần ngay khi vào trang để hiển thị thông tin của Size đầu tiên
 	updateStockDisplay();
 	updatePriceDisplay();
+
 });

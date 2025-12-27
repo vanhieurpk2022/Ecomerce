@@ -6,31 +6,30 @@ public class Address {
 	private Integer userID;
 	private String fullAddress;
 	private String city;
-	private String district;
 	private String ward;
 	private String phone;
 	private Boolean isDefault;
-
-	public Address(Integer addressID, Integer userID, String fullAddress, String city, String district, String ward,
+	private String country;
+	public Address(Integer addressID, Integer userID, String fullAddress, String city, String ward,
 			String phone, Boolean isDefault) {
 		super();
 		this.addressID = addressID;
 		this.userID = userID;
 		this.fullAddress = fullAddress;
 		this.city = city;
-		this.district = district;
 		this.ward = ward;
 		this.phone = phone;
 		this.isDefault = isDefault;
 	}
 	public Address( String fullAddress, String city, String ward,
-			String phone,Integer userID, boolean isDefault) {
+			String phone,Integer userID,String country, boolean isDefault) {
 		super();
 		this.fullAddress = fullAddress;
 		this.city = city;
 		this.ward = ward;
 		this.phone = phone;
 		this.userID = userID;
+		this.country =country;
 		this.isDefault = isDefault;
 	}
 	public Address() {
@@ -69,13 +68,6 @@ public class Address {
 		this.city = city;
 	}
 
-	public String getDistrict() {
-		return district;
-	}
-
-	public void setDistrict(String district) {
-		this.district = district;
-	}
 
 	public String getWard() {
 		return ward;
@@ -100,5 +92,11 @@ public class Address {
 	public void setIsDefault(Boolean isDefault) {
 		this.isDefault = isDefault;
 	}
-
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	
 }

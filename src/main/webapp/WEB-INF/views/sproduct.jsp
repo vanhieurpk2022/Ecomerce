@@ -200,21 +200,32 @@
 		</div>
 		<div class="sing-pro-details">
 		
-			<h6>Home / T-Shirt</h6>
+			<h6><a class="text-decoration-none" href="#" onclick="history.back()">Home</a> / ${sproduct.productName }</h6>
 			<h4>${sproduct.productName }</h4>
 			<fmt:setLocale value="vi_VN"/>
 			
 			<h2 id="displayPrice"><fmt:formatNumber value="${sproduct.price }" pattern="#,##0 VNĐ"/></h2>
-				
-			<select id="selectTagSize"  >
+			<div class="d-flex flex-row">
+				<div class="d-flex flex-row align-items-center"> 
+				<p class="me-3 p-2 mt-2">Size: </p>
+					<select id="selectTagSize"  >
 				<c:forEach var="v" items="${getVariants}">
-				    <option value="${v.size}" data-variantid="${v.variantID}" data-stock="${v.stock }" data-final-price = "${v.priceAdjustment + sproduct.price}" <c:if test="${v.stock <= 0}">disabled</c:if>>${v.size}</option>
+				    <option value="${v.size}" data-productid="${sproduct.productID }" data-variantid="${v.variantID}" data-stock="${v.stock }" data-final-price = "${v.priceAdjustment + sproduct.price}" <c:if test="${v.stock <= 0}">disabled</c:if>>${v.size}</option>
 				</c:forEach>
-
-				
 			</select>
-            <input style="margin-top:15px;" id="quanity" type="number" value="1" min ="1">
-			<button class="normal" id="btn_AddToCart" onclick="addToCart()">Add To Cart</button>
+				</div>
+				
+		</div>
+		<div class="d-flex flex-row align-items-center mb-5">
+			<p class="mt-2 me-2">Số Lượng: </p>
+			  <input  id="quanity" type="number" value="1" min ="1">
+			
+		</div>
+		
+		<div>
+					<button class="normal" id="btn_AddToCart" onclick="addToCart()">Add To Cart</button>
+		
+		</div>
     
             
             <h4> <p style="opacity=50%;">Remain: <span id="remainSpan"></span>  </p><br>
@@ -223,8 +234,8 @@
         </div>
     </section>
     <!-- Đánh giá và thông tin mở rộng -->
-    <section>
-        <div class="rating-flex">
+    <section class="">
+        <div class="rating-flex d-flex flex-row justify-content-evenly">
             <!-- Bên trái: Đánh giá sản phẩm (DỮ LIỆU MẶC ĐỊNH) -->
             <div class="rating-panel">
                 <div class="rating-title">Đánh giá</div>
@@ -270,7 +281,6 @@
                         <span class="rating-bar-percent">0%</span>
                     </div>
                 </div>
-                <button class="blue-btn" onclick="alert('Chức năng viết đánh giá sẽ sớm có!')">Viết đánh giá</button>
             </div>
             <!-- Bên phải: Mở rộng thông tin sản phẩm -->
             <div class="product-info-extend">

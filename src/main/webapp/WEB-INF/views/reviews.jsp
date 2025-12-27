@@ -113,8 +113,8 @@
                                     <span class="fw-bold fs-6">Total:</span> 
                                     <span class="fs-4 text-primary fw-bold">100.000 VNĐ</span>
                                 </div>
-                                  <button class="btn btn-danger text-light mt-2 mt-md-0 disabled" >
-                                    <i class="bi bi-x-lg"></i> Cancel
+                                <button class="btn btn-warning text-light mt-2 mt-md-0 ">
+                                    <i class="bi bi-star"></i> Review
                                 </button>
                             </div>
                         </div>
@@ -130,15 +130,17 @@
                                         <i class="bi bi-calendar"></i> 2025-11-24
                                     </span>
                                 </div>
-                                <!--  <div class="text-success p-2 bg-success-subtle fw-bold rounded-2 mt-2 mt-md-0">
+                                <div class="text-success p-2 bg-success-subtle fw-bold rounded-2 mt-2 mt-md-0">
                                     <i class="bi bi-archive"></i> Delivered
-                                </div>-->
-                                
+                                </div>
+                                 <div class="text-success p-2 bg-success-subtle fw-bold rounded-2 mt-2 mt-md-0">
+                                    <i class="bi bi-archive"></i> Delivered
+                                </div>
                                 <!-- Alternative Status Badges (Uncomment as needed) -->
                                 <!-- Awaiting Status -->
-                               <div class="text-secondary p-2 bg-body-secondary fw-bold rounded-2 mt-2 mt-md-0">
+                              <!-- <div class="text-secondary p-2 bg-body-secondary fw-bold rounded-2 mt-2 mt-md-0">
                                     <i class="bi bi-clock"></i> Awaiting
-                                </div> 
+                                </div> -->
                                 
                                 <!-- Shipping Status -->
                                 <!-- <div class="p-2 bg-warning-subtle fw-bold rounded-2 mt-2 mt-md-0">
@@ -190,8 +192,8 @@
                                     <span class="fw-bold fs-6">Total:</span> 
                                     <span class="fs-4 text-primary fw-bold">100.000 VNĐ</span>
                                 </div>
-                                  <button class="btn btn-danger text-light mt-2 mt-md-0 disabled" >
-                                    <i class="bi bi-x-lg"></i> Cancel
+                                <button class="btn btn-warning text-light mt-2 mt-md-0 ">
+                                    <i class="bi bi-star"></i> Review
                                 </button>
                             </div>
                         </div>

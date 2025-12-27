@@ -48,13 +48,14 @@ function removeAddressByID(button, closet,linkURL) {
 }
 
 // thêm address
-function addAddress(button, closet,linkURL) {
+function addAddress(button, containerSelector,linkURL) {
 
 	const $btn = $(button);
+	const getAddressID = document.getElementById("addressID").value;
 	const getFullAddress = document.getElementById("address1").value;
 	const getWard = document.getElementById("district").value;
 	const getCity = document.getElementById("city").value;
-	//const getCountry = document.getElementById("country").value;
+	const countryText = $("#country option:selected").text();
 	const getPhone = document.getElementById("phone").value;
 
 	$.ajax({
@@ -64,34 +65,47 @@ function addAddress(button, closet,linkURL) {
 			fulladdress: getFullAddress,
 			district: getWard,
 			city: getCity,
-			//country:getCountry,
+			country:countryText,
 			phone: getPhone
 		},
 		success: function(res) {
-			
-			const newAddressHtml = `
-					                 <div class="location-display position-relative">
-					                     <i class="fas fa-map-marker-alt"></i>
-					                     <div>
-					                    
-					                         <p style="color: #666; margin-top: 0.5rem;">
-					                             ${getFullAddress}, ${getWard}, ${getCity}, VN.
-					                         </p>
-					                         <p style="color: #666; margin-top: 0.5rem;">Phone: ${getPhone}</p>
-					                     </div>
-					                     <div class="position-absolute top-50 end-0 translate-middle-y me-3">
-					                         <a href="#" class="text-decoration-none"> <i class="bi bi-check-lg"></i> </a>
-					                         <a href="#" class="ms-2"> <i class="bi bi-trash text-danger"></i> </a>
-					                     </div>
-					                 </div>
-					             `;
+			const newAddressID = res.addressID;
 
-			$(closet).append(newAddressHtml);
+			   const newAddressHtml = `
+			       <div class="location-display position-relative">
+			           <i class="fas fa-map-marker-alt"></i>
+			           <div>
+			               <p style="color:#666;margin-top:0.5rem;">
+			                   ${getFullAddress}, ${getWard}, ${getCity}, ${countryText}
+			               </p>
+			               <p class="text-capitalize" style="color:#666;margin-top:0.5rem;">
+			                   Phone: ${getPhone}
+			               </p>
+			           </div>
+			           <div class="position-absolute top-50 end-0 translate-middle-y me-3">
+			               <button data-address-id="${newAddressID}"
+			                   onclick="updateCurrenAddress(this,'${linkURL}')"
+			                   class="border-0 bg-transparent">
+			                   <i class="bi bi-check-lg"></i>
+			               </button>
+
+			               <button data-address-id="${newAddressID}"
+			                   onclick="removeAddressByID(this,'.location-display','${linkURL}')"
+			                   class="ms-2 border-0 bg-transparent">
+			                   <i class="bi bi-trash text-danger"></i>
+			               </button>
+			           </div>
+			       </div>
+			   `;
+
+			$(containerSelector).append(newAddressHtml);
 
 			document.getElementById("address1").value = "";
 			document.getElementById("district").value = "";
 			document.getElementById("city").value = "";
 			document.getElementById("phone").value = "";
+			
+			console.log("Thêm Sản Phẩm Thành Công");
 
 		},
 		error: function() {

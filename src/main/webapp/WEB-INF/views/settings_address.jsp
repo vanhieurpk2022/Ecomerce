@@ -65,8 +65,8 @@
                                 <input type="text" id="phone" placeholder="Enter your phone" name="phone" required>
                             </div>
                         </form>
-					<div id="address-list ">
 					<div class="list-display-address">
+					<div id="address-list">
 				
 						<c:choose>
 							<c:when test="${empty address }">
@@ -74,11 +74,12 @@
 							</c:when>
 							<c:otherwise >
 								<c:forEach var="a" items="${address }">
+									<input type="hidden" value="${a.addressID}" id="addressID"/>
 									  <div class="location-display position-relative">
                             <i class="fas fa-map-marker-alt"></i>
                             <div>
                             <c:if test="${a.isDefault}">   <strong>Current Location</strong>  </c:if>
-                                <p style="color: #666; margin-top: 0.5rem;">${a.fullAddress }, ${a.ward }, ${a.city }, VN.</p>
+                                <p class="text-capitalize" style="color: #666; margin-top: 0.5rem;">${a.fullAddress }, ${a.ward }, ${a.city }, VN.</p>
                             <p style="color: #666; margin-top: 0.5rem;">Phone: ${a.phone }</p>
                            	
                             </div>
@@ -109,10 +110,6 @@
 
          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="${pageContext.request.contextPath}/assert/javascript/checkPassword.js"></script>
-    <script>
-    showHiddenPassword("new-password", "icon_show");
-    showHiddenPassword("confirm-password", "icon_show_0");
-        </script>
                  <script src="${pageContext.request.contextPath}/assert/javascript/script.js"></script>
         
               

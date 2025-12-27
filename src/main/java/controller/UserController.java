@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -42,10 +41,17 @@ public class UserController extends HttpServlet {
      	HttpSession session = request.getSession();
     	UserSession userSession = (UserSession) session.getAttribute("user");
 	        switch (path) {
-	            case "/orders":
-	            	request.getRequestDispatcher("/WEB-INF/views/order_history.jsp")
-	                   .forward(request, response);
-	                break;
+	        case "/review":
+            	request.setAttribute("account",8);
+
+            	request.getRequestDispatcher("/WEB-INF/views/reviews.jsp")
+                   .forward(request, response);
+                break;
+	        case "/order_history":
+       
+            	request.getRequestDispatcher("/WEB-INF/views/order_history.jsp")
+                   .forward(request, response);
+                break;
 	            case "/orders_his":
 	            	request.setAttribute("account",4);
 
@@ -55,13 +61,13 @@ public class UserController extends HttpServlet {
 	            case "/orders_shipping":
 	            	request.setAttribute("account",5);
 
-	            	request.getRequestDispatcher("/WEB-INF/views/orders_his.jsp")
+	            	request.getRequestDispatcher("/WEB-INF/views/orders_shipping.jsp")
 	                   .forward(request, response);
 	                break;
 	            case "/orders_delivered":
 	            	request.setAttribute("account",6);
 
-	            	request.getRequestDispatcher("/WEB-INF/views/orders_his.jsp")
+	            	request.getRequestDispatcher("/WEB-INF/views/orders_delivered.jsp")
 	                   .forward(request, response);
 	                break;
 	            case "/settings":
@@ -190,7 +196,7 @@ public class UserController extends HttpServlet {
 
 	}
 
-	private void addAddress(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+	private void addAddress(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// TODO Auto-generated method stub
 		  request.setCharacterEncoding("UTF-8");
 		  response.setCharacterEncoding("UTF-8");
@@ -198,14 +204,16 @@ public class UserController extends HttpServlet {
 		String getAddressLine = request.getParameter("fulladdress");
 		String getWard = request.getParameter("district");
 		String getCity = request.getParameter("city");
-//		String getCountry = request.getParameter("country");
+		String getCountry = request.getParameter("country");
 		String phone = request.getParameter("phone");
 		
 		AddressDao dao = new AddressDao();
 		UserSession userSession = (UserSession) session.getAttribute("user");
-		Address addr = new Address(getAddressLine,getCity,getWard,phone,userSession.getIdUser(),false);
-		dao.addAddressByUserID(addr);
-		response.setStatus(HttpServletResponse.SC_OK);
+		Address addr = new Address(getAddressLine,getCity,getWard,phone,userSession.getIdUser(),getCountry,false);
+		int getId =dao.addAddressByUserID(addr);
+
+	    response.setContentType("application/json");
+	    response.getWriter().write("{\"addressID\":" + getId + "}");
 
 	}
 	

@@ -6,6 +6,8 @@ public class UserSession {
 	private Integer idUser;
 	private String firstname;
 	private String lastname;
+	private String TokenID;
+	private LocalDate expired;
 
 	private Integer role;
 	public UserSession(Integer idUser, String firstname,String lastname, Integer role) {
