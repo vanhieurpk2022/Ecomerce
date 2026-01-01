@@ -8,12 +8,16 @@ public class OrderDetail {
 	private Integer productID;
 	private Integer variantID;
 	private Integer quantity;
-	private BigDecimal price;
+	private BigDecimal price; 
+	
+	
+	 private Products product;
+	    private ProductVariants variant;
+	
 
-	public OrderDetail(Integer orderDetailID, Integer orderID, Integer productID, Integer variantID, Integer quantity,
+	public OrderDetail( Integer orderID, Integer productID, Integer variantID, Integer quantity,
 			BigDecimal price) {
 		super();
-		this.orderDetailID = orderDetailID;
 		this.orderID = orderID;
 		this.productID = productID;
 		this.variantID = variantID;
@@ -71,6 +75,22 @@ public class OrderDetail {
 
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+
+	public Products getProduct() {
+		return product;
+	}
+
+	public void setProduct(Products product) {
+		this.product = product;
+	}
+
+	public ProductVariants getVariant() {
+		return variant;
+	}
+
+	public void setVariant(ProductVariants variant) {
+		this.variant = variant;
 	}
 
 }

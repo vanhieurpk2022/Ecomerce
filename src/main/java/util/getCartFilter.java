@@ -15,15 +15,14 @@ import javax.servlet.http.HttpSession;
 import model.Cart;
 
 /**
- * Servlet Filter implementation class AuthoFilter
+ * Servlet Filter implementation class getCartFilter
  */
-
-public class AuthoFilter implements Filter {
+public class getCartFilter implements Filter {
 
     /**
      * Default constructor. 
      */
-    public AuthoFilter() {
+    public getCartFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -37,11 +36,9 @@ public class AuthoFilter implements Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	 @Override
-	    public void doFilter(ServletRequest request, ServletResponse response,
-	                         FilterChain chain)
-	            throws IOException, ServletException {
-
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		// TODO Auto-generated method stub
+		// place your code here
 		 HttpServletRequest req = (HttpServletRequest) request;
 		 HttpServletResponse resp = (HttpServletResponse) response;
 
@@ -54,28 +51,9 @@ public class AuthoFilter implements Filter {
 		     // chỉ tạo session khi thực sự cần
 		     req.getSession(true).setAttribute("Cart", cart);
 		 }
-
-		 /* ================== CHECK LOGIN ================== */
-		 boolean loggedIn = (session != null &&
-		         session.getAttribute("user") != null);
-		 
-		 if (loggedIn) {
-		     chain.doFilter(request, response);
-		 } else {
-			 // 🔥 LƯU URL GỐC (để login xong quay lại)
-			    String uri = req.getRequestURI();
-			    String query = req.getQueryString();
-			    String originalUrl = uri + (query != null ? "?" + query : "");
-
-			    req.getSession(true).setAttribute("redirectAfterLogin", originalUrl);
-
-			    request.setAttribute("msgtype", "error");
-			    request.setAttribute("msg", "Please login first");
-
-			    req.getRequestDispatcher("/WEB-INF/views/signin.jsp")
-			       .forward(request, response);
-		 }
-	    }
+		// pass the request along the filter chain
+		chain.doFilter(request, response);
+	}
 
 	/**
 	 * @see Filter#init(FilterConfig)

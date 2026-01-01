@@ -27,9 +27,7 @@
         <h2>#let's_talk</h2>
         <p>LEAVE A MESSENGE. We love to hear from you!</p>
     </section>
-			<div class="container mt-2">
-        <p class="text-center">If you have orders you can see <a href="${ctx }/cart/order_guest"> here</a> </p>
-    </div>
+		
     <section id="cart" class="section-p1">
     <div class="table-warraper">
         <table >
@@ -70,7 +68,7 @@
     	    <div class="d-flex flex-row">
     	 <p> <span class="fs-4">Total:</span>  <strong id="TotalPrice"> <fmt:formatNumber value="${sessionScope.Cart.price}" pattern="#,##0 VNĐ"/> </strong> </p>
     </div>
-     <a href="${ctx }/cart/checkout" class="btn btn-success ">Proceed to checkout</a>
+     <a href="${ctx }/cart/checkout"  class="btn btn-success ${empty sessionScope.Cart.items ?'disabled':''}" aria-disabled="true">Proceed to checkout</a>
      </div>
     </section>
 
@@ -80,7 +78,7 @@
 
          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="${ctx}/assert/javascript/script.js"></script>
-        <script src="${ctx}/assert/javascript/ajaxJquerry.js"></script>
+        <script src="${ctx}/assert/javascript/cartAjax.js"></script>
     
 </body>
 

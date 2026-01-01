@@ -1,4 +1,27 @@
 
+// cancel order
+function cancelOrder(orderID,linkUrl){
+	
+	$.ajax({
+			url: linkUrl +"/cart?action=changeStatusOrder",
+			type: "POST",
+			data: {
+				orderID:orderID
+			},
+			success: function(res) {
+				window.location.reload();
+
+		
+			},
+			error: function() {
+				console.log("Cập Nhật Status thất bại");
+			}
+		});
+}
+
+
+
+
 // delete address
 function updateCurrenAddress(button,linkURL) {
 
@@ -51,10 +74,10 @@ function removeAddressByID(button, closet,linkURL) {
 function addAddress(button, containerSelector,linkURL) {
 
 	const $btn = $(button);
-	const getAddressID = document.getElementById("addressID").value;
 	const getFullAddress = document.getElementById("address1").value;
 	const getWard = document.getElementById("district").value;
-	const getCity = document.getElementById("city").value;
+	const getCity = $("#city").val();
+	const getCityText =$("#city option:selected").text();
 	const countryText = $("#country option:selected").text();
 	const getPhone = document.getElementById("phone").value;
 
@@ -70,15 +93,17 @@ function addAddress(button, containerSelector,linkURL) {
 		},
 		success: function(res) {
 			const newAddressID = res.addressID;
-
+			const getAmountAddress = res.count;
 			   const newAddressHtml = `
 			       <div class="location-display position-relative">
 			           <i class="fas fa-map-marker-alt"></i>
-			           <div>
-			               <p style="color:#666;margin-top:0.5rem;">
-			                   ${getFullAddress}, ${getWard}, ${getCity}, ${countryText}
+			           <div>	
+							${getAmountAddress ==0 ?'<strong>Current Location</strong> ' :''}
+
+			               <p style="color:#666;">
+			                   ${getFullAddress}, ${getWard}, ${getCityText}, ${countryText}
 			               </p>
-			               <p class="text-capitalize" style="color:#666;margin-top:0.5rem;">
+			               <p class="text-capitalize">
 			                   Phone: ${getPhone}
 			               </p>
 			           </div>
@@ -97,9 +122,9 @@ function addAddress(button, containerSelector,linkURL) {
 			           </div>
 			       </div>
 			   `;
-
+	
 			$(containerSelector).append(newAddressHtml);
-
+			$("#warning_list").hide();
 			document.getElementById("address1").value = "";
 			document.getElementById("district").value = "";
 			document.getElementById("city").value = "";

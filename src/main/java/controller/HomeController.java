@@ -40,13 +40,6 @@ public class HomeController extends HttpServlet {
 		ProductsDao dao = new ProductsDao();
 		List<Products> pro1 = dao.SelectAll(0, 16);
 		
-		HttpSession session = request.getSession();
-		Cart cart = CookieUtil.getCart(request);
-		if(cart !=null) {
-		    session.setAttribute("Cart", cart);
-
-		}
-		
 		request.setAttribute("active", "index");
 		request.setAttribute("Product1", pro1);
 

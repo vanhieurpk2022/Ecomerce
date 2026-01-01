@@ -1,11 +1,13 @@
 package dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.ProductVariants;
 import model.Products;
 
 public class ProductsDao extends BaseDao {
@@ -72,6 +74,36 @@ public class ProductsDao extends BaseDao {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	public Products selectByVariantId(int variantID) {
+		Products p = null;
+
+		String sql = "SELECT p.* FROM products p JOIN Products_variants pv ON p.productsID = pv.productID WHERE pv.variantID =?";
+
+		try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setInt(1, variantID);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				p = new Products();
+				p.setProductID(rs.getInt("productsID"));
+				p.setProductName(rs.getString("productsName"));
+				p.setCategoryID(rs.getInt("categoryID"));
+				p.setPrice(rs.getBigDecimal("price"));
+				p.setStatus(rs.getString("status"));
+				p.setImg(rs.getString("img"));
+				p.setDescription(rs.getString("description"));
+				p.setAvg_rating(rs.getBigDecimal("avg_rating"));
+				p.setReview_count(rs.getInt("review_count"));
+				
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return p;
 	}
 
 }

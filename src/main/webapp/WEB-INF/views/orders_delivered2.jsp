@@ -52,8 +52,7 @@
                         </div>
                           </form>
                              <hr>
-            	<c:if test="${ empty requestScope.orders  }"> <div class="text-danger text-center">you dont have any orders</div></c:if>
-                                               	
+                       	<c:if test="${ empty requestScope.orders  }"> <div class="text-danger text-center">you dont have any orders delivered</div></c:if>
                         <div class="overflow-y-scroll" style="max-height: 1000px;">
                         <c:forEach var ="ord" items="${requestScope.orders}">
                         <!-- Order Card -->
@@ -95,7 +94,7 @@
                                 <hr>
                               <p class=" fw-semibold m-0">Infomation shipping	</p>
                              <div class="d-flex mb-3 flex-column shadow-sm rounded-2 p-3">
-                                <div class="d-flex flex-row ">
+                                 <div class="d-flex flex-row ">
                                     <div class="mt-2 d-none d-sm-flex"> <i class="bi bi-geo-alt fs-4 p-3 "></i> </div>
                                      <div class="mt-2 d-flex d-md-none"> <i class="bi bi-geo-alt fs-4"></i> </div>
                                     

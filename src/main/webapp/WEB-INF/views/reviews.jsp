@@ -46,30 +46,7 @@
                         <!-- Order Card -->
                         <div class="shadow p-3 border rounded-3 mb-3">
                             <!-- Order Header -->
-                            <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-2">
-                                <div>
-                                    <span class="fw-bold">Order #20251118</span>
-                                    <span class="small text-muted d-block d-md-inline ms-md-2">
-                                        <i class="bi bi-calendar"></i> 2025-11-24
-                                    </span>
-                                </div>
-                                <div class="text-success p-2 bg-success-subtle fw-bold rounded-2 mt-2 mt-md-0">
-                                    <i class="bi bi-archive"></i> Delivered
-                                </div>
-                                
-                                <!-- Alternative Status Badges (Uncomment as needed) -->
-                                <!-- Awaiting Status -->
-                                <!-- <div class="text-secondary p-2 bg-body-secondary fw-bold rounded-2 mt-2 mt-md-0">
-                                    <i class="bi bi-clock"></i> Awaiting
-                                </div> -->
-                                
-                                <!-- Shipping Status -->
-                                <!-- <div class="p-2 bg-warning-subtle fw-bold rounded-2 mt-2 mt-md-0">
-                                    <i class="bi bi-truck text-warning"></i>
-                                    <span class="text-warning">Shipping</span>
-                                </div> -->
-                            </div>
-                            
+                          
                             <hr>
                             
                             <!-- Product Items -->
@@ -89,30 +66,14 @@
                                 </div>
                             </div>
                             
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="flex-shrink-0">
-                                    <img src="https://via.placeholder.com/80" alt="Product" width="80" height="80" class="rounded">
-                                </div>
-                                <div class="flex-grow-1 px-3 position-relative">
-                                    <p class="mb-1 fw-semibold">Tên Sản Phẩm</p>
-                                    <div class="small text-muted">Quantity: 4</div>
-                                    <div class="d-md-none mt-1">
-                                        <span class="fw-bold">100.000 VNĐ</span>
-                                    </div>
-                                    <div class="d-none d-md-block position-absolute end-0 top-0 p-2">
-                                        <span class="fw-bold">100.000 VNĐ</span>
-                                    </div>
-                                </div>
-                            </div>
                             
                             <hr>
                             
                             <!-- Order Total -->
-                            <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
-                                <div>
-                                    <span class="fw-bold fs-6">Total:</span> 
-                                    <span class="fs-4 text-primary fw-bold">100.000 VNĐ</span>
-                                </div>
+                            <div class="d-flex flex-column flex-md-row justify-content-end align-items-start align-items-md-center">
+                               <button class="btn btn-info  text-light mt-2 mt-md-0 me-2">
+                                   Buy
+                                </button>
                                 <button class="btn btn-warning text-light mt-2 mt-md-0 ">
                                     <i class="bi bi-star"></i> Review
                                 </button>

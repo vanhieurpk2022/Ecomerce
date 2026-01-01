@@ -3,12 +3,8 @@ package model;
 import java.math.BigDecimal;
 
 
-import dao.ProductVariantsDao;
-import dao.ProductsDao;
-
 public class CartItems {
 	private int variantID;
-
 	private int quantity;
 
 	// thông tin để hiển thị
@@ -32,40 +28,23 @@ public class CartItems {
 		this.quantity = quanity;
 	}
 
+    public BigDecimal getSubtotal() {
+        return variant.getFinalPrice(products.getPrice())
+                      .multiply(BigDecimal.valueOf(quantity));
+    }
+
 	public ProductVariants getVariant() {
-		if(variant == null) {
-			ProductVariantsDao dao = new ProductVariantsDao();
-			variant = dao.SelectByProductVariantID(variantID);
-		}
-		
 		return variant;
 	}
+	public void setVariant(ProductVariants variant) {
+		this.variant = variant;
+	}
 	public Products getProducts() {
-		if(products ==null) {
-			ProductVariantsDao dao = new ProductVariantsDao();
-			products = dao.getProductFromVariant(variantID);
-		}
-		
 		return products;
 	}
-	public BigDecimal getSubtotal() {
-		BigDecimal quan = new BigDecimal(quantity);
-		return getFinalPriceCart().multiply(quan);
+	public void setProducts(Products products) {
+		this.products = products;
 	}
-
-	public BigDecimal getFinalPriceCart() {
-		  Products prod = getProducts();
-	        ProductVariants var = getVariant();
-	        
-	        if (prod == null || var == null) {
-	            return BigDecimal.ZERO;
-	        }
-	        
-	        return var.getFinalPrice(prod.getPrice());
-	}
-
-
-
 	public int getQuantity() {
 		return quantity;
 	}

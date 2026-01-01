@@ -1,13 +1,13 @@
 package model;
 
-public class vourchers {
+public class vouchers {
 	private Integer voucherID;
 	private String code;
 	private Integer discount;
 	private Integer quantity;
 	private Integer used;
 	private Boolean status;
-	public vourchers(Integer voucherID, String code, Integer discount, Integer quantity, Integer used, Boolean status) {
+	public vouchers(Integer voucherID, String code, Integer discount, Integer quantity, Integer used, Boolean status) {
 		super();
 		this.voucherID = voucherID;
 		this.code = code;
@@ -16,7 +16,7 @@ public class vourchers {
 		this.used = used;
 		this.status = status;
 	}
-	public vourchers() {
+	public vouchers() {
 		super();
 	}
 	public Integer getVoucherID() {

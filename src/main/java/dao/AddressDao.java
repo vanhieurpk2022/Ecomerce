@@ -9,10 +9,11 @@ import java.util.List;
 
 import model.Address;
 
-public class AddressDao extends BaseDao{
+public class AddressDao extends BaseDao {
 	public List<Address> selectAddressByUserID(int id){
 		List<Address> list = new ArrayList<Address>();
-		String sql = "select * from address where userID =? ORDER BY isDefault DESC";
+		String sql = "select a.addressID,a.fulladdress,s.city_name as city, a.ward,a.phone,a.userID,a.isDefault, a.country from address a "
+				+ "JOIN shipping s ON s.city_code = a.city_code where userID =?  ORDER BY isDefault DESC";
 		try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 
 			ps.setInt(1, id);
@@ -35,7 +36,7 @@ public class AddressDao extends BaseDao{
 		return list;
 	}
 	public int addAddressByUserID( Address address) {
-		String sql = "insert into address(fulladdress,city,ward,phone,userID,isDefault,country) values(?,?,?,?,?,?,?)";
+		String sql = "insert into address(fulladdress,city_code,ward,phone,userID,isDefault,country) values(?,?,?,?,?,?,?)";
 		try (Connection conn = getConnection(); 
 				PreparedStatement ps = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
 
@@ -69,9 +70,9 @@ public class AddressDao extends BaseDao{
 			int result = ps.executeUpdate();
 			return result >0;
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
+
 		}
-		return false;
 	}
 	public boolean updateAllIsDefaultAddress(int userID) {
 		String sql = "UPDATE  address SET isDefault = 0 where userID=?";
@@ -82,9 +83,8 @@ public class AddressDao extends BaseDao{
 			int result = ps.executeUpdate();
 			return result >0;
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
-		return false;
 	}
 	public boolean updateCurrentAddressByID(int id, int userID) {
 		// reset lại các point
@@ -98,8 +98,47 @@ public class AddressDao extends BaseDao{
 			int result = ps.executeUpdate();
 			return result >0;
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
-		return false;
+	}
+
+	public int isFirstAddress(int userID)  {
+		String sql = "SELECT COUNT(*) FROM address WHERE userID = ?";
+		try( Connection conn = getConnection();
+		PreparedStatement ps = conn.prepareStatement(sql);){
+
+		ps.setInt(1, userID);
+		ResultSet rs = ps.executeQuery();
+
+		rs.next();
+		return rs.getInt(1);
+		}catch(Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public Address selectAddressByAddressID(int addressId)  {
+		Address add = new Address();
+		String sql = "select a.addressID,a.fulladdress,s.city_name as city, a.ward,a.phone,a.userID,a.isDefault, a.country from address a "
+				+ "JOIN shipping s ON s.city_code = a.city_code where addressID =? ";
+		try( Connection conn = getConnection();
+		PreparedStatement ps = conn.prepareStatement(sql);){
+
+		ps.setInt(1, addressId);
+		ResultSet rs = ps.executeQuery();
+		
+		while(rs.next()) {
+		
+			add.setAddressID(rs.getInt("addressID"));
+			add.setFullAddress(rs.getString("fulladdress"));
+			add.setWard(rs.getString("ward"));
+			add.setCity(rs.getString("city"));
+			add.setCountry(rs.getString("country"));
+			add.setPhone(rs.getString("phone"));
+			add.setIsDefault(rs.getBoolean("isDefault"));
+		}
+		return add;
+		}catch(Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
