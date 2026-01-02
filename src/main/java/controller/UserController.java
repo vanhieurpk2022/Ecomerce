@@ -248,7 +248,7 @@ public class UserController extends HttpServlet {
 		String getOrderDetailsID = request.getParameter("orderDetailID");
 		String getRating = request.getParameter("rating");
 		ServicesTaxDao dao = new ServicesTaxDao();
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		UserSession userSession = (UserSession) session.getAttribute("user");
 		try {
 			int rate = Integer.parseInt(getRating);
@@ -299,7 +299,7 @@ public class UserController extends HttpServlet {
 	private void updateCurrentAddress(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("id");
 		if(id !=null) {
-			HttpSession session = request.getSession();
+			HttpSession session = request.getSession(false);
 			UserSession user = (UserSession) session.getAttribute("user");
 			int getAddressId = Integer.parseInt(id);
 			AddressDao addressDao = new AddressDao();
@@ -324,7 +324,7 @@ public class UserController extends HttpServlet {
 		// TODO Auto-generated method stub
 		  request.setCharacterEncoding("UTF-8");
 		  response.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		String getAddressLine = request.getParameter("fulladdress");
 		String getWard = request.getParameter("district");
 		String getCity = request.getParameter("city");

@@ -1,54 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+        <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+       <link rel="stylesheet" href="${pageContext.request.contextPath}/assert/css/style_admin.css">
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" >
+        
     <title>Admin Dashboard</title>
 
 </head>
 
 <body>
     <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="sidebar-header">
-            <h2>Admin Panel</h2>
-            <p>Quản trị hệ thống</p>
-        </div>
-        <nav class="sidebar-menu">
-            <a href="adminindex.html" class="menu-item ">
-                <i class="icon-dashboard"></i>
-                <span>Dashboard</span>
-            </a>
-            <a href="adminuser.html" class="menu-item active">
-                <i class="icon-users"></i>
-                <span>User</span>
-            </a>
-            <a href="adminproducts.html" class="menu-item">
-                <i class="icon-products"></i>
-                <span>Products</span>
-            </a>
-            <a href="adminorder.html" class="menu-item">
-                <i class="icon-orders"></i>
-                <span>Order</span>
-            </a>
-            <a href="index.html" class="menu-item">
-                <i class="icon-analytics"></i>
-                <span>Website</span>
-            </a>
-            <a href="#" class="menu-item">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                <span>Sign out</span>
-            </a>
-        </nav>
-    </div>
+   	<jsp:include page="/WEB-INF/includes/_SidebarAdmin.jsp"></jsp:include>
+	 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
+
     <!-- Main Content -->
     <div class="main-content">
         <!-- Header -->
@@ -165,7 +141,7 @@
             </div>
 
         </div>
-
+</div>
         <!-- Chức năng Admin với User -->
         <section id="toolUser">
             <div class="toolUser_btn">
@@ -177,10 +153,11 @@
                     <button>4</button>
                     <button>5</button>
                 </div>
+                </div>
         </section>
 
 
-        <script src="javascript.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" ></script>
 
 </body>
 

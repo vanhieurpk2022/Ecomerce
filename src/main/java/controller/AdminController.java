@@ -31,11 +31,28 @@ public class AdminController extends HttpServlet {
 		String path = request.getPathInfo();
 
 		if (path == null || path.equals("/")) {
+			request.setAttribute("choose", 1);
 			request.getRequestDispatcher("/WEB-INF/admin/adminindex.jsp").forward(request, response);
 			return;
 		} 
 			switch (path) {
-			case "/admin":
+			case "/order":
+				request.setAttribute("choose", 2);
+				request.getRequestDispatcher("/WEB-INF/admin/adminorder.jsp").forward(request, response);
+				break;
+			case "/details":
+				request.getRequestDispatcher("/WEB-INF/admin/adminorderdetails.jsp").forward(request, response);
+				break;
+			case "/products":
+				request.setAttribute("choose", 3);
+
+				request.getRequestDispatcher("/WEB-INF/admin/adminproducts.jsp").forward(request, response);
+				break;
+			case "/user":
+				request.setAttribute("choose", 4);
+
+				request.getRequestDispatcher("/WEB-INF/admin/adminuser.jsp").forward(request, response);
+
 				break;
 			default:
 				throw new IllegalArgumentException("Unexpected value: " + path);
@@ -49,8 +66,7 @@ public class AdminController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
 	}
 
 }

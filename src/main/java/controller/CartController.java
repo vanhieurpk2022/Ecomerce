@@ -50,7 +50,8 @@ public class CartController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String path = request.getPathInfo();
-		HttpSession session = request.getSession();
+		
+		HttpSession session = request.getSession(false);
 		UserSession userSession = (UserSession) session.getAttribute("user");
 
 		if (path != null) {
@@ -88,7 +89,7 @@ public class CartController extends HttpServlet {
 	private void changeQuanity(HttpServletRequest request, HttpServletResponse response) {
 		int getProductsId = Integer.parseInt(request.getParameter("id"));
 		int getQuanity = Integer.parseInt(request.getParameter("quanity"));
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		
 		Cart getCart = (Cart) session.getAttribute("Cart");
 
@@ -98,7 +99,7 @@ public class CartController extends HttpServlet {
 
 	private void removeProducts(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		int getVariantID = Integer.parseInt(request.getParameter("id"));
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 
 		Cart getCart = (Cart) session.getAttribute("Cart");
 
@@ -199,7 +200,7 @@ public class CartController extends HttpServlet {
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		OrdersDao dao = new OrdersDao();
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		UserSession userSession = (UserSession) session.getAttribute("user");
 		Cart cart = (Cart) session.getAttribute("Cart");
 		String getAddressId = request.getParameter("address");

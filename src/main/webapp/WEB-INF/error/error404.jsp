@@ -23,7 +23,7 @@
 
 	 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 
-     <jsp:include page="../WEB-INF/includes/header.jsp"></jsp:include>
+     <jsp:include page="../includes/header.jsp"></jsp:include>
 
   	<div class="container">
 		<img id="image-1" alt="" src="${ctx }/assert/img/404Img.jpg"/>

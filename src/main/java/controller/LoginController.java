@@ -58,7 +58,7 @@ public class LoginController extends HttpServlet {
 	    switch (path) {
 	        case "/signin":
 	        	String getMsg = request.getParameter("msg");
-	        	HttpSession session = request.getSession();
+	        	HttpSession session = request.getSession(false);
 	        	String msg = (String) session.getAttribute("getMessage");
 	        	session.removeAttribute("getMessage");
 	        		if(getMsg !=null ) {
@@ -137,7 +137,7 @@ public class LoginController extends HttpServlet {
 		}
 		
 		String getNewPassFormHash = Encode.hash(getNewPassCofirmForm);
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		UserDao dao = new UserDao();
 		UserSession userSession =(UserSession) session.getAttribute("user");
 		User user = dao.selectUserByUserID(userSession.getIdUser());
@@ -280,9 +280,12 @@ public class LoginController extends HttpServlet {
 				if (redirectUrl != null) {
 				    session.removeAttribute("redirectAfterLogin");
 				    response.sendRedirect( redirectUrl);
-				} else {
+				} else if(user.getRole() !=0) {
 				    response.sendRedirect(request.getContextPath() + "/home");
-				} 
+				}else if(user.getRole()==0) {
+				    response.sendRedirect(request.getContextPath() + "/admin");
+
+				}
 	            return;
 			}
 		}

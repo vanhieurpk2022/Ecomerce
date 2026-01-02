@@ -23,7 +23,7 @@
 
 	 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 
-     <jsp:include page="../WEB-INF/includes/header.jsp"></jsp:include>
+     <jsp:include page="../includes/header.jsp"></jsp:include>
 
   	<div class="container">
   		<h3 class="text-danger text-center mt-2"> You don't have permitsion to access resource.</h3>
