@@ -48,10 +48,10 @@ public class UserDao extends BaseDao {
 
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			throw new RuntimeException(e);
+
 		}
 
-		return false;
 	}
 
 	public boolean checkAccount(String username) {
@@ -64,9 +64,10 @@ public class UserDao extends BaseDao {
 			return result.next();
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			throw new RuntimeException(e);
+
 		}
-		return false;
+
 	}
 	public User selectUserByUserID(int userID) {
 		String sql = "SELECT * FROM USERS WHERE userID=?";
@@ -120,7 +121,7 @@ public class UserDao extends BaseDao {
 				user.setPassword(result.getString("password"));
 				Date getBirthdate = result.getDate("birthday");
 				LocalDate birthDate = (getBirthdate == null ? null : getBirthdate.toLocalDate());
-
+				user.setRole(result.getInt("role"));
 				user.setBirthday(birthDate);
 				user.setGender(result.getInt("gender"));
 			}
@@ -142,9 +143,10 @@ public class UserDao extends BaseDao {
 			ResultSet rs = ps.executeQuery();
 			return rs.next();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
+
 		}
-		return false;
+
 	}
 
 	// hàm đổi mật khẩu
@@ -157,9 +159,9 @@ public class UserDao extends BaseDao {
 			int result = ps.executeUpdate();
 			return result > 0;
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
+
 		}
-		return false;
 	}
 
 	public boolean updatePasswordByUserID(int id, String passwordHash) {
@@ -171,9 +173,10 @@ public class UserDao extends BaseDao {
 			int result = ps.executeUpdate();
 			return result > 0;
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
+
 		}
-		return false;
+
 
 	}
 
@@ -191,10 +194,22 @@ public class UserDao extends BaseDao {
 			int result = ps.executeUpdate();
 			return result > 0;
 		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
+			throw new RuntimeException(e);
 
+		}
+
+	}
+	public boolean isEmailExists(String email) {
+		String sql = "SELECT * FROM users where email =?";
+		try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
+
+		ps.setString(1, email);
+			ResultSet rs = ps.executeQuery();
+			return rs.next();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+
+		}
+	}
 
 }

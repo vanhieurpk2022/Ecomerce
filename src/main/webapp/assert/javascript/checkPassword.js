@@ -4,7 +4,8 @@
 function sendData() {
 
          const email = document.getElementById("email_signup").value;
-		 
+		 const msgEmail = document.getElementById("msg_email");
+
 		if(email === null || email.trim() === ""){
 			return;
 		}
@@ -18,9 +19,17 @@ function sendData() {
              },
              body: `email=${encodeURIComponent(email)}`
          })
-         .then(response => response.text())
+         .then(response => response.json())
          .then(data => {
-             console.log("Response from servlet:", data);
+			console.log("Response data:", data.status); // Kiểm tra log để xem data trả về gì
+
+			if (data.status === "failed") {
+			           msgEmail.textContent = "Email already exists";
+			           msgEmail.classList.add("text-danger");
+			       } else if (data.status === "success") {
+			           msgEmail.textContent = "Verification code sent";
+			           msgEmail.classList.add("text-success");
+			       }
              
          })
          .catch(error => console.error("Error:", error));

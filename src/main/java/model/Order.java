@@ -1,32 +1,41 @@
 package model;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Order {
 	private Integer orderID;
 	private Integer userID;
 	private Integer addressID;
-	private BigDecimal totalAmount;
-	private String status;
+	private Address address;
 	private String paymentMethod;
 	private String note;
+	private BigDecimal shipping_fee;
+	private BigDecimal subtotal;
+	private BigDecimal discountAmount;
+	private BigDecimal totalAmount;
+
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
+	private String status;
+	
+	private List<OrderDetail> OrderDetail;
+	
+	
 
-	public Order(Integer orderID, Integer userID, Integer addressID, BigDecimal totalAmount, String status,
-			String paymentMethod, String note, Timestamp createdAt, Timestamp updatedAt) {
+	public Order(Integer userID, Integer addressID, BigDecimal shipping_fee, String note, BigDecimal subtotal,
+			String paymentMethod, BigDecimal discountAmount, BigDecimal totalAmount) {
 		super();
-		this.orderID = orderID;
 		this.userID = userID;
 		this.addressID = addressID;
-		this.totalAmount = totalAmount;
-		this.status = status;
-		this.paymentMethod = paymentMethod;
+		this.shipping_fee = shipping_fee;
 		this.note = note;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
+		this.subtotal = subtotal;
+		this.paymentMethod = paymentMethod;
+		this.discountAmount = discountAmount;
+		this.totalAmount = totalAmount;
 	}
 
 	public Order() {
@@ -105,4 +114,42 @@ public class Order {
 		this.updatedAt = updatedAt;
 	}
 
+	public BigDecimal getShipping_fee() {
+		return shipping_fee;
+	}
+
+	public void setShipping_fee(BigDecimal shipping_fee) {
+		this.shipping_fee = shipping_fee;
+	}
+
+	public BigDecimal getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal(BigDecimal subtotal) {
+		this.subtotal = subtotal;
+	}
+
+	public BigDecimal getDiscountAmount() {
+		return discountAmount;
+	}
+
+	public void setDiscountAmount(BigDecimal discountAmount) {
+		this.discountAmount = discountAmount;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+	public List<OrderDetail> getOrderDetail() {
+		return OrderDetail;
+	}
+
+	public void setOrderDetail(List<OrderDetail> orderDetail) {
+		OrderDetail = orderDetail;
+	}
 }

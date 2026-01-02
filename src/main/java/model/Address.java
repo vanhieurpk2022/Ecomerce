@@ -5,7 +5,7 @@ public class Address {
 	private Integer addressID;
 	private Integer userID;
 	private String fullAddress;
-	private String city;
+	private String city_code;
 	private String ward;
 	private String phone;
 	private Boolean isDefault;
@@ -16,7 +16,7 @@ public class Address {
 		this.addressID = addressID;
 		this.userID = userID;
 		this.fullAddress = fullAddress;
-		this.city = city;
+		this.city_code = city;
 		this.ward = ward;
 		this.phone = phone;
 		this.isDefault = isDefault;
@@ -25,7 +25,7 @@ public class Address {
 			String phone,Integer userID,String country, boolean isDefault) {
 		super();
 		this.fullAddress = fullAddress;
-		this.city = city;
+		this.city_code = city;
 		this.ward = ward;
 		this.phone = phone;
 		this.userID = userID;
@@ -61,11 +61,11 @@ public class Address {
 	}
 
 	public String getCity() {
-		return city;
+		return city_code;
 	}
 
 	public void setCity(String city) {
-		this.city = city;
+		this.city_code = city;
 	}
 
 

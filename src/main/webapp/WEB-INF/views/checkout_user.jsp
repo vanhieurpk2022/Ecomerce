@@ -1,225 +1,256 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/assert/css/style.css">
-
-</head>
-<body>
-   <jsp:include page="../includes/header.jsp"></jsp:include>
-
+<html>	
+   <head>
+      <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <title>Insert title here</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="${pageContext.request.contextPath}/assert/css/style.css">
+   </head>
+   <body>
+                       <fmt:setLocale value="vi_VN"/>
    
-    <div class="checkout-header">
-        <div class="checkout-container">
+      <jsp:include page="../includes/header.jsp"></jsp:include>
+      <c:set var="ctx" value="${pageContext.request.contextPath}" />
+      <div class="checkout-header">
+      
+         <div class="checkout-container">
             <div class="d-flex justify-content-between align-items-center flex-wrap">
-                <h1 class="mb-0"><i class="fas fa-shopping-cart me-2"></i>Checkout</h1>
-
+               <h1 class="mb-0"><i class="fas fa-shopping-cart me-2"></i>Checkout</h1>
             </div>
-        </div>
-    </div>
-
-    <div class="checkout-container mb-5">
-        <div class="row">
+         </div>
+      </div>
+      <div class="container checkout-container mb-5">
+      <form action="${ctx }/cart/orders" method="POST">
+		  <input name="action" value="orders" type="hidden"/>
+         <div class="row">
             <div class="col-lg-8">
-                <!-- Shipping Address Selection -->
-                <div class="section-card">
-                    <div class="section-title">
-                        <i class="fas fa-map-marker-alt"></i>
-                        Shipping Address
+               <!-- Shipping Address Selection -->
+               <div class="section-card">
+                  <div class="section-title">
+                     <i class="fas fa-map-marker-alt"></i>
+                     Shipping Address
+                  </div>
+                  <div class="list-address-checkout overflow-y-scroll">
+                
+                <c:if test="${requestScope.getAddress !=null}">
+                <c:forEach var="a" items="${requestScope.getAddress }">
+                
+                  <!-- Address 1 (Default) -->
+                  <div class="address-card ${a.isDefault?'selected':''} " data-city="${a.city }">
+                     <input type="radio" name="address" value="${a.addressID }" ${a.isDefault?'checked':'' }>
+                 
+                        <c:choose>
+                        	<c:when test="${a.isDefault}">
+				                        	    <div class="mb-2">
+				                        <span class="address-default-badge">
+				                        	Default</span>
+				                     </div>
+                        	</c:when>
+                        	<c:otherwise>
+                        	
+                        	</c:otherwise>
+                        </c:choose>
+                        
+                        
+                
+                     <h6 class="mb-2">${sessionScope.user.firstname } ${sessionScope.user.lastname }</h6>
+                     <p class="mb-1 text-muted">
+                        <i class="fas fa-phone me-2"></i>${a.phone }
+                     </p>
+                     <p class="mb-0 text-muted">
+                        <i class="fas fa-map-marker-alt me-2"></i>
+                       ${a.fullAddress }, ${a.ward }, ${a.city }, ${a.country}
+                     </p>
+                  </div>
+                </c:forEach>
+                 </c:if>
                     </div>
-
-                    <!-- Address 1 (Default) -->
-                    <div class="address-card selected">
-                        <input type="radio" name="address" value="1" checked>
-                        <div class="mb-2">
-                            <span class="address-default-badge">Default</span>
-                        </div>
-                        <h6 class="mb-2">John Doe</h6>
-                        <p class="mb-1 text-muted">
-                            <i class="fas fa-phone me-2"></i>0123 456 789
-                        </p>
-                        <p class="mb-0 text-muted">
-                            <i class="fas fa-map-marker-alt me-2"></i>
-                            123 Nguyen Hue, Ben Nghe Ward, District 1, Ho Chi Minh City
-                        </p>
-                    </div>
-
-                    <!-- Address 2 -->
-                    <div class="address-card">
-                        <input type="radio" name="address" value="2">
-                        <h6 class="mb-2">John Doe</h6>
-                        <p class="mb-1 text-muted">
-                            <i class="fas fa-phone me-2"></i>0987 654 321
-                        </p>
-                        <p class="mb-0 text-muted">
-                            <i class="fas fa-map-marker-alt me-2"></i>
-                            456 Le Loi, Ben Thanh Ward, District 1, Ho Chi Minh City
-                        </p>
-                    </div>
-
-                    <!-- Add New Address -->
-                    <button class="btn-add-address">
-                        <i class="fas fa-plus me-2"></i>Add New Address
-                    </button>
-                </div>
-
-                <!-- Order Notes -->
-                <div class="section-card">
-                    <div class="section-title">
-                        <i class="fas fa-sticky-note"></i>
-                        Order Notes
-                    </div>
-                    <textarea class="form-control" rows="3"
-                        placeholder="Notes about your order, e.g. special delivery instructions"></textarea>
-                </div>
-
-                <!-- Payment Method -->
-                <div class="section-card">
-                    <div class="section-title">
-                        <i class="fas fa-credit-card"></i>
-                        Payment Method
-                    </div>
-                    <div class="payment-method active">
-                        <label class="d-flex align-items-center mb-0">
-                            <input type="radio" name="payment" value="cod" checked>
-                            <div>
-                                <strong>Cash on Delivery (COD)</strong>
-                                <div class="text-muted small">Pay with cash when you receive your order</div>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="payment-method">
-                        <label class="d-flex align-items-center mb-0">
-                            <input type="radio" name="payment" value="bank">
-                            <div>
-                                <strong>Bank Transfer</strong>
-                                <div class="text-muted small">Direct transfer to our bank account</div>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="payment-method">
-                        <label class="d-flex align-items-center mb-0">
-                            <input type="radio" name="payment" value="momo">
-                            <div>
-                                <strong>MoMo Wallet</strong>
-                                <div class="text-muted small">Pay via MoMo e-wallet</div>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="payment-method">
-                        <label class="d-flex align-items-center mb-0">
-                            <input type="radio" name="payment" value="card">
-                            <div>
-                                <strong>Credit/Debit Card</strong>
-                                <div class="text-muted small">Visa, Mastercard, JCB</div>
-                            </div>
-                        </label>
-                    </div>
-                </div>
+                  <!-- Add New Address -->
+                  <a href="${ ctx}/user/address" class="btn btn-add-address">
+                  <i class="fas fa-plus me-2"></i>Add New Address
+                  </a>
+               </div>
+               <!-- Order Notes -->
+               <div class="section-card">
+                  <div class="section-title">
+                     <i class="fas fa-sticky-note"></i>
+                     Order Notes
+                  </div>
+                  <textarea class="form-control" rows="3"
+                     placeholder="Notes about your order, e.g. special delivery instructions" name="note"></textarea>
+               </div>
+               <!-- Payment Method -->
+               <div class="section-card">
+                  <div class="section-title">
+                     <i class="fas fa-credit-card"></i>
+                     Payment Method
+                  </div>
+                  <div class="payment-method active">
+                     <label class="d-flex align-items-center mb-0">
+                        <input type="radio" name="payment" value="cod" checked>
+                        <span class="ms-2">
+                           <strong>Cash on Delivery (COD)</strong>
+                           <span class="text-muted small">Pay with cash when you receive your order</span>
+                        </span>
+                     </label>
+                  </div>
+                  <div class="payment-method">
+                     <label class="d-flex align-items-center mb-0">
+                        <input type="radio" name="payment" value="bank">
+                        <span class="ms-2">
+                           <strong>Bank Transfer</strong>
+                           <span class="text-muted small">Direct transfer to our bank account</span>
+                        </span>
+                     </label>
+                  </div>
+                  <div class="payment-method">
+                     <label class="d-flex align-items-center mb-0">
+                        <input type="radio" name="payment" value="momo">
+                        <span class="ms-2">
+                           <strong>MoMo Wallet</strong>
+                           <span class="text-muted small">Pay via MoMo e-wallet</span>
+                        </span>
+                     </label>
+                  </div>
+                  <div class="payment-method">
+                     <label class="d-flex align-items-center mb-0">
+                        <input type="radio" name="payment" value="card">
+                        <span class="ms-2">
+                           <strong>Credit/Debit Card</strong>
+                           <span class="text-muted small">Visa, Mastercard, JCB</span>
+                        </span>
+                     </label>
+                  </div>
+               </div>
             </div>
-
             <div class="col-lg-4">
-                <div class="section-card">
-                    <div class="section-title">
-                        <i class="fas fa-receipt"></i>
-                        Your Order
-                    </div>
-
-                    <div class="order-summary">
-                        <!-- Product Items -->
-                        <div class="product-item">
-                            <img src="https://via.placeholder.com/80" alt="Product" class="product-img">
-                            <div class="product-info">
-                                <div class="product-name">Premium Men's T-Shirt</div>
-                                <div class="product-variant">Size: L | Color: Black</div>
-                                <div class="d-flex justify-content-between align-items-center mt-2">
-                                    <span class="text-muted">Qty: 2</span>
-                                    <span class="product-price">$40.00</span>
-                                </div>
-                            </div>
+               <div class="section-card">
+                  <div class="section-title">
+                     <i class="fas fa-receipt"></i>
+                     Your Order
+                  </div>
+                  <div class="order-summary overflow-y-scroll">
+                  
+                  <c:if test="${sessionScope.Cart != null }">
+                  <c:forEach var="c" items="${sessionScope.Cart.items }">
+                
+                     <!-- Product Items -->
+                     <div class="product-item">
+                        <img src="${ctx }${c.products.img }" alt="Product" class="product-img">
+                        <div class="product-info">
+                           <div class="product-name">${c.products.productName }</div>
+                           <div class="product-variant">${c.variant.size} </div>
+                           <div class="d-flex justify-content-between align-items-center mt-2">
+                              <span class="text-muted">Qty: ${c.quanity}</span>
+                              <span class="product-price"> <fmt:formatNumber value="${c.subtotal}" pattern="#,##0 VNĐ"/></span>
+                           </div>
                         </div>
-
-                        <div class="product-item">
-                            <img src="https://via.placeholder.com/80" alt="Product" class="product-img">
-                            <div class="product-info">
-                                <div class="product-name">Slim Fit Jeans</div>
-                                <div class="product-variant">Size: 32 | Color: Blue</div>
-                                <div class="d-flex justify-content-between align-items-center mt-2">
-                                    <span class="text-muted">Qty: 1</span>
-                                    <span class="product-price">$55.00</span>
-                                </div>
-                            </div>
+                     </div>
+                  
+                      
+                    </c:forEach>
+                  </c:if>
+                     </div>
+                      <!-- Voucher -->
+                     <div class="mb-3">
+                        <label class="form-label small fw-bold">Discount Code</label>
+                        <div class="voucher-input d-flex flex-column flex-md-row">
+                           <input type="text" class="form-control" placeholder="Enter code" id="intput_voucher" value="">
+                           <button onclick="applyCode(this)" type="button" class="btn btn-primary">Apply</button>
                         </div>
-
-                        <hr class="my-3">
-
-                        <!-- Voucher -->
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Discount Code</label>
-                            <div class="voucher-input">
-                                <input type="text" class="form-control" placeholder="Enter code">
-                                <button class="btn btn-primary">Apply</button>
-                            </div>
-                        </div>
-
-                        <!-- Summary -->
-                        <div class="summary-row">
-                            <span>Subtotal</span>
-                            <span>$95.00</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Shipping</span>
-                            <span>$3.00</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Discount</span>
-                            <span class="text-danger">-$5.00</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Total</span>
-                            <span>$93.00</span>
-                        </div>
-
-                        <button class="btn btn-checkout mt-3">
-                            <i class="fas fa-lock me-2"></i>Place Order
-                        </button>
-
-                        <div class="text-center mt-3">
-                            <small class="text-muted">
-                                <i class="fas fa-shield-alt me-1"></i>
-                                Your payment information is secure
-                            </small>
-                        </div>
-                    </div>
-                </div>
+                     <!-- Summary -->
+                     <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="subtotal_checkout"> <fmt:formatNumber value="${sessionScope.Cart.price}" pattern="#,##0 VNĐ"/> </span>
+                        <input type="hidden" value="${sessionScope.Cart.price }" name ="subtotal" />
+                     </div>
+                     <div class="summary-row">
+                        <span>Shipping</span>
+                        <span id="shipping_fee"> <fmt:formatNumber value="0" pattern="#,##0 VNĐ"/> </span>
+                         <input type="hidden" name="shipping" id="shipping_feeInput">
+                        
+                     </div>
+                     <div class="summary-row">
+                        <span>Discount</span>
+                        <span id="discount_fee" class="text-danger"> <fmt:formatNumber value="0" pattern="#,##0 VNĐ"/> </span>
+                        <input type="hidden" name="discount_fee" id="discount_feeInput">
+                        
+                     </div>
+                     <div class="summary-row">
+                        <span>Total</span>
+                        <span id="finalTotal"> <fmt:formatNumber value="0" pattern="#,##0 VNĐ"/></span>
+                        <input type="hidden" name="finalTotal" id="finalTotalInput">
+                        
+                     </div>
+                     <div class="d-flex justify-content-center align-items-center">
+                     <button type="submit" class="btn btn-success mt-3">
+                     <i class="fas fa-lock me-2"></i>Place Order
+                     </button>
+                     </div>
+                     
+                     <div class="text-center mt-3">
+                        <small class="text-muted">
+                        <i class="fas fa-shield-alt me-1"></i>
+                        Your payment information is secure
+                        </small>
+                     </div>
+                  </div>
+               </div>
             </div>
-        </div>
-    </div>
-       	<%@ include file="../includes/footer.jsp" %>
-    <script>
-        // Address selection
-        document.querySelectorAll('.address-card').forEach(card => {
-            card.addEventListener('click', function () {
-                document.querySelectorAll('.address-card').forEach(c => c.classList.remove('selected'));
-                this.classList.add('selected');
-                this.querySelector('input[type="radio"]').checked = true;
+         </div>
+         </form>
+      </div>
+      <%@ include file="../includes/footer.jsp" %>
+               <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      
+      <script src="${ctx}/assert/javascript/script.js"></script>
+            <script src="${ctx}/assert/javascript/checkout_user.js"></script>
+      	<script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const cards = document.querySelectorAll('.address-card');
+
+            cards.forEach(card => {
+                card.addEventListener('click', function () {
+
+                    cards.forEach(c => c.classList.remove('selected'));
+
+                    this.classList.add('selected');
+                    this.querySelector('input[type="radio"]').checked = true;
+
+                    getPriceShipping(this);
+                });
             });
+
+            // 🔥 AUTO LOAD khi mới vào trang
+            const checkedRadio = document.querySelector(
+                '.address-card input[type="radio"]:checked'
+            );
+
+            if (checkedRadio) {
+                const card = checkedRadio.closest('.address-card');
+                card.classList.add('selected');
+                getPriceShipping(card);
+            }
+
         });
 
-        // Payment method selection
-        document.querySelectorAll('.payment-method').forEach(method => {
-            method.addEventListener('click', function () {
-                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active'));
-                this.classList.add('active');
-                this.querySelector('input[type="radio"]').checked = true;
-            });
-        });
-    </script>
-    </body>
+      	        
+      	        // Payment method selection
+      	        document.querySelectorAll('.payment-method').forEach(method => {
+      	            method.addEventListener('click', function () {
+      	                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active'));
+      	                this.classList.add('active');
+      	                this.querySelector('input[type="radio"]').checked = true;
+      	            });
+      	        });</script>
+   </body>
 </html>

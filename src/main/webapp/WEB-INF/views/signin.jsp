@@ -35,11 +35,11 @@
                 <span id="icon_show" class="icon_show"><i class="bi bi-eye"></i></span>
                 </div>
                 <c:choose>
-                <c:when test ="${msgtype =='sus' }">
-                <span id="msg_pwd" style="Color:green;text-align:center;">${msg }</span>
+                <c:when test ="${requestScope.msgtype =='sus' }">
+                <span id="msg_pwd" style="Color:green;text-align:center;">${requestScope.msg }</span>
                 </c:when>
-                  <c:when test ="${msgtype =='error' }">
-                <span id="msg_pwd" style="Color:red;text-align:center;">${msg }</span>
+                  <c:when test ="${requestScope.msgtype =='error' }">
+                <span id="msg_pwd" style="Color:red;text-align:center;">${requestScope.msg }</span>
                 </c:when>
                 </c:choose>
             </div>

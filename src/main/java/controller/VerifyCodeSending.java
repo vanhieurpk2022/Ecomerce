@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+import dao.UserDao;
 import util.Mail;
 import util.RandomCode;
 
@@ -42,8 +43,18 @@ public class VerifyCodeSending extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    request.setCharacterEncoding("UTF-8");
+	    UserDao user = new UserDao();
+	    response.setContentType("application/json"); // Bắt buộc phải có
+	    response.setCharacterEncoding("UTF-8");
+
+	    
 	    String email = request.getParameter("email");
+	    
+	    boolean isExists = user.isEmailExists(email);
+	    if(isExists) {
+	        response.getWriter().write("{\"status\":\"failed\"}");
+	    	return;
+	    }
 	    // Sinh code mới
 	    String code = RandomCode.generateCode(6);
 	    // Lưu code vào session đúng email
@@ -52,6 +63,8 @@ public class VerifyCodeSending extends HttpServlet {
 
 	    Mail mail = new Mail();
 	    mail.SendVerifyMail(email, code);
+	    response.getWriter().write("{\"status\":\"success\"}");
+
 	}
 
 }

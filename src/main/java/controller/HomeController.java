@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import dao.ProductsDao;
 import model.Cart;
 import model.Products;
+import model.UserSession;
 import util.CookieUtil;
 
 /**
@@ -38,19 +39,14 @@ public class HomeController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ProductsDao dao = new ProductsDao();
+		String url ="/WEB-INF/views/index.jsp";
 		List<Products> pro1 = dao.SelectAll(0, 16);
-		
-		HttpSession session = request.getSession();
-		Cart cart = CookieUtil.getCart(request);
-		if(cart !=null) {
-		    session.setAttribute("Cart", cart);
-
-		}
-		
-		request.setAttribute("active", "index");
-		request.setAttribute("Product1", pro1);
-
-		request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
+	
+			request.setAttribute("active", "index");
+			request.setAttribute("Product1", pro1);
+			
+			request.getRequestDispatcher(url).forward(request, response);
+	
 
 	}
 

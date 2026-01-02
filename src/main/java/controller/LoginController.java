@@ -49,6 +49,7 @@ public class LoginController extends HttpServlet {
 		String path = request.getPathInfo();
 
 	    if (path == null || "/".equals(path)) {
+	    	
 	        request.getRequestDispatcher("/WEB-INF/views/signin.jsp")
 	               .forward(request, response);
 	        return;
@@ -57,10 +58,14 @@ public class LoginController extends HttpServlet {
 	    switch (path) {
 	        case "/signin":
 	        	String getMsg = request.getParameter("msg");
-	        		if(getMsg !=null && "changePassword".equals(getMsg)) {
+	        	HttpSession session = request.getSession(false);
+	        	String msg = (String) session.getAttribute("getMessage");
+	        	session.removeAttribute("getMessage");
+	        		if(getMsg !=null ) {
 	        			request.setAttribute("msgtype", "sus");
 	        			request.setAttribute("msg", "Password change is success");
 	        		}
+	        		
 		        request.setAttribute("AccountCookies", CookieUtil.getLoginCookie(request));
 	            request.getRequestDispatcher("/WEB-INF/views/signin.jsp").forward(request, response);
 	            break;
@@ -132,7 +137,7 @@ public class LoginController extends HttpServlet {
 		}
 		
 		String getNewPassFormHash = Encode.hash(getNewPassCofirmForm);
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		UserDao dao = new UserDao();
 		UserSession userSession =(UserSession) session.getAttribute("user");
 		User user = dao.selectUserByUserID(userSession.getIdUser());
@@ -268,11 +273,19 @@ public class LoginController extends HttpServlet {
 			}else {
 				HttpSession session = request.getSession();
 				
-				CookieUtil.saveLoginInfo(response, username, password, (checked !=null)?true:false);
 				
 				session.setAttribute("user", userSession);
-				
-	            response.sendRedirect(request.getContextPath() + "/home"); 
+				String redirectUrl = (String) session.getAttribute("redirectAfterLogin");
+			
+				if (redirectUrl != null) {
+				    session.removeAttribute("redirectAfterLogin");
+				    response.sendRedirect( redirectUrl);
+				} else if(user.getRole() !=0) {
+				    response.sendRedirect(request.getContextPath() + "/home");
+				}else if(user.getRole()==0) {
+				    response.sendRedirect(request.getContextPath() + "/admin");
+
+				}
 	            return;
 			}
 		}

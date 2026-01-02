@@ -1,6 +1,8 @@
 package model;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.List;
 
 public class Products {
 	private Integer productID;
@@ -12,7 +14,7 @@ public class Products {
 	private String img;
 	private String description;
 	
-	private Float avg_rating;
+	private List<reviews> rate;
 	private Integer review_count;
 
 	public Products(Integer productID, String productName, Integer categoryID, BigDecimal price, String status,
@@ -91,6 +93,23 @@ public class Products {
 	public String toString() {
 		return "Products [productID=" + productID + ", productName=" + productName + ", categoryID=" + categoryID
 				+ ", price=" + price + ", status=" + status + ", img=" + img + ", description=" + description + "]";
+	}
+
+
+	public Integer getReview_count() {
+		return review_count;
+	}
+
+	public void setReview_count(Integer review_count) {
+		this.review_count = review_count;
+	}
+
+	public List<reviews> getRate() {
+		return rate;
+	}
+
+	public void setRate(List<reviews> rate) {
+		this.rate = rate;
 	}
 
 }

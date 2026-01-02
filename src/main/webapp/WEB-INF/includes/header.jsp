@@ -31,6 +31,13 @@
                  <ul class="dropdown">
                    <li><a href="${ctx }/user/orders_his"> <i class="bi bi-cart"></i> Order History</a></li>
                     <li><a href="${ctx }/user/settings"> <i class="bi bi-gear"></i> Settings & Privacy</a></li>
+					<c:if test="${sessionScope.user.role == 0}">
+					    <li>
+					        <a href="${ctx}/admin" class="d-flex">
+					            <i class="bi bi-menu-button-wide"></i> Administrator
+					        </a>
+					    </li>
+					</c:if>                    
                     <li><a href="${ctx }/user/help"> <i class="bi bi-question-circle"></i> Help & Support </a></li>
 
                     <li><a href="${ctx }/login/logout"> <i class="bi bi-box-arrow-right"></i> Logout</a></li>

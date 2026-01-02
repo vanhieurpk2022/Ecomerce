@@ -27,13 +27,10 @@
 
             <div class="settings-wrapper">
                 <!-- Sidebar -->
-                                  <jsp:include page="../includes/_SidebarSetting.jsp"></jsp:include>
-
+        		  <jsp:include page="../includes/_SidebarSetting.jsp"></jsp:include>
 
                 <!-- Content Area -->
                 <div class="content-area">
-                   
-
 
                     <!-- Address Section -->
                     <section class="section" id="address">
@@ -49,7 +46,25 @@
                             </div>
                             <div class="form-group">
                                 <label for="city">City / Province</label>
-                                <input type="text" id="city" placeholder="Enter city" name="city" required>
+                                <select  name="city" id="city" required>
+								    <option value="">-- Chọn thành phố --</option>
+								
+								    <option value="HN">Hà Nội</option>
+								    <option value="HCM">TP Hồ Chí Minh</option>
+								    <option value="DN">Đà Nẵng</option>
+								    <option value="HP">Hải Phòng</option>
+								    <option value="CT">Cần Thơ</option>
+								    <option value="BD">Bình Dương</option>
+								    <option value="DNai">Đồng Nai</option>
+								    <option value="NA">Nghệ An</option>
+								    <option value="TH">Thanh Hóa</option>
+								    <option value="QN">Quảng Ninh</option>
+								    <option value="KH">Khánh Hòa</option>
+								    <option value="LD">Lâm Đồng</option>
+								    <option value="BRVT">Bà Rịa - Vũng Tàu</option>
+								    <option value="BN">Bắc Ninh</option>
+								    <option value="TTH">Thừa Thiên Huế</option>
+								</select>
                             </div>
                             <div class="form-group">
                                 <label for="country">Country</label>
@@ -70,8 +85,8 @@
 				
 						<c:choose>
 							<c:when test="${empty address }">
-								<div class="mt-3 text-center text-danger">You don't have an address yet.</div>
-							</c:when>
+								<div class="mt-3 text-center text-danger" id="warning_list">You don't have an address yet.</div>
+							</c:when>	
 							<c:otherwise >
 								<c:forEach var="a" items="${address }">
 									<input type="hidden" value="${a.addressID}" id="addressID"/>
@@ -79,8 +94,8 @@
                             <i class="fas fa-map-marker-alt"></i>
                             <div>
                             <c:if test="${a.isDefault}">   <strong>Current Location</strong>  </c:if>
-                                <p class="text-capitalize" style="color: #666; margin-top: 0.5rem;">${a.fullAddress }, ${a.ward }, ${a.city }, VN.</p>
-                            <p style="color: #666; margin-top: 0.5rem;">Phone: ${a.phone }</p>
+                                <p class="text-capitalize" >${a.fullAddress }, ${a.ward }, ${a.city }, ${country }</p>
+                            <p style="color: #666; ">Phone: ${a.phone }</p>
                            	
                             </div>
                             <div class="position-absolute top-50 end-0 translate-middle-y me-3 ">

@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Cart;
+import model.User;
+import model.UserSession;
+
 /**
  * Servlet Filter implementation class AuthoFilter
  */
-@WebFilter(urlPatterns = {
-        "/profile/*",
-        "/order/*",
-        "/user/*"
-})
+
 public class AuthoFilter implements Filter {
 
     /**
@@ -43,23 +43,44 @@ public class AuthoFilter implements Filter {
 	    public void doFilter(ServletRequest request, ServletResponse response,
 	                         FilterChain chain)
 	            throws IOException, ServletException {
-
-	        HttpServletRequest req = (HttpServletRequest) request;
+		 HttpServletRequest req = (HttpServletRequest) request;
 	        HttpServletResponse resp = (HttpServletResponse) response;
-
 	        HttpSession session = req.getSession(false);
+	        String path = req.getServletPath();
 
-	        boolean loggedIn = (session != null &&
-	                session.getAttribute("user") != null);
+	        // 1. Kiểm tra đăng nhập
+	        UserSession user = (session != null) ? (UserSession) session.getAttribute("user") : null;
 
-	        if (loggedIn) {
-	            // đã đăng nhập → cho đi tiếp
-	            chain.doFilter(request, response);
-	        } else {
-	            // chưa đăng nhập → đá về login
-	            resp.sendRedirect(req.getContextPath() + "/login/signin");
+	        if (user == null) {
+	            // Chưa đăng nhập -> Lưu URL cũ để quay lại
+	            if ("GET".equalsIgnoreCase(req.getMethod())) {
+	                String uri = req.getRequestURI();
+	                String query = req.getQueryString();
+	                String originalUrl = uri + (query != null ? "?" + query : "");
+	                req.getSession(true).setAttribute("redirectAfterLogin", originalUrl);
+	            }
+	            
+	            request.setAttribute("msgtype", "error");
+	            request.setAttribute("msg", "Please login to continue!");
+	            req.getRequestDispatcher("/WEB-INF/views/signin.jsp").forward(request, response);
+	            return;
 	        }
+
+	        // 2. Lọc quyền (Role)
+	        int role = user.getRole(); // Giả sử là "ADMIN" hoặc "USER"
+
+	        if (path.startsWith("/admin")) {
+	            // Nếu vào đường dẫn admin mà không phải role ADMIN
+	            if (role != 0) {
+	                resp.sendError(HttpServletResponse.SC_FORBIDDEN); 
+	                return;
+	            }
+	        } 
+	        
+	        // Nếu đã pass qua các bước trên -> Cho phép đi tiếp
+	        chain.doFilter(request, response);
 	    }
+
 
 	/**
 	 * @see Filter#init(FilterConfig)

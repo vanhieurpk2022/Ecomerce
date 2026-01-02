@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -15,6 +16,7 @@
    <body>
       <jsp:include page="../includes/header.jsp"></jsp:include>
       <c:set var="ctx" value="${pageContext.request.contextPath}" />
+      <fmt:setLocale value="vi_VN"/>
       
       <div class="container-fluid">
         <!-- Main Content -->
@@ -28,176 +30,81 @@
                 <div class="content-area">
                     <!-- Orders Section -->
                     <section class="section" id="orders">
-                        <h3 class="section-title"><i class="fas fa-user-circle"></i> Order History</h3>
-                        
-                        <!-- Search Form -->
-                        <div class="row g-3 mb-4">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" placeholder="Orders ID" />
-                            </div>
-                            <div class="col-md-4">
-                                <input type="date" class="form-control" />
-                            </div>
-                            <div class="col-md-2">
-                                <button type="button" class="btn btn-success btn-sm">Find</button>
-                            </div>
-                        </div>
-                        
+                        <h3 class="section-title"><i class="bi bi-star"></i> Rating Products</h3>
+                   
+                            <c:forEach var="od" items="${requestScope.od }">
                         <!-- Order Card -->
                         <div class="shadow p-3 border rounded-3 mb-3">
                             <!-- Order Header -->
-                            <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-2">
-                                <div>
-                                    <span class="fw-bold">Order #20251118</span>
-                                    <span class="small text-muted d-block d-md-inline ms-md-2">
-                                        <i class="bi bi-calendar"></i> 2025-11-24
-                                    </span>
+                            <div class="d-flex flex-row justify-content-end">
+                             <div class="text-success p-2 bg-success-subtle fw-bold rounded-2 mt-2 mt-md-0 text-end" >
+                                    <i class="bi bi-archive"></i> Complete
                                 </div>
-                                <div class="text-success p-2 bg-success-subtle fw-bold rounded-2 mt-2 mt-md-0">
-                                    <i class="bi bi-archive"></i> Delivered
                                 </div>
-                                
-                                <!-- Alternative Status Badges (Uncomment as needed) -->
-                                <!-- Awaiting Status -->
-                                <!-- <div class="text-secondary p-2 bg-body-secondary fw-bold rounded-2 mt-2 mt-md-0">
-                                    <i class="bi bi-clock"></i> Awaiting
-                                </div> -->
-                                
-                                <!-- Shipping Status -->
-                                <!-- <div class="p-2 bg-warning-subtle fw-bold rounded-2 mt-2 mt-md-0">
-                                    <i class="bi bi-truck text-warning"></i>
-                                    <span class="text-warning">Shipping</span>
-                                </div> -->
-                            </div>
-                            
                             <hr>
                             
                             <!-- Product Items -->
+                        
                             <div class="d-flex align-items-center mb-3">
                                 <div class="flex-shrink-0">
-                                    <img src="https://via.placeholder.com/80" alt="Product" width="80" height="80" class="rounded">
+                                    <img src="${ctx }${od.product.img}" alt="Product" width="80" height="80" class="rounded">
                                 </div>
                                 <div class="flex-grow-1 px-3 position-relative">
-                                    <p class="mb-1 fw-semibold">Tên Sản Phẩm</p>
-                                    <div class="small text-muted">Quantity: 4</div>
+                                    <p class="mb-1 fw-semibold">${od.product.productName }</p>
+                                    <div class="small text-muted">Quantity: ${od.quantity }</div>
                                     <div class="d-md-none mt-1">
-                                        <span class="fw-bold">100.000 VNĐ</span>
+                                        <span class="fw-bold"><fmt:formatNumber value="${od.price }" pattern="#,##0 VNĐ"/></span>
                                     </div>
                                     <div class="d-none d-md-block position-absolute end-0 top-0 p-2">
-                                        <span class="fw-bold">100.000 VNĐ</span>
+                                        <span class="fw-bold"> <fmt:formatNumber value="${od.price }" pattern="#,##0 VNĐ"/></span>
                                     </div>
                                 </div>
                             </div>
+                     </div>
                             
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="flex-shrink-0">
-                                    <img src="https://via.placeholder.com/80" alt="Product" width="80" height="80" class="rounded">
-                                </div>
-                                <div class="flex-grow-1 px-3 position-relative">
-                                    <p class="mb-1 fw-semibold">Tên Sản Phẩm</p>
-                                    <div class="small text-muted">Quantity: 4</div>
-                                    <div class="d-md-none mt-1">
-                                        <span class="fw-bold">100.000 VNĐ</span>
-                                    </div>
-                                    <div class="d-none d-md-block position-absolute end-0 top-0 p-2">
-                                        <span class="fw-bold">100.000 VNĐ</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <hr>
                             
                             <!-- Order Total -->
-                            <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
-                                <div>
-                                    <span class="fw-bold fs-6">Total:</span> 
-                                    <span class="fs-4 text-primary fw-bold">100.000 VNĐ</span>
-                                </div>
-                                <button class="btn btn-warning text-light mt-2 mt-md-0 ">
+                            <div class="d-flex flex-column flex-md-row justify-content-end align-items-start align-items-md-center mb-2">
+                               <a href="${pageContext.request.contextPath}/shop?action=SProduct&productID=${od.productID}&type=${od.product.categoryID}" class="btn btn-info  text-light mt-2 mt-md-0 me-2">
+                                   Buy
+                                </a>
+                                <button class="btn btn-warning text-light mt-2 mt-md-0 ${od.isReview ?'disabled':'' }" data-bs-toggle="modal" data-bs-target="#exampleModal-${od.orderDetailID }">
                                     <i class="bi bi-star"></i> Review
                                 </button>
                             </div>
+                          <div class="modal fade review-modal" id="exampleModal-${od.orderDetailID }" tabindex="-1">
+								  <div class="modal-dialog modal-dialog-centered">
+								    <div class="modal-content">
+								
+								      <div class="modal-header">
+								        <h5 class="modal-title ">Rating</h5>
+								        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+								      </div>
+								
+								      <div class="modal-body  ">
+								      <div class="text-center">
+									    		 <div class="rating mb-3" data-order-detail-id="${od.orderDetailID}">
+							                        <i class="bi bi-star-fill" data-value="1"></i>
+							                        <i class="bi bi-star-fill" data-value="2"></i>
+							                        <i class="bi bi-star-fill" data-value="3"></i>
+							                        <i class="bi bi-star-fill" data-value="4"></i>
+							                        <i class="bi bi-star-fill" data-value="5"></i>
+							                    </div>
+												  <p id="ratingText-${od.orderDetailID}" class="fw-semibold rating-text">Chưa đánh giá</p>
+											</div>
+            							    <input type="hidden" id="ratingValue-${od.orderDetailID}" class="rating-value" value="0">
+								   	
+								      </div>
+								         <div class="modal-footer  ">
+										<button class="btn btn-primary btn-submit-review" data-url="${pageContext.request.contextPath}" data-odid="${od.orderDetailID}" data-pid="${od.productID}">Gửi đánh giá</button>
+								         </div>
+								
+								
+								    </div>
+								  </div>
                         </div>
                             <!-- End Order Card -->
-                        <!-- Additional Order Cards (Repeat as needed) -->
-                          <!-- Order Card -->
-                        <div class="shadow p-3 border rounded-3 mb-3">
-                            <!-- Order Header -->
-                            <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-2">
-                                <div>
-                                    <span class="fw-bold">Order #20251118</span>
-                                    <span class="small text-muted d-block d-md-inline ms-md-2">
-                                        <i class="bi bi-calendar"></i> 2025-11-24
-                                    </span>
-                                </div>
-                                <div class="text-success p-2 bg-success-subtle fw-bold rounded-2 mt-2 mt-md-0">
-                                    <i class="bi bi-archive"></i> Delivered
-                                </div>
-                                 <div class="text-success p-2 bg-success-subtle fw-bold rounded-2 mt-2 mt-md-0">
-                                    <i class="bi bi-archive"></i> Delivered
-                                </div>
-                                <!-- Alternative Status Badges (Uncomment as needed) -->
-                                <!-- Awaiting Status -->
-                              <!-- <div class="text-secondary p-2 bg-body-secondary fw-bold rounded-2 mt-2 mt-md-0">
-                                    <i class="bi bi-clock"></i> Awaiting
-                                </div> -->
-                                
-                                <!-- Shipping Status -->
-                                <!-- <div class="p-2 bg-warning-subtle fw-bold rounded-2 mt-2 mt-md-0">
-                                    <i class="bi bi-truck text-warning"></i>
-                                    <span class="text-warning">Shipping</span>
-                                </div> -->
-                            </div>
-                            
-                            <hr>
-                            
-                            <!-- Product Items -->
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="flex-shrink-0">
-                                    <img src="https://via.placeholder.com/80" alt="Product" width="80" height="80" class="rounded">
-                                </div>
-                                <div class="flex-grow-1 px-3 position-relative">
-                                    <p class="mb-1 fw-semibold">Tên Sản Phẩm</p>
-                                    <div class="small text-muted">Quantity: 4</div>
-                                    <div class="d-md-none mt-1">
-                                        <span class="fw-bold">100.000 VNĐ</span>
-                                    </div>
-                                    <div class="d-none d-md-block position-absolute end-0 top-0 p-2">
-                                        <span class="fw-bold">100.000 VNĐ</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="flex-shrink-0">
-                                    <img src="https://via.placeholder.com/80" alt="Product" width="80" height="80" class="rounded">
-                                </div>
-                                <div class="flex-grow-1 px-3 position-relative">
-                                    <p class="mb-1 fw-semibold">Tên Sản Phẩm</p>
-                                    <div class="small text-muted">Quantity: 4</div>
-                                    <div class="d-md-none mt-1">
-                                        <span class="fw-bold">100.000 VNĐ</span>
-                                    </div>
-                                    <div class="d-none d-md-block position-absolute end-0 top-0 p-2">
-                                        <span class="fw-bold">100.000 VNĐ</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <hr>
-                            
-                            <!-- Order Total -->
-                            <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
-                                <div>
-                                    <span class="fw-bold fs-6">Total:</span> 
-                                    <span class="fs-4 text-primary fw-bold">100.000 VNĐ</span>
-                                </div>
-                                <button class="btn btn-warning text-light mt-2 mt-md-0 ">
-                                    <i class="bi bi-star"></i> Review
-                                </button>
-                            </div>
-                        </div>
-                            <!-- End Order Card -->
+                            </c:forEach>
                             
                     </section>
                 </div>
@@ -209,8 +116,11 @@
       
       <!-- Bootstrap 5.3.3 JS Bundle -->
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+               <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       
       <script src="${pageContext.request.contextPath}/assert/javascript/script.js"></script>
       <script src="${pageContext.request.contextPath}/assert/javascript/checkPassword.js"></script>
+            <script src="${pageContext.request.contextPath}/assert/javascript/ratingReview.js">  </script>
+
    </body>
 </html>

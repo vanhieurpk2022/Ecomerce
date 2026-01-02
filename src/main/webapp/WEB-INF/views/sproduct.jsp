@@ -245,8 +245,8 @@
                         <span class="rating-summary-out">/5</span>
                     </div>
                     <div style="display:flex;flex-direction:column;">
-                        <span class="rating-summary-label">615 khách hài lòng</span>
-                        <span class="rating-summary-count">Dựa trên 615 đánh giá</span>
+                        <span class="rating-summary-label">${sproduct.review_count} khách hài lòng</span>
+                        <span class="rating-summary-count">Dựa trên ${sproduct.review_count} đánh giá</span>
                     </div>
                 </div>
                 <div>
@@ -254,31 +254,31 @@
                         <span class="rating-bar-label">5</span>
                         <span class="rating-bar-star"><i class="fa-solid fa-star"></i></span>
                         <span class="rating-bar-body"><span class="rating-bar-active" style="width:100%;"></span></span>
-                        <span class="rating-bar-percent">100%</span>
+                        <span class="rating-bar-percent">${sproduct.rate[0].rating } </span>
                     </div>
                     <div class="rating-row">
                         <span class="rating-bar-label">4</span>
                         <span class="rating-bar-star"><i class="fa-solid fa-star"></i></span>
                         <span class="rating-bar-body"><span class="rating-bar-active" style="width:0%;"></span></span>
-                        <span class="rating-bar-percent">0%</span>
+                        <span class="rating-bar-percent">${sproduct.rate[1].rating }</span>
                     </div>
                     <div class="rating-row">
                         <span class="rating-bar-label">3</span>
                         <span class="rating-bar-star"><i class="fa-solid fa-star"></i></span>
                         <span class="rating-bar-body"><span class="rating-bar-active" style="width:0%;"></span></span>
-                        <span class="rating-bar-percent">0%</span>
+                        <span class="rating-bar-percent">${sproduct.rate[2].rating }</span>
                     </div>
                     <div class="rating-row">
                         <span class="rating-bar-label">2</span>
                         <span class="rating-bar-star"><i class="fa-solid fa-star"></i></span>
                         <span class="rating-bar-body"><span class="rating-bar-active" style="width:0%;"></span></span>
-                        <span class="rating-bar-percent">0%</span>
+                        <span class="rating-bar-percent">${sproduct.rate[3].rating }</span>
                     </div>
                     <div class="rating-row">
                         <span class="rating-bar-label">1</span>
                         <span class="rating-bar-star"><i class="fa-solid fa-star"></i></span>
                         <span class="rating-bar-body"><span class="rating-bar-active" style="width:0%;"></span></span>
-                        <span class="rating-bar-percent">0%</span>
+                        <span class="rating-bar-percent">${sproduct.rate[4].rating }</span>
                     </div>
                 </div>
             </div>

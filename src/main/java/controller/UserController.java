@@ -12,10 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.AddressDao;
+import dao.OrdersDao;
+import dao.ServicesTaxDao;
 import dao.UserDao;
 import model.Address;
+import model.Cart;
+import model.Order;
+import model.OrderDetail;
 import model.User;
 import model.UserSession;
+import model.reviews;
 import util.Encode;
 
 /**
@@ -40,10 +46,17 @@ public class UserController extends HttpServlet {
 		String path = request.getPathInfo();
      	HttpSession session = request.getSession();
     	UserSession userSession = (UserSession) session.getAttribute("user");
+    	OrdersDao orDao = new OrdersDao();
+    	String selected ="";
+    	String condition=null;
+    	List<Order> listOrder =null;
 	        switch (path) {
+	       
+	    
 	        case "/review":
+	        	List<OrderDetail> odList = orDao.selectProductsUsedBuy(userSession.getIdUser());
             	request.setAttribute("account",8);
-
+            	request.setAttribute("od", odList);
             	request.getRequestDispatcher("/WEB-INF/views/reviews.jsp")
                    .forward(request, response);
                 break;
@@ -53,25 +66,113 @@ public class UserController extends HttpServlet {
                    .forward(request, response);
                 break;
 	            case "/orders_his":
-	            	request.setAttribute("account",4);
+	            
+	            	 condition = request.getParameter("search");
+	            	if(condition != null) {
+	            		switch (condition) {
+						case "today":
+							selected = "today";
+							listOrder = orDao.selectOrdersByToday(userSession.getIdUser());
+							break;
+						case "week":
+							selected = "week";
 
+							listOrder = orDao.selectOrdersByWeek(userSession.getIdUser());
+							break;
+						case "month":
+							selected = "month";
+							listOrder = orDao.selectOrdersByMonth(userSession.getIdUser());
+							break;
+						case "all":
+							selected = "all";
+		            		listOrder = orDao.selectOrderByUserID(userSession.getIdUser());
+							break;
+						default:
+							throw new IllegalArgumentException("Unexpected value: " + condition);
+						}
+	            	}else {
+	            		selected = "all";
+	            		listOrder = orDao.selectOrderByUserID(userSession.getIdUser());
+	            	}
+	            	request.setAttribute("choose", selected);
+	            	request.setAttribute("orders", listOrder);
+	            	request.setAttribute("account",4);
 	            	request.getRequestDispatcher("/WEB-INF/views/orders_his.jsp")
 	                   .forward(request, response);
 	                break;
 	            case "/orders_shipping":
+	            	condition = request.getParameter("search");
+	            	if(condition != null) {
+	            		switch (condition) {
+						case "today":
+							selected = "today";
+							listOrder = orDao.selectOrdersByTodayShipping(userSession.getIdUser());
+							break;
+						case "week":
+							selected = "week";
+
+							listOrder = orDao.selectOrdersByWeekShipping(userSession.getIdUser());
+							break;
+						case "month":
+							selected = "month";
+							listOrder = orDao.selectOrdersByMonthShipping(userSession.getIdUser());
+							break;
+						case "all":
+							selected = "all";
+		            		listOrder = orDao.selectOrderByUserIDShipping(userSession.getIdUser());
+							break;
+						default:
+							throw new IllegalArgumentException("Unexpected value: " + condition);
+						}
+	            	}else {
+	            		selected = "all";
+		            	listOrder = orDao.selectOrderByUserIDShipping(userSession.getIdUser());
+	            	}
+	            	request.setAttribute("choose", selected);
+	            	request.setAttribute("orders", listOrder);
 	            	request.setAttribute("account",5);
 
-	            	request.getRequestDispatcher("/WEB-INF/views/orders_shipping.jsp")
+	            	request.getRequestDispatcher("/WEB-INF/views/orders_shipping2.jsp")
 	                   .forward(request, response);
 	                break;
 	            case "/orders_delivered":
+	         
+	            	condition = request.getParameter("search");
+	            	if(condition != null) {
+	            		switch (condition) {
+						case "today":
+							selected = "today";
+							listOrder = orDao.selectOrdersByTodayDelivered(userSession.getIdUser());
+							break;
+						case "week":
+							selected = "week";
+
+							listOrder = orDao.selectOrdersByWeekDelivered(userSession.getIdUser());
+							break;
+						case "month":
+							selected = "month";
+							listOrder = orDao.selectOrdersByMonthDelivered(userSession.getIdUser());
+							break;
+						case "all":
+							selected = "all";
+		            		listOrder = orDao.selectOrdersByDelivered(userSession.getIdUser());
+							break;
+						default:
+							throw new IllegalArgumentException("Unexpected value: " + condition);
+						}
+	            	}else {
+	            		selected = "all";
+		            	listOrder = orDao.selectOrdersByDelivered(userSession.getIdUser());
+	            	}
+	            	request.setAttribute("choose", selected);
+	            	request.setAttribute("orders", listOrder);
 	            	request.setAttribute("account",6);
 
-	            	request.getRequestDispatcher("/WEB-INF/views/orders_delivered.jsp")
+	            	request.getRequestDispatcher("/WEB-INF/views/orders_delivered2.jsp")
 	                   .forward(request, response);
 	                break;
 	            case "/settings":
-	            	
+
 	            	UserDao user = new UserDao();
 	            	User selectUser = user.selectUserByUserID(userSession.getIdUser());
 	            	String getMsgType = (String) session.getAttribute("msg_type");
@@ -135,11 +236,34 @@ public class UserController extends HttpServlet {
             case "/updateAccountInfo":
             	updateAccountInfo(request,response);
                 break;
-
+            case "/reviews":
+    			reviewProducts(request,response);
+    			break;
             default:
             	response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
 	}
+	private void reviewProducts(HttpServletRequest request, HttpServletResponse response) {
+		String getProductsID = request.getParameter("proid");
+		String getOrderDetailsID = request.getParameter("orderDetailID");
+		String getRating = request.getParameter("rating");
+		ServicesTaxDao dao = new ServicesTaxDao();
+		HttpSession session = request.getSession(false);
+		UserSession userSession = (UserSession) session.getAttribute("user");
+		try {
+			int rate = Integer.parseInt(getRating);
+			int pid = Integer.parseInt(getProductsID);
+			int odid = Integer.parseInt(getOrderDetailsID);
+			reviews re = new reviews(odid,userSession.getIdUser(),pid,rate);
+			if(dao.insertReviewProducts(re)) {
+				response.setStatus(HttpServletResponse.SC_OK);
+			};
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+			
+	}
+
 	private void updateAccountInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
@@ -175,7 +299,7 @@ public class UserController extends HttpServlet {
 	private void updateCurrentAddress(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("id");
 		if(id !=null) {
-			HttpSession session = request.getSession();
+			HttpSession session = request.getSession(false);
 			UserSession user = (UserSession) session.getAttribute("user");
 			int getAddressId = Integer.parseInt(id);
 			AddressDao addressDao = new AddressDao();
@@ -184,7 +308,7 @@ public class UserController extends HttpServlet {
 		}		
 	}
 
-	private void removeAddress(HttpServletRequest request, HttpServletResponse response) {
+	private void removeAddress(HttpServletRequest request, HttpServletResponse response)  {
 		String id = request.getParameter("id");
 		if(id !=null) {
 			int getAddressId = Integer.parseInt(id);
@@ -196,11 +320,11 @@ public class UserController extends HttpServlet {
 
 	}
 
-	private void addAddress(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private void addAddress(HttpServletRequest request, HttpServletResponse response) throws IOException  {
 		// TODO Auto-generated method stub
 		  request.setCharacterEncoding("UTF-8");
 		  response.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		String getAddressLine = request.getParameter("fulladdress");
 		String getWard = request.getParameter("district");
 		String getCity = request.getParameter("city");
@@ -209,11 +333,12 @@ public class UserController extends HttpServlet {
 		
 		AddressDao dao = new AddressDao();
 		UserSession userSession = (UserSession) session.getAttribute("user");
-		Address addr = new Address(getAddressLine,getCity,getWard,phone,userSession.getIdUser(),getCountry,false);
+		int count = dao.isFirstAddress(userSession.getIdUser());
+		Address addr = new Address(getAddressLine,getCity,getWard,phone,userSession.getIdUser(),getCountry,(count == 0 ?true:false));
 		int getId =dao.addAddressByUserID(addr);
-
+		
 	    response.setContentType("application/json");
-	    response.getWriter().write("{\"addressID\":" + getId + "}");
+	    response.getWriter().write("{\"addressID\":" + getId +","+"\"count\":"+count + "}");
 
 	}
 	
