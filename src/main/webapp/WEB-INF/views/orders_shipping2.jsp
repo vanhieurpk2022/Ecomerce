@@ -97,7 +97,7 @@
                               <p class=" fw-semibold m-0">Infomation shipping	</p>
                              <div class="d-flex mb-3 flex-column shadow-sm rounded-2 p-3">
                                   <div class="d-flex flex-row ">
-                                    <div class="mt-2 d-none d-sm-flex"> <i class="bi bi-geo-alt fs-4 p-3 "></i> </div>
+                                    <div class="mt-2 d-none d-sm-flex"> <i class="bi bi-geo-alt fs-4 px-3 "></i> </div>
                                      <div class="mt-2 d-flex d-md-none"> <i class="bi bi-geo-alt fs-4"></i> </div>
                                     
                                     <div class="d-flex flex-column">

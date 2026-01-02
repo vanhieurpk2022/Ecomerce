@@ -41,9 +41,13 @@ public class ShopController extends HttpServlet {
 		case "SProduct":
 			ShowSProduct(request,response);
 			break;
+		
 	
 		}
 	}
+	
+
+
 	private void ShowSProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 			int getID = Integer.parseInt( request.getParameter("productID"));
@@ -53,7 +57,6 @@ public class ShopController extends HttpServlet {
 			
 		List<ProductVariants> productVariant = product_variantsDao.SelectByProductIDInProductVariants(getID);
 		Products product=	dao.SelectByProductID(getID);
-		System.out.println(productVariant);
 		List<Products> rq = dao.SelectByCategory(getType);
 		request.setAttribute("getVariants", productVariant);
 		request.setAttribute("TypeClothe", rq);

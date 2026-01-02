@@ -60,7 +60,9 @@
                 <span id="msg_pwd" style="Color:red;text-align:center;">${msg }</span>
                 </c:when>
                 </c:choose>
-                <span id="msg_js"></span>
+                <span id="msg_js" class="text-center"></span>
+                <span id="msg_email" class="text-center"></span>
+                
             </div>
             <span class="visible"></span>
             <label>

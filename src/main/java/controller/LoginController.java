@@ -273,18 +273,16 @@ public class LoginController extends HttpServlet {
 			}else {
 				HttpSession session = request.getSession();
 				
-				CookieUtil.saveLoginInfo(response, username, password, (checked !=null)?true:false);
 				
 				session.setAttribute("user", userSession);
-				
 				String redirectUrl = (String) session.getAttribute("redirectAfterLogin");
-
+			
 				if (redirectUrl != null) {
 				    session.removeAttribute("redirectAfterLogin");
 				    response.sendRedirect( redirectUrl);
 				} else {
 				    response.sendRedirect(request.getContextPath() + "/home");
-				}
+				} 
 	            return;
 			}
 		}

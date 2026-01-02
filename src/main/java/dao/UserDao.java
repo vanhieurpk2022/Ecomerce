@@ -121,7 +121,7 @@ public class UserDao extends BaseDao {
 				user.setPassword(result.getString("password"));
 				Date getBirthdate = result.getDate("birthday");
 				LocalDate birthDate = (getBirthdate == null ? null : getBirthdate.toLocalDate());
-
+				user.setRole(result.getInt("role"));
 				user.setBirthday(birthDate);
 				user.setGender(result.getInt("gender"));
 			}
@@ -199,6 +199,17 @@ public class UserDao extends BaseDao {
 		}
 
 	}
+	public boolean isEmailExists(String email) {
+		String sql = "SELECT * FROM users where email =?";
+		try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 
+		ps.setString(1, email);
+			ResultSet rs = ps.executeQuery();
+			return rs.next();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+
+		}
+	}
 
 }

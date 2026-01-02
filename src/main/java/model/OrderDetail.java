@@ -13,7 +13,7 @@ public class OrderDetail {
 	
 	 private Products product;
 	    private ProductVariants variant;
-	
+	private boolean isReview;
 
 	public OrderDetail( Integer orderID, Integer productID, Integer variantID, Integer quantity,
 			BigDecimal price) {
@@ -91,6 +91,14 @@ public class OrderDetail {
 
 	public void setVariant(ProductVariants variant) {
 		this.variant = variant;
+	}
+
+	public boolean getIsReview() {
+		return isReview;
+	}
+
+	public void setReview(boolean isReview) {
+		this.isReview = isReview;
 	}
 
 }

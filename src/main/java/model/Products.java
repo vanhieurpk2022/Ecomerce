@@ -2,6 +2,7 @@ package model;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
 
 public class Products {
 	private Integer productID;
@@ -13,7 +14,7 @@ public class Products {
 	private String img;
 	private String description;
 	
-	private BigDecimal avg_rating;
+	private List<reviews> rate;
 	private Integer review_count;
 
 	public Products(Integer productID, String productName, Integer categoryID, BigDecimal price, String status,
@@ -95,20 +96,20 @@ public class Products {
 	}
 
 
-	public BigDecimal getAvg_rating() {
-		return avg_rating;
-	}
-
-	public void setAvg_rating(BigDecimal avg_rating) {
-		this.avg_rating = avg_rating;
-	}
-
 	public Integer getReview_count() {
 		return review_count;
 	}
 
 	public void setReview_count(Integer review_count) {
 		this.review_count = review_count;
+	}
+
+	public List<reviews> getRate() {
+		return rate;
+	}
+
+	public void setRate(List<reviews> rate) {
+		this.rate = rate;
 	}
 
 }

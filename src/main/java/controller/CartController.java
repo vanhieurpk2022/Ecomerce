@@ -172,6 +172,7 @@ public class CartController extends HttpServlet {
 				throw new IllegalArgumentException("Unexpected value: " + action);
 			}
 		} else {
+			
 			request.setAttribute("active", "cart");
 			request.getRequestDispatcher("/WEB-INF/views/cart.jsp").forward(request, response);
 

@@ -10,17 +10,18 @@ public class reviews {
 	private Integer rating;
 	private LocalDate createAt;
 
-	public reviews(Integer review_id, Integer order_detail_id, Integer user_id, Integer product_id, Integer rating,
-			LocalDate createAt) {
+	public reviews( Integer order_detail_id, Integer user_id, Integer product_id, Integer rating
+			) {
 		super();
-		this.review_id = review_id;
 		this.order_detail_id = order_detail_id;
 		this.user_id = user_id;
 		this.product_id = product_id;
 		this.rating = rating;
-		this.createAt = createAt;
 	}
-	
+	public reviews(Integer rating) {
+		super();
+		this.rating= rating;
+	}
 	public reviews() {
 		super();
 	}

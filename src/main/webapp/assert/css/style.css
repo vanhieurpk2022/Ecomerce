@@ -1968,7 +1968,16 @@ input:checked+.slider:before {
     	max-height: 500px;
     }
     
+ /*review*/
  
+.rating i {
+    cursor: pointer;
+    color: #ccc;
+    font-size: 1.5rem;
+}
+.rating i.active {
+    color: #ffc107 !important;
+}
 /* Start Media Query */
 /* ipad */
 @media ( max-width : 920px) {

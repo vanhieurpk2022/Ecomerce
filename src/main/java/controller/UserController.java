@@ -13,12 +13,15 @@ import javax.servlet.http.HttpSession;
 
 import dao.AddressDao;
 import dao.OrdersDao;
+import dao.ServicesTaxDao;
 import dao.UserDao;
 import model.Address;
 import model.Cart;
 import model.Order;
+import model.OrderDetail;
 import model.User;
 import model.UserSession;
+import model.reviews;
 import util.Encode;
 
 /**
@@ -51,8 +54,9 @@ public class UserController extends HttpServlet {
 	       
 	    
 	        case "/review":
+	        	List<OrderDetail> odList = orDao.selectProductsUsedBuy(userSession.getIdUser());
             	request.setAttribute("account",8);
-
+            	request.setAttribute("od", odList);
             	request.getRequestDispatcher("/WEB-INF/views/reviews.jsp")
                    .forward(request, response);
                 break;
@@ -232,11 +236,34 @@ public class UserController extends HttpServlet {
             case "/updateAccountInfo":
             	updateAccountInfo(request,response);
                 break;
-
+            case "/reviews":
+    			reviewProducts(request,response);
+    			break;
             default:
             	response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
 	}
+	private void reviewProducts(HttpServletRequest request, HttpServletResponse response) {
+		String getProductsID = request.getParameter("proid");
+		String getOrderDetailsID = request.getParameter("orderDetailID");
+		String getRating = request.getParameter("rating");
+		ServicesTaxDao dao = new ServicesTaxDao();
+		HttpSession session = request.getSession();
+		UserSession userSession = (UserSession) session.getAttribute("user");
+		try {
+			int rate = Integer.parseInt(getRating);
+			int pid = Integer.parseInt(getProductsID);
+			int odid = Integer.parseInt(getOrderDetailsID);
+			reviews re = new reviews(odid,userSession.getIdUser(),pid,rate);
+			if(dao.insertReviewProducts(re)) {
+				response.setStatus(HttpServletResponse.SC_OK);
+			};
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+			
+	}
+
 	private void updateAccountInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");

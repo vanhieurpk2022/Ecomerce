@@ -4,6 +4,7 @@ import java.lang.reflect.Type;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,8 +13,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
 import com.google.gson.reflect.TypeToken;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonParseException;
+import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import model.Cart;
 
 public class CookieUtil {
@@ -22,7 +38,21 @@ public class CookieUtil {
 	private static final String REMEMBER_COOKIE = "remember_me";
 	private static final String CART_NAME = "Cart";
 	private static final int COOKIE_AGE = 30 * 24 * 60 * 60;
-	private static final Gson gson = new Gson();
+	 private static final Gson gson = new GsonBuilder()
+		        .registerTypeAdapter(LocalDate.class, new JsonSerializer<LocalDate>() {
+		            @Override
+		            public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
+		                return new JsonPrimitive(src.format(DateTimeFormatter.ISO_LOCAL_DATE)); // format: yyyy-MM-dd
+		            }
+		        })
+		        .registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
+		            @Override
+		            public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+		                    throws JsonParseException {
+		                return LocalDate.parse(json.getAsString(), DateTimeFormatter.ISO_LOCAL_DATE);
+		            }
+		        })
+		        .create();
 
 	// Đọc Cart từ cookies
 	public static Cart getCart(HttpServletRequest request) {

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Cart;
+import model.User;
+import model.UserSession;
 
 /**
  * Servlet Filter implementation class AuthoFilter
@@ -41,41 +43,44 @@ public class AuthoFilter implements Filter {
 	    public void doFilter(ServletRequest request, ServletResponse response,
 	                         FilterChain chain)
 	            throws IOException, ServletException {
-
 		 HttpServletRequest req = (HttpServletRequest) request;
-		 HttpServletResponse resp = (HttpServletResponse) response;
+	        HttpServletResponse resp = (HttpServletResponse) response;
+	        HttpSession session = req.getSession(false);
+	        String path = req.getServletPath();
 
-		 // không tự tạo session
-		 HttpSession session = req.getSession(false);
+	        // 1. Kiểm tra đăng nhập
+	        UserSession user = (session != null) ? (UserSession) session.getAttribute("user") : null;
 
-		 /* ================== LOAD CART ================== */
-		 Cart cart = CookieUtil.getCart(req);
-		 if (cart != null) {
-		     // chỉ tạo session khi thực sự cần
-		     req.getSession(true).setAttribute("Cart", cart);
-		 }
+	        if (user == null) {
+	            // Chưa đăng nhập -> Lưu URL cũ để quay lại
+	            if ("GET".equalsIgnoreCase(req.getMethod())) {
+	                String uri = req.getRequestURI();
+	                String query = req.getQueryString();
+	                String originalUrl = uri + (query != null ? "?" + query : "");
+	                req.getSession(true).setAttribute("redirectAfterLogin", originalUrl);
+	            }
+	            
+	            request.setAttribute("msgtype", "error");
+	            request.setAttribute("msg", "Please login to continue!");
+	            req.getRequestDispatcher("/WEB-INF/views/signin.jsp").forward(request, response);
+	            return;
+	        }
 
-		 /* ================== CHECK LOGIN ================== */
-		 boolean loggedIn = (session != null &&
-		         session.getAttribute("user") != null);
-		 
-		 if (loggedIn) {
-		     chain.doFilter(request, response);
-		 } else {
-			 // 🔥 LƯU URL GỐC (để login xong quay lại)
-			    String uri = req.getRequestURI();
-			    String query = req.getQueryString();
-			    String originalUrl = uri + (query != null ? "?" + query : "");
+	        // 2. Lọc quyền (Role)
+	        int role = user.getRole(); // Giả sử là "ADMIN" hoặc "USER"
 
-			    req.getSession(true).setAttribute("redirectAfterLogin", originalUrl);
-
-			    request.setAttribute("msgtype", "error");
-			    request.setAttribute("msg", "Please login first");
-
-			    req.getRequestDispatcher("/WEB-INF/views/signin.jsp")
-			       .forward(request, response);
-		 }
+	        if (path.startsWith("/admin")) {
+	            // Nếu vào đường dẫn admin mà không phải role ADMIN
+	            if (role != 0) {
+	                resp.sendError(HttpServletResponse.SC_FORBIDDEN); 
+	                return;
+	            }
+	        } 
+	        
+	        // Nếu đã pass qua các bước trên -> Cho phép đi tiếp
+	        chain.doFilter(request, response);
 	    }
+
 
 	/**
 	 * @see Filter#init(FilterConfig)
