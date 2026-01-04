@@ -1,0 +1,13 @@
+*********************!WARNING!***********************
+=========!Project Tomcat 9!==============
++ đối với Eclipse workspace mới tạo ra ,
+khi import project project xong bỏ qua các lỗi,
+=>  chỉ cần Reastart lại Eclipse, sau đó maven update
+=> khi chạy dự án click vào tên project sau đó bấm runs as on server
+
+***********!Project sử dụng MySQL!****************
+***********các bước sử dụng database****************
+ step 1: Khởi động mysql
+ step 2: Open file createTable.sql sau đó bấm chạy
+ step 3: open file insertData.sql sau đó bấm chạy
+ step 4: truy cập Project clothestore -> src -> webapp -> META-INF -> cấu hình lại tài khoản MySQL
