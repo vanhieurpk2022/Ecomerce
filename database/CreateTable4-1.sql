@@ -21,7 +21,8 @@ CREATE TABLE Users (
     birthday DATE,
     gender INT DEFAULT -1,
     createAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    Role INT DEFAULT 1
+    Role INT DEFAULT 1,
+    STATUS INT DEFAULT 1
 );
 
 -- 4. Tạo bảng Address (Liên kết với Users)
@@ -29,7 +30,7 @@ CREATE TABLE Address (
     addressID INT AUTO_INCREMENT PRIMARY KEY,
     fulladdress NVARCHAR(255),
     ward NVARCHAR(255),
-    city NVARCHAR(255),
+    city_code NVARCHAR(255),
     country NVARCHAR(255),
     phone NVARCHAR(50),
     userID INT NOT NULL,
@@ -47,8 +48,7 @@ CREATE TABLE Products (
     img NVARCHAR(255),
     DESCRIPTION TEXT,
     createAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    avg_rating FLOAT,
-    review_count INT,
+
     FOREIGN KEY (categoryID) REFERENCES Category(CategoryID) ON DELETE SET NULL
 );
 
@@ -69,13 +69,16 @@ CREATE TABLE Orders (
     orderID INT AUTO_INCREMENT PRIMARY KEY,
     userID INT,
     addressID INT,
-    status NVARCHAR(50), -- hủy đơn -> cancelled
-    totalAmount DECIMAL(10,2),
+	 shipping_fee DECIMAL(10,2),
+	 note TEXT,
+	 subtotal DECIMAL(10,2),
     paymentMethod NVARCHAR(50),
-    voucherCode NVARCHAR(50),
-    discountAmount INT,
+
+    discountAmount DECIMAL(10,2),
+     totalAmount DECIMAL(10,2),
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updateAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+     status NVARCHAR(50) DEFAULT 'pending', -- hủy đơn -> cancelled
     FOREIGN KEY (userID) REFERENCES Users(userID),
     FOREIGN KEY (addressID) REFERENCES Address(addressID)
 );
@@ -107,7 +110,7 @@ CREATE TABLE ORDER_DETAILS (
 	-- 10. tạo bảng vourche
 	CREATE TABLE Vouchers (
     voucherID INT AUTO_INCREMENT PRIMARY KEY,
-    code VARCHAR(50) UNIQUE NOT NULL,
+    code NVARCHAR(50) UNIQUE NOT NULL,
     discount INT NOT NULL,        -- số tiền giảm
     quantity INT,                 -- số lượt dùng
     used INT DEFAULT 0,
@@ -117,7 +120,15 @@ CREATE TABLE ORDER_DETAILS (
  -- 11. remember me
  	CREATE TABLE RememberTokens (
     userID INT PRIMARY KEY,
-    token VARCHAR(255),
+    token NVARCHAR(255),
     expiredAt DATETIME,
     FOREIGN KEY (userID) REFERENCES Users(userID)
 );
+
+ -- 12 Shpping tax 
+ 	CREATE TABLE shipping (
+	spid INT PRIMARY KEY AUTO_INCREMENT,
+	city_name NVARCHAR(255),
+	city_code NVARCHAR(255),
+	price DECIMAL(10,2)
+	 )
