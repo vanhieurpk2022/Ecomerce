@@ -18,7 +18,13 @@ public class UserSession {
 		this.role = role;
 
 	}
-	
+	public UserSession(User userFromDB) {
+	    this.idUser = userFromDB.getIdUser();     // Lấy ID từ đối tượng DB gán qua Session
+	    this.firstname = userFromDB.getFirstName(); 
+	    this.lastname = userFromDB.getLastName();
+	    this.role = userFromDB.getRole();
+	    // Các trường khác như TokenID hay expired có thể để null hoặc gán tùy ý
+	}
 	public Integer getIdUser() {
 		return idUser;
 	}

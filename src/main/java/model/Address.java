@@ -10,6 +10,8 @@ public class Address {
 	private String phone;
 	private Boolean isDefault;
 	private String country;
+	
+	private String cityName;
 	public Address(Integer addressID, Integer userID, String fullAddress, String city, String ward,
 			String phone, Boolean isDefault) {
 		super();
@@ -97,6 +99,18 @@ public class Address {
 	}
 	public void setCountry(String country) {
 		this.country = country;
+	}
+	public String getCityName() {
+		return cityName;
+	}
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
+	public String getCity_code() {
+		return city_code;
+	}
+	public void setCity_code(String city_code) {
+		this.city_code = city_code;
 	}
 	
 }

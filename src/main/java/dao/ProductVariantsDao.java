@@ -13,7 +13,7 @@ public class ProductVariantsDao extends BaseDao {
 	public ProductVariants SelectByProductVariantID(int variantID) {
 		// TODO Auto-generated method stub
 		ProductVariants variants = null;
-		String sql = "Select * from products_variants  WHERE variantID = ? LIMIT 1";
+		String sql = "Select * from products_variants  WHERE variantID = ? LIMIT 1 " ;
 
 		try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 

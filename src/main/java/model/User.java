@@ -17,6 +17,9 @@ public class User {
 	private String phone;
 	private LocalDate birthday;
 	private Integer gender;
+	private Integer status;
+	
+	private Integer puchasedOrders;
 	
 	public User(Integer idUser, String firstName, String lastName, String email , Boolean verify,
 			String username, String password) {
@@ -141,6 +144,22 @@ public class User {
 
 	public void setGender(Integer gender) {
 		this.gender = gender;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Integer getPuchasedOrders() {
+		return puchasedOrders;
+	}
+
+	public void setPuchasedOrders(Integer puchasedOrders) {
+		this.puchasedOrders = puchasedOrders;
 	}
 
 	

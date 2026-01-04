@@ -14,7 +14,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
           <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+    	          
+	      <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/assert/img/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/assert/img/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/assert/img/favicon/favicon-16x16.png">
+<link rel="manifest" href="${pageContext.request.contextPath}/assert/img/favicon/site.webmanifest">
+	          
      <link rel="stylesheet" href="${pageContext.request.contextPath}/assert/css/style.css">
 
 </head>
@@ -30,32 +35,122 @@
         <p>Save more with coupons & up to 70% off!</p>
     </section>
 
-    <section id="filter">
-        <div class="filter_main">
-            <div class="sort">
-                <span>Sắp xếp theo</span>
-                <button class="recent">Phổ biến</button>
-                <button>Mới nhất</button>
-            </div>
+   <section id="filter" class="section-p1">
+  <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
 
-            <div class="category">
-                <span>Danh mục</span>
-                <select name="category">
-                    <option value="all">Tất cả</option>
-                    <option value="pants">Quần</option>
-                    <option value="shirt">Áo</option>
-                </select>
-            </div>
+    <!-- Filter button -->
+    <a class="btn btn-outline-secondary"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasExample">
+      <i class="bi bi-funnel"></i> Filter
+    </a>
 
-            <div class="price">
-                <select name="price">
-                    <option value="default">Giá</option>
-                    <option value="asc">Giá từ thấp đến cao</option>
-                    <option value="desc">Giá từ cao đến thấp</option>
-                </select>
-            </div>
-        </div>
-    </section>
+    <!-- Search -->
+    <form class="d-flex" >
+      <input type="hidden" name="action" value="">
+      <input class="form-control me-2"
+             type="search"
+             name="keyword"
+             placeholder="Search product...">
+      <button class="btn btn-success">Search</button>
+    </form>
+
+  </div>
+  
+		  <div class="offcanvas offcanvas-start" tabindex="-1"
+		     id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+		
+		  <div class="offcanvas-header">
+		    <h5 class="offcanvas-title" id="offcanvasExampleLabel">
+		      <i class="bi bi-funnel"></i> Filter Products
+		    </h5>
+		    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+		  </div>
+		
+		  <form action="${ctx}/shop" method="GET">
+		    <input type="hidden" name="action" value="FilterProducts">
+		
+		    <div class="offcanvas-body">
+		
+		      <!-- CATEGORY -->
+		      <div class="mb-3">
+		        <label class="form-label fw-semibold">Category</label>
+		        <select name="categoryID" class="form-select">
+		          <option value="">All Categories</option>
+		          <c:forEach items="${cate}" var="c">
+		            <option value="${c.categoryID}">${c.categoryName}</option>
+		          </c:forEach>
+		        </select>
+		      </div>
+		
+		      <!-- PRICE RANGE -->
+		      <div class="mb-3">
+		        <label class="form-label fw-semibold">Price Range (VNĐ)</label>
+		        <div class="row g-2">
+		          <div class="col-6">
+						<!-- Price Input -->
+					<input type="number" name="minPrice" value="${minPrice}" class="form-control" placeholder="Min">
+		          </div>
+		          <div class="col-6">
+		            <input type="number" name="maxPrice"
+		                   class="form-control"
+		                   placeholder="Max">
+		          </div>
+		        </div>
+		      </div>
+		
+		      <!-- SIZE -->
+		      <div class="mb-3">
+		        <label class="form-label fw-semibold">Size</label>
+		        <div class="d-flex gap-2 flex-wrap">
+		        <div class="form-check">
+				    <input class="form-check-input" type="checkbox" name="size" value="S" id="sizeS"
+				           ${selectedSizes.contains('S') ? 'checked' : ''}>
+				    <label class="form-check-label" for="sizeS">S</label>
+				</div>
+		          <div class="form-check">
+		            <input class="form-check-input" type="checkbox" name="size" value="M" id="sizeM">
+		            <label class="form-check-label" for="sizeM">M</label>
+		          </div>
+		          <div class="form-check">
+		            <input class="form-check-input" type="checkbox" name="size" value="L" id="sizeL">
+		            <label class="form-check-label" for="sizeL">L</label>
+		          </div>
+		          <div class="form-check">
+		            <input class="form-check-input" type="checkbox" name="size" value="XL" id="sizeXL">
+		            <label class="form-check-label" for="sizeXL">XL</label>
+		          </div>
+		        </div>
+		      </div>
+		
+		      <!-- SORT -->
+		      <div class="mb-3">
+		        <label class="form-label fw-semibold">Sort by</label>
+		        <select name="sort" class="form-select">
+		          <option value="">Default</option>
+		          <option value="price_asc">Price: Low → High</option>
+		          <option value="price_desc">Price: High → Low</option>
+		          <option value="newest">Newest</option>
+		          <option value="sold_desc">Best selling</option>
+		        </select>
+		      </div>
+		
+		      <hr>
+		
+		      <!-- ACTION BUTTONS -->
+		      <div class="d-flex gap-2">
+		        <button type="submit" class="btn btn-primary w-100">
+		          Apply Filter
+		        </button>
+		        <a href="${ctx}/shop" class="btn btn-outline-secondary w-100">
+		          Reset
+		        </a>
+		      </div>
+		
+		    </div>
+		  </form>
+		</div>
+</section>
 
     <section id="product1" class="section-p1">
 
@@ -113,7 +208,7 @@
 
    
        <script src="${ctx}/assert/javascript/script.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

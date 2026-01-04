@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+            <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+    
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -10,11 +12,16 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assert/css/style_admin.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
+	
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" >
+	      <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/assert/img/favicon_ad/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/assert/img/favicon_ad/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/assert/img/favicon_ad/favicon-16x16.png">
+<link rel="manifest" href="${pageContext.request.contextPath}/assert/img/favicon_ad/site.webmanifest">
 
     <title>Admin Home</title>
 
@@ -22,7 +29,7 @@
 
 <body>
 	 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
-
+    <fmt:setLocale value="vi_VN"/>
   	<jsp:include page="/WEB-INF/includes/_SidebarAdmin.jsp"></jsp:include>
 
     <!-- Main Content -->
@@ -47,29 +54,29 @@
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-info">
-                    <h3>Tổng người dùng</h3>
-                    <p>2,543</p>
+                    <h3>Total users</h3>
+                    <p>${ttu}</p>
                 </div>
                 <div class="stat-icon">👥</div>
             </div>
             <div class="stat-card">
                 <div class="stat-info">
-                    <h3>Doanh thu</h3>
-                    <p>₫45.2M</p>
+                    <h3> revenue</h3>
+                    <p><fmt:formatNumber value="${rev }" pattern="#,##0 VNĐ"/></p>
                 </div>
                 <div class="stat-icon">💰</div>
             </div>
             <div class="stat-card">
                 <div class="stat-info">
-                    <h3>Đơn hàng</h3>
-                    <p>1,234</p>
+                    <h3>Orders</h3>
+                    <p>${tto }</p>
                 </div>
                 <div class="stat-icon">🛒</div>
             </div>
             <div class="stat-card">
                 <div class="stat-info">
-                    <h3>Sản phẩm</h3>
-                    <p>856</p>
+                    <h3>Products</h3>
+                    <p>${ttp }</p>
                 </div>
                 <div class="stat-icon">📦</div>
             </div>
@@ -80,54 +87,39 @@
             <!-- Recent Orders -->
             <div class="card">
                 <div class="card-header">
-                    <h3>Đơn hàng gần đây</h3>
-                    <a href="#" class="view-all">Xem tất cả →</a>
+                    <h3>Orders Recent</h3>
+                    <a href="${ctx }/admin/order" class="view-all">Details →</a>
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Mã đơn</th>
-                            <th>Khách hàng</th>
-                            <th>Sản phẩm</th>
-                            <th>Giá trị</th>
-                            <th>Số Lượng</th>
-                            <th>Trạng thái</th>
+                <table class="  text-center align-middle">
+                    <thead >
+                        <tr >
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Date</th>
+                            <th>Price</th>
+                            <th>Payment Method</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
+                    <c:forEach var ="o" items="${oor }">
                         <tr>
-                            <td>#ORD-001</td>
-                            <td>Nguyễn Văn A</td>
-                            <td>iPhone 15 Pro</td>
-                            <td>₫29.990.000</td>
-                            <td>0</td>
-                            <td><span class="badge success">Hoàn thành</span></td>
+                            <td>#ORD-${o.orderID }</td>
+                            <td>${o.user.firstName }  ${o.user.lastName }</td>
+                            <td>${o.createdAt }</td>
+                            <td><fmt:formatNumber value="${o.totalAmount }" pattern="#,##0 VNĐ"/></td>
+                            <td >${o.paymentMethod }</td>
+                            <td>
+                            	<c:choose>
+                            		<c:when test="${o.status =='SUCCESS' }">   <span class="badge text-bg-success">SUCCESS</span></c:when>
+                            		<c:when test="${o.status =='PENDING' }">   <span class="badge text-bg-secondary">PROCESSING</span></c:when>
+                            		<c:when test="${o.status =='CANCEL' }">   <span class="badge text-bg-danger">CANCEL</span></c:when>
+                            	<c:when test="${o.status =='SHIPPING' }">   <span class="badge text-bg-warning">SHIPPING</span></c:when>
+                            		
+                            	</c:choose>
+                          </td>
                         </tr>
-                        <tr>
-                            <td>#ORD-002</td>
-                            <td>Trần Thị B</td>
-                            <td>MacBook Air M2</td>
-                            <td>₫24.990.000</td>
-                            <td>0</td>
-                            <td><span class="badge pending">Đang xử lý</span></td>
-                        </tr>
-                        <tr>
-                            <td>#ORD-003</td>
-                            <td>Lê Văn C</td>
-                            <td>AirPods Pro</td>
-                            <td>₫5.990.000</td>
-                            <td>0</td>
-                            <td><span class="badge success">Hoàn thành</span></td>
-                        </tr>
-
-                        <tr>
-                            <td>#ORD-004</td>
-                            <td>Phạm Thị D</td>
-                            <td>iPad Pro 12.9"</td>
-                            <td>₫26.990.000</td>
-                            <td>0</td>
-                            <td><span class="badge cancelled">Đã hủy</span></td>
-                        </tr>
+                      </c:forEach>
                     </tbody>
                 </table>
             </div>

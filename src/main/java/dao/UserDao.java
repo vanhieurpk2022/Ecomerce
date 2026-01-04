@@ -124,6 +124,7 @@ public class UserDao extends BaseDao {
 				user.setRole(result.getInt("role"));
 				user.setBirthday(birthDate);
 				user.setGender(result.getInt("gender"));
+				user.setStatus(result.getInt("status"));
 			}
 			return user;
 		} catch (Exception e) {

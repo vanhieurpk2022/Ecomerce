@@ -16,6 +16,9 @@ public class Products {
 	
 	private List<reviews> rate;
 	private Integer review_count;
+	
+	private Category cate;
+	private Integer quantityVariantCurr;
 
 	public Products(Integer productID, String productName, Integer categoryID, BigDecimal price, String status,
 			String img, String description) {
@@ -110,6 +113,22 @@ public class Products {
 
 	public void setRate(List<reviews> rate) {
 		this.rate = rate;
+	}
+
+	public Category getCate() {
+		return cate;
+	}
+
+	public void setCate(Category cate) {
+		this.cate = cate;
+	}
+
+	public Integer getQuantityVariantCurr() {
+		return quantityVariantCurr;
+	}
+
+	public void setQuantityVariantCurr(Integer quantityVariantCurr) {
+		this.quantityVariantCurr = quantityVariantCurr;
 	}
 
 }

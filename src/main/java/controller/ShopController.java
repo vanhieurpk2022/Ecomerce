@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.ProductVariantsDao;
 import dao.ProductsDao;
+import dao.ShopDao;
+import model.Category;
 import model.ProductVariants;
 import model.Products;
 
@@ -36,10 +40,16 @@ public class ShopController extends HttpServlet {
 		switch (action) {
 		case "showCard":
 			int getOffSet = Integer.parseInt(request.getParameter("page"));
+			ShopDao dao = new ShopDao();
+			List<Category> listCate = dao.selectAllCategory();
+			request.setAttribute("cate", listCate);
 			ShopShowCard(request, response, getOffSet);
 			break;
 		case "SProduct":
 			ShowSProduct(request,response);
+			break;
+		case "FilterProducts":
+			filterProducts(request, response);
 			break;
 		
 	
@@ -78,8 +88,44 @@ public class ShopController extends HttpServlet {
 	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+	}
+
+
+	private void filterProducts(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
+
+		 // 1. Lấy tham số
+	    String keyword = request.getParameter("keyword");
+	    String cateRaw = request.getParameter("categoryID");
+	    String minRaw = request.getParameter("minPrice");
+	    String maxRaw = request.getParameter("maxPrice");
+	    String[] sizes = request.getParameterValues("size");
+	    String sort = request.getParameter("sort");
+
+	    // 2. Chuyển đổi kiểu dữ liệu (giữ nguyên logic của bạn nhưng thêm keyword)
+	    Integer categoryID = (cateRaw != null && !cateRaw.isEmpty()) ? Integer.parseInt(cateRaw) : null;
+	    BigDecimal minPrice = (minRaw != null && !minRaw.isEmpty()) ? new BigDecimal(minRaw) : null;
+	    BigDecimal maxPrice = (maxRaw != null && !maxRaw.isEmpty()) ? new BigDecimal(maxRaw) : null;
+
+	    // 3. Gọi DAO (Cần bổ sung keyword vào hàm filter trong DAO)
+	    ShopDao dao = new ShopDao();
+	    List<Products> products = dao.filterProducts(keyword, categoryID, minPrice, maxPrice, sizes, sort);
+	    
+	    // Lấy lại danh sách Category để hiển thị lên Sidebar/Offcanvas
+	    List<Category> listCate = dao.selectAllCategory();
+
+	    // 4. Đẩy dữ liệu ngược lại JSP để giữ trạng thái bộ lọc
+	    request.setAttribute("ListProducts", products);
+	    request.setAttribute("cate", listCate);
+	    request.setAttribute("selectedCate", categoryID);
+	    request.setAttribute("selectedSizes", sizes != null ? Arrays.asList(sizes) : null);
+	    request.setAttribute("selectedSort", sort);
+	    request.setAttribute("minPrice", minPrice);
+	    request.setAttribute("maxPrice", maxPrice);
+	    request.setAttribute("keyword", keyword);
+
+	    request.getRequestDispatcher("/WEB-INF/views/shop.jsp").forward(request, response);
 	}
 
 }

@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.net.http.HttpResponse;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -257,6 +258,7 @@ public class UserController extends HttpServlet {
 			reviews re = new reviews(odid,userSession.getIdUser(),pid,rate);
 			if(dao.insertReviewProducts(re)) {
 				response.setStatus(HttpServletResponse.SC_OK);
+
 			};
 		} catch (Exception e) {
 			// TODO: handle exception

@@ -1,9 +1,11 @@
 package controller;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.ProductsDao;
+import dao.RememberTokenDao;
 import dao.UserDao;
 import model.Cart;
 import model.Products;
@@ -66,7 +69,6 @@ public class LoginController extends HttpServlet {
 	        			request.setAttribute("msg", "Password change is success");
 	        		}
 	        		
-		        request.setAttribute("AccountCookies", CookieUtil.getLoginCookie(request));
 	            request.getRequestDispatcher("/WEB-INF/views/signin.jsp").forward(request, response);
 	            break;
 
@@ -168,13 +170,15 @@ public class LoginController extends HttpServlet {
 	private void Logout(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession(false);
-
+		UserSession userSession = (UserSession) session.getAttribute("user");
 		if (session != null) {
-			session.invalidate();
+		    RememberTokenDao tokenDao = new RememberTokenDao();
+		    tokenDao.deleteToken(userSession.getIdUser());
 		}
 		// cần thêm xóa login
 		
-		
+		CookieUtil.clearLoginInfo(response);
+		session.invalidate();
 		request.getRequestDispatcher("/home").forward(request, response);
 
 	}
@@ -254,7 +258,7 @@ public class LoginController extends HttpServlet {
 	public void Login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password_sigin");
-		String checked = request.getParameter("checkbox_re") ;
+		boolean checked = request.getParameter("checkbox_re") !=null;
 	    String url = "/WEB-INF/views/signin.jsp"; 
 
 		String msg = "";
@@ -271,22 +275,45 @@ public class LoginController extends HttpServlet {
 			if(!checkPass) {
 				msg = "Wrong username or password";
 			}else {
-				HttpSession session = request.getSession();
-				
-				
-				session.setAttribute("user", userSession);
-				String redirectUrl = (String) session.getAttribute("redirectAfterLogin");
-			
-				if (redirectUrl != null) {
-				    session.removeAttribute("redirectAfterLogin");
-				    response.sendRedirect( redirectUrl);
-				} else if(user.getRole() !=0) {
-				    response.sendRedirect(request.getContextPath() + "/home");
-				}else if(user.getRole()==0) {
-				    response.sendRedirect(request.getContextPath() + "/admin");
+				if(user.getStatus() ==0) {
+					msg = "Your account has been banned";
+				}else if(user.getStatus() ==1){
+					if(checked) {
+						 // 1. Tạo token ngẫu nhiên
+					    String token = UUID.randomUUID().toString();
+					    LocalDateTime expiredAt = LocalDateTime.now().plusDays(30);
 
+					    // 2. Lưu vào Database
+					    RememberTokenDao tokenDao = new RememberTokenDao();
+					    tokenDao.saveToken(user.getIdUser(), token, expiredAt);
+
+					    // 3. Lưu vào Cookie (Dùng CookieUtil của bạn)
+					    CookieUtil.saveLoginInfo(response, String.valueOf(user.getIdUser()), token, true);
+					} else {
+					    CookieUtil.saveLoginInfo(response, "", "", false);
+					}
+					HttpSession session = request.getSession();
+					
+					
+					session.setAttribute("user", userSession);
+					String redirectUrl = (String) session.getAttribute("redirectAfterLogin");
+				
+					if (redirectUrl != null) {
+					    session.removeAttribute("redirectAfterLogin");
+					    response.sendRedirect( redirectUrl);
+					} else if(user.getRole() !=0) {
+					    response.sendRedirect(request.getContextPath() + "/home");
+					}else if(user.getRole()==0) {
+					    response.sendRedirect(request.getContextPath() + "/admin");
+
+					}
+		            return;
+				}else if(user.getStatus() ==2 ) {
+					msg = "Your account has been temporarily banned.";
+				}else if(user.getStatus() ==-1 ) {
+					msg = "Your account has been delete.";
 				}
-	            return;
+			
 			}
 		}
 	
