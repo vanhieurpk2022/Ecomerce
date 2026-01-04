@@ -22,7 +22,7 @@ public class Order {
 	private String status;
 	
 	private List<OrderDetail> OrderDetail;
-	
+	private User user;
 	
 
 	public Order(Integer userID, Integer addressID, BigDecimal shipping_fee, String note, BigDecimal subtotal,
@@ -152,4 +152,13 @@ public class Order {
 	public void setOrderDetail(List<OrderDetail> orderDetail) {
 		OrderDetail = orderDetail;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 }

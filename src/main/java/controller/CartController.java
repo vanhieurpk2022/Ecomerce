@@ -214,11 +214,14 @@ public class CartController extends HttpServlet {
 		try {
 			
 			// các giá trị bị dính prefix đồng tiền ở cuối ví dụ: 78 đ
+			
 			int addID = Integer.parseInt(getAddressId);
-			BigDecimal shipping =parseMoney(shipping_fee);
-			BigDecimal subtotal = parseMoney(getSubTotal);
-			BigDecimal discount = parseMoney(getDiscount);
-			BigDecimal total = parseMoney(getTotalAmount);
+			BigDecimal shipping =pareString(shipping_fee);
+			BigDecimal subtotal = pareString(getSubTotal);
+			
+				BigDecimal discount = pareString(getDiscount);
+
+			BigDecimal total = pareString(getTotalAmount);
 
 			Order or = new Order(userSession.getIdUser(), addID, shipping, getNote, subtotal, getPaymentMethod,
 					discount, total);
@@ -240,12 +243,12 @@ public class CartController extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/views/checkout_user.jsp").forward(request, response);
 
 	}
-	private BigDecimal parseMoney(String value) {
-	    if (value == null || value.trim().isEmpty()) {
-	        return BigDecimal.ZERO;
-	    }
-	    String clean = value.replaceAll("[^0-9]", "");
-	    return clean.isEmpty() ? BigDecimal.ZERO : new BigDecimal(clean);
+	private BigDecimal pareString(String str) {
+		if(str.isEmpty()) {
+			return BigDecimal.ZERO;
+		}else {
+			return new BigDecimal(str);
+		}
 	}
 
 	private void ApplyVouchers(HttpServletRequest request, HttpServletResponse response) throws IOException {

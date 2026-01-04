@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
         <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+        <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
     
 <!DOCTYPE html>
 <html lang="vi">
@@ -15,7 +16,10 @@
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-        
+            <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/assert/img/favicon_ad/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/assert/img/favicon_ad/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/assert/img/favicon_ad/favicon-16x16.png">
+<link rel="manifest" href="${pageContext.request.contextPath}/assert/img/favicon_ad/site.webmanifest">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" >
     <title>Admin Dashboard</title>
@@ -24,6 +28,7 @@
 
 <body>
     <!-- Sidebar -->
+     <fmt:setLocale value="vi_VN"/>
       	<jsp:include page="/WEB-INF/includes/_SidebarAdmin.jsp"></jsp:include>
 	 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 
@@ -59,35 +64,43 @@
         <thead class="table-light">
             <tr>
                 <th>ID</th>
-                <th>Khách hàng</th>
-                <th>Ngày đặt</th>
-                <th>Tổng tiền</th>
-                <th>Thanh toán</th>
-                <th>Trạng thái</th>
-                <th class="text-center">Thao tác</th>
+                <th>Customer</th>
+                <th>Date Purchase</th>
+                <th>Total Price</th>
+                <th>Payment</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
-            <tr class="order-row" data-href="${ctx}/admin/details" style="cursor: pointer;">
-                <td class="fw-bold">#1024</td>
+        <c:forEach var="o1" items="${orderList }">
+            <tr class="order-row" data-href="${ctx}/admin/details?id=${o1.orderID}" style="cursor: pointer;">
+                <td class="fw-bold">#${o1.orderID}</td>
                 <td>
                     <div class="d-flex flex-column">
-                        <span class="fw-bold">Nguyễn Văn A</span>
-                        <small class="text-muted">0987.654.321</small>
+                        <span class="fw-bold">${o1.user.firstName } ${o1.user.lastName }</span>
+                        <small class="text-muted">${o1.user.phone }</small>
                     </div>
                 </td>
-                <td>20/05/2024 10:30</td>
-                <td class="fw-bold text-primary">1.250.000đ</td>
+                <td>${o1.createdAt }</td>
+                <td class="fw-bold text-primary"> <fmt:formatNumber value="${o1.totalAmount }" pattern="#,##0 VNĐ"/></td>
                 <td>
-                    <span class="badge border text-dark fw-normal">Chuyển khoản</span>
+                    <span class="badge border text-dark fw-normal">${o1.paymentMethod }</span>
                 </td>
                 <td>
-                    <!-- Dùng select nhỏ gọn hoặc Badge -->
-                       ⏳ Chờ xử lý
+                <c:choose>
+                	<c:when test="${o1.status == 'PENDING'}"><span class="badge text-bg-secondary"> ${o1.status }</span> </c:when>
+                	 <c:when test="${o1.status == 'SHIPPING'}"><span class="badge text-bg-warning"> ${o1.status }</span> </c:when>
+                	 <c:when test="${o1.status == 'SUCCESS'}"><span class="badge text-bg-success"> ${o1.status }</span> </c:when>
+                	 <c:when test="${o1.status == 'CANCEL'}"><span class="badge text-bg-danger"> ${o1.status }</span> </c:when>
+                	 
+                </c:choose>
+                  
            
                 </td>
+                 
            
             </tr>
+            </c:forEach>
             <!-- Thêm các dòng khác tương tự -->
         </tbody>
     </table>

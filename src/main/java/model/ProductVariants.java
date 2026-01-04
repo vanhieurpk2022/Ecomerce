@@ -10,7 +10,11 @@ public class ProductVariants {
 	private BigDecimal priceAdjustment;
 	private Integer stock;
 	private String status;
-
+	
+	private Products products;
+	private Integer sold;
+	private BigDecimal finalPrice;
+	
 	public ProductVariants() {
 	}
 
@@ -25,7 +29,14 @@ public class ProductVariants {
 		this.status = status;
 	}
 
-
+	public ProductVariants( Integer productID, String size, 
+			BigDecimal priceAdjustment, Integer stock, String status) {
+		this.productID = productID;
+		this.size = size;
+		this.priceAdjustment = priceAdjustment;
+		this.stock = stock;
+		this.status = status;
+	}
 
 	// Method tính giá cuối cùng
 	public BigDecimal getFinalPrice(BigDecimal basePrice) {
@@ -97,6 +108,30 @@ public class ProductVariants {
 	public String toString() {
 		return "ProductVariants [variantID=" + variantID + ", productID=" + productID + ", size=" + size  + ", sku=" + sku + ", priceAdjustment=" + priceAdjustment + ", stock=" + stock + ", status="
 				+ status + "]";
+	}
+
+	public Products getProducts() {
+		return products;
+	}
+
+	public void setProducts(Products products) {
+		this.products = products;
+	}
+
+	public Integer getSold() {
+		return sold;
+	}
+
+	public void setSold(Integer sold) {
+		this.sold = sold;
+	}
+
+	public BigDecimal getFinalPrice() {
+		return finalPrice;
+	}
+
+	public void setFinalPrice(BigDecimal finalPrice) {
+		this.finalPrice = finalPrice;
 	}
 	
 }

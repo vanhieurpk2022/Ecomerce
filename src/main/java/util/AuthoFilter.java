@@ -1,6 +1,8 @@
 package util;
 
 import java.io.IOException;
+import java.util.Map;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.RememberTokenDao;
+import dao.UserDao;
 import model.Cart;
 import model.User;
 import model.UserSession;
@@ -40,44 +44,48 @@ public class AuthoFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	 @Override
-	    public void doFilter(ServletRequest request, ServletResponse response,
-	                         FilterChain chain)
+	    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 	            throws IOException, ServletException {
-		 HttpServletRequest req = (HttpServletRequest) request;
+	        HttpServletRequest req = (HttpServletRequest) request;
 	        HttpServletResponse resp = (HttpServletResponse) response;
-	        HttpSession session = req.getSession(false);
+	        HttpSession session = req.getSession(); // Lấy hoặc tạo mới session nếu chưa có
 	        String path = req.getServletPath();
 
-	        // 1. Kiểm tra đăng nhập
-	        UserSession user = (session != null) ? (UserSession) session.getAttribute("user") : null;
+	        // 1. Khai báo các đường dẫn KHÔNG cần đăng nhập (Public)
+	        // Bao gồm trang chủ, shop, login, register và các file static (css, js, img)
+	        boolean isPublicPath = path.equals("/signin") || path.equals("/signup") || 
+	                               path.equals("/home") || path.equals("/shop") ||
+	                               path.startsWith("/assets") || path.startsWith("/css");
 
-	        if (user == null) {
-	            // Chưa đăng nhập -> Lưu URL cũ để quay lại
+	        // 2. Lấy user từ session
+	        UserSession user = (UserSession) session.getAttribute("user");
+
+	        // 4. Kiểm tra quyền truy cập
+	        if (user == null && !isPublicPath) {
+	            // Nếu chưa đăng nhập và cố tình vào trang bảo mật (như /profile, /checkout, /admin)
 	            if ("GET".equalsIgnoreCase(req.getMethod())) {
 	                String uri = req.getRequestURI();
 	                String query = req.getQueryString();
 	                String originalUrl = uri + (query != null ? "?" + query : "");
-	                req.getSession(true).setAttribute("redirectAfterLogin", originalUrl);
+	                session.setAttribute("redirectAfterLogin", originalUrl);
 	            }
 	            
-	            request.setAttribute("msgtype", "error");
-	            request.setAttribute("msg", "Please login to continue!");
-	            req.getRequestDispatcher("/WEB-INF/views/signin.jsp").forward(request, response);
+	            req.setAttribute("msgtype", "error");
+	            req.setAttribute("msg", "Please login to continue!");
+	            // Quan trọng: Phải dùng redirect hoặc forward ra khỏi Filter
+	            req.getRequestDispatcher("/WEB-INF/views/signin.jsp").forward(req, resp);
 	            return;
 	        }
 
-	        // 2. Lọc quyền (Role)
-	        int role = user.getRole(); // Giả sử là "ADMIN" hoặc "USER"
-
+	        // 5. Lọc quyền Admin
 	        if (path.startsWith("/admin")) {
-	            // Nếu vào đường dẫn admin mà không phải role ADMIN
-	            if (role != 0) {
-	                resp.sendError(HttpServletResponse.SC_FORBIDDEN); 
+	            if (user == null || user.getRole() != 0) { // Giả sử 0 là ADMIN
+	                resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Bạn không có quyền truy cập!"); 
 	                return;
 	            }
-	        } 
-	        
-	        // Nếu đã pass qua các bước trên -> Cho phép đi tiếp
+	        }
+
+	        // Nếu mọi thứ ok -> Đi tiếp
 	        chain.doFilter(request, response);
 	    }
 

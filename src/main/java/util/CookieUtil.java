@@ -33,8 +33,9 @@ import java.time.format.DateTimeFormatter;
 import model.Cart;
 
 public class CookieUtil {
-	private static final String USER_COOKIE = "user_login";
-	private static final String PASS_COOKIE = "pass_login";
+	private static final String USER_ID = "user_id";
+	private static final String TOKEN = "token_user";
+
 	private static final String REMEMBER_COOKIE = "remember_me";
 	private static final String CART_NAME = "Cart";
 	private static final int COOKIE_AGE = 30 * 24 * 60 * 60;
@@ -86,11 +87,11 @@ public class CookieUtil {
 		response.addCookie(cookie);
 	}
 
-	public static void saveLoginInfo(HttpServletResponse response, String username, String password, boolean remember) {
+	public static void saveLoginInfo(HttpServletResponse response, String ID, String Token, boolean remember) {
 		if (remember) {
 			// Nếu chọn checkbox: Lưu trong 30 ngày
-			Cookie uCookie = new Cookie(USER_COOKIE, username);
-			Cookie pCookie = new Cookie(PASS_COOKIE, password);
+			Cookie uCookie = new Cookie(USER_ID, ID);
+			Cookie pCookie = new Cookie(TOKEN, Token	);
 			Cookie rCookie = new Cookie(REMEMBER_COOKIE, "checked");
 
 			int age = 30 * 24 * 60 * 60; // 30 ngày
@@ -112,8 +113,8 @@ public class CookieUtil {
 	}
 
 	public static void clearLoginInfo(HttpServletResponse response) {
-		Cookie uCookie = new Cookie(USER_COOKIE, "");
-		Cookie pCookie = new Cookie(PASS_COOKIE, "");
+		Cookie uCookie = new Cookie(USER_ID, "");
+		Cookie pCookie = new Cookie(TOKEN, "");
 		Cookie rCookie = new Cookie(REMEMBER_COOKIE, "");
 
 		uCookie.setMaxAge(0);
@@ -129,23 +130,17 @@ public class CookieUtil {
 		response.addCookie(rCookie);
 	}
 
-	// Lấy thông tin cookie (Dùng để hiển thị lại lên Form)
 	public static Map<String, String> getLoginCookie(HttpServletRequest request) {
-		Map<String, String> loginInfo = new HashMap<>();
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (Cookie c : cookies) {
-				if (USER_COOKIE.equals(c.getName()))
-					loginInfo.put("username", c.getValue());
-				if (PASS_COOKIE.equals(c.getName()))
-					loginInfo.put("password", c.getValue());
-				if (REMEMBER_COOKIE.equals(c.getName()))
-					loginInfo.put("remember", "checked");
-			}
-		}
-		return loginInfo;
+	    Map<String, String> loginInfo = new HashMap<>();
+	    Cookie[] cookies = request.getCookies();
+	    if (cookies != null) {
+	        for (Cookie c : cookies) {
+	            if (USER_ID.equals(c.getName())) loginInfo.put("user_id", c.getValue());
+	            if (TOKEN.equals(c.getName())) loginInfo.put("token", c.getValue());
+	        }
+	    }
+	    return loginInfo;
 	}
-
 	// Xóa cookie cart
 	public static void clearCart(HttpServletResponse response) {
 		Cookie cookie = new Cookie(CART_NAME, "");

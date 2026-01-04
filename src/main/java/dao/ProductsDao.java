@@ -15,7 +15,7 @@ public class ProductsDao extends BaseDao {
 
 	public List<Products> SelectAll(int offset, int limit) {
 		List<Products> products = new ArrayList<>();
-		String sql = "Select * from Products order by ProductsID Limit ? offset ?;";
+		String sql = "Select * from Products WHERE status='ACTIVE' order by ProductsID Limit ? offset ?;";
 		try (Connection conn =getConnection();
 
 				PreparedStatement ps = conn.prepareStatement(sql);) {

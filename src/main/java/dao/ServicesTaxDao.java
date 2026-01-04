@@ -51,7 +51,7 @@ public class ServicesTaxDao extends BaseDao {
 		String sql = "INSERT INTO reviews(order_detail_id,user_id,product_id,rating) VALUES(?,?,?,?)";
 		try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 
-			ps.setInt(1, re.getUser_id());
+			ps.setInt(1, re.getOrder_detail_id());
 			ps.setInt(2, re.getUser_id());
 			ps.setInt(3, re.getProduct_id());
 			ps.setInt(4, re.getRating());
