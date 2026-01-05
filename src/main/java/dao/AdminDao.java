@@ -30,7 +30,7 @@ public class AdminDao extends BaseDao{
 		return -1;
 	}
 	public int selectSumRevenue(){
-		String sql = "SELECT SUM(o.totalAmount) AS doanhthu FROM orders o";
+		String sql = "SELECT SUM(o.totalAmount) AS doanhthu FROM orders o where o.status='SUCCESS'";
 		try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 
 			ResultSet result = ps.executeQuery();

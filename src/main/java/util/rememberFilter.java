@@ -74,17 +74,7 @@ public class rememberFilter implements Filter {
 	        }
 	    }
 
-	    // 3. Các trang công cộng (Không chặn)
-	    boolean isPublicPath = path.equals("/signin") || path.equals("/signup") || 
-	                           path.equals("/home") || path.equals("/shop") ||
-	                           path.startsWith("/assets") || path.startsWith("/css");
-
-	    if (user == null && !isPublicPath) {
-	        req.setAttribute("msg", "Please login to continue!");
-	        req.getRequestDispatcher("/WEB-INF/views/signin.jsp").forward(req, resp);
-	        return;
-	    }
-
+	 
 	    chain.doFilter(request, response);
 	}
 
