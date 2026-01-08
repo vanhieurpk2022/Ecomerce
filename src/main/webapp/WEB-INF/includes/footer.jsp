@@ -30,7 +30,7 @@
             <h4><fmt:message key="fo.about"/></h4>
             <a href="${ctx}/about"> <fmt:message key="fo.aboutus"/></a>
             <a href="${ctx}/user/orders_shipping"> <fmt:message key="fo.delivery"/></a>
-            <a href="${ctx}/privacy"> <fmt:message key="fo.privacy"/></a>
+            <a href="${ctx}/policy"> <fmt:message key="fo.privacy"/></a>
             <a href="#"> <fmt:message key="fo.term"/></a>
             <a href="${ctx}/contact"> <fmt:message key="fo.contactus"/></a>
         </div>
