@@ -8,9 +8,10 @@
 <html lang="en">
 
 <head>
+	<fmt:setBundle basename="i18n.messages" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech2etc Ecommerce Tutorial</title>
+    <title><fmt:message key="app.title" /></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
           <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -31,8 +32,8 @@
 
 
     <section id="page-header">
-        <h2>#stayhome</h2>
-        <p>Save more with coupons & up to 70% off!</p>
+        <h2><fmt:message key="shop.header.title" /></h2>
+        <p><fmt:message key="shop.header.desc" /></p>
     </section>
 
    <section id="filter" class="section-p1">
@@ -42,7 +43,7 @@
     <a class="btn btn-outline-secondary"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasExample">
-      <i class="bi bi-funnel"></i> Filter
+      <i class="bi bi-funnel"></i> <fmt:message key="shop.filter.btn" />
     </a>
 
     <!-- Search -->
@@ -51,8 +52,8 @@
       <input class="form-control me-2"
              type="search"
              name="keyword"
-             placeholder="Search product...">
-      <button class="btn btn-success">Search</button>
+             placeholder="<fmt:message key='shop.search.placeholder' />">
+      <button class="btn btn-success"><fmt:message key="shop.search.btn" /></button>
     </form>
 
   </div>
@@ -62,7 +63,7 @@
 		
 		  <div class="offcanvas-header">
 		    <h5 class="offcanvas-title" id="offcanvasExampleLabel">
-		      <i class="bi bi-funnel"></i> Filter Products
+		      <i class="bi bi-funnel"></i> <fmt:message key="shop.filter.title" />
 		    </h5>
 		    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
 		  </div>
@@ -74,9 +75,9 @@
 		
 		      <!-- CATEGORY -->
 		      <div class="mb-3">
-		        <label class="form-label fw-semibold">Category</label>
+		        <label class="form-label fw-semibold"><fmt:message key="shop.filter.category" /></label>
 		        <select name="categoryID" class="form-select">
-		          <option value="">All Categories</option>
+		          <option value=""><fmt:message key="shop.filter.allCategories" /></option>
 		          <c:forEach items="${cate}" var="c">
 		            <option value="${c.categoryID}">${c.categoryName}</option>
 		          </c:forEach>
@@ -85,23 +86,23 @@
 		
 		      <!-- PRICE RANGE -->
 		      <div class="mb-3">
-		        <label class="form-label fw-semibold">Price Range (VNĐ)</label>
+		        <label class="form-label fw-semibold"><fmt:message key="shop.filter.priceRange" /></label>
 		        <div class="row g-2">
 		          <div class="col-6">
 						<!-- Price Input -->
-					<input type="number" name="minPrice" value="${minPrice}" class="form-control" placeholder="Min">
+					<input type="number" name="minPrice" value="${minPrice}" class="form-control" placeholder="<fmt:message key='shop.filter.min' />">
 		          </div>
 		          <div class="col-6">
 		            <input type="number" name="maxPrice"
 		                   class="form-control"
-		                   placeholder="Max">
+		                   placeholder="<fmt:message key='shop.filter.max' />">
 		          </div>
 		        </div>
 		      </div>
 		
 		      <!-- SIZE -->
 		      <div class="mb-3">
-		        <label class="form-label fw-semibold">Size</label>
+		        <label class="form-label fw-semibold"><fmt:message key="shop.filter.size" /></label>
 		        <div class="d-flex gap-2 flex-wrap">
 		        <div class="form-check">
 				    <input class="form-check-input" type="checkbox" name="size" value="S" id="sizeS"
@@ -125,13 +126,13 @@
 		
 		      <!-- SORT -->
 		      <div class="mb-3">
-		        <label class="form-label fw-semibold">Sort by</label>
+		        <label class="form-label fw-semibold"><fmt:message key="shop.filter.sortBy" /></label>
 		        <select name="sort" class="form-select">
-		          <option value="">Default</option>
-		          <option value="price_asc">Price: Low → High</option>
-		          <option value="price_desc">Price: High → Low</option>
-		          <option value="newest">Newest</option>
-		          <option value="sold_desc">Best selling</option>
+		          <option value=""><fmt:message key="shop.filter.sort.default" /></option>
+		          <option value="price_asc"><fmt:message key="shop.filter.sort.priceAsc" /></option>
+		          <option value="price_desc"><fmt:message key="shop.filter.sort.priceDesc" /></option>
+		          <option value="newest"><fmt:message key="shop.filter.sort.newest" /></option>
+		          <option value="sold_desc"><fmt:message key="shop.filter.sort.bestSelling" /></option>
 		        </select>
 		      </div>
 		
@@ -140,10 +141,10 @@
 		      <!-- ACTION BUTTONS -->
 		      <div class="d-flex gap-2">
 		        <button type="submit" class="btn btn-primary w-100">
-		          Apply Filter
+		          <fmt:message key="shop.filter.apply" />
 		        </button>
 		        <a href="${ctx}/shop" class="btn btn-outline-secondary w-100">
-		          Reset
+		          <fmt:message key="shop.filter.reset" />
 		        </a>
 		      </div>
 		
@@ -162,7 +163,7 @@
             <div class="pro" >
                 <img src="${ctx}${p.img}" alt="">
                 <div class="des">
-                    <span>adidas</span>
+                    <span><fmt:message key="shop.product.brand" /></span>
                     <h5>${p.productName }</h5>
                     <div class="star">
                         <i class="fas fa-star"></i>
@@ -171,7 +172,7 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                     </div>
-                    <fmt:setLocale value="vi_VN"/>
+                  
                     <h4><fmt:formatNumber value="${p.price }" pattern="#,##0 VNĐ"/></h4>
                 </div>
                 <a href="${pageContext.request.contextPath}/shop?action=SProduct&productID=${p.productID}&type=${p.categoryID}" ><i class="bi bi-cart cart"></i></a>
@@ -194,12 +195,12 @@
 
     <section id="newsletter" class="section-p1 section-m1">
         <div class="newstext">
-            <h4>Sign Up For Newsletters</h4>
-            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+            <h4><fmt:message key="newsletter.title" /></h4>
+            <p><fmt:message key="newsletter.desc" /> <span><fmt:message key="newsletter.specialOffers" /></span></p>
         </div>
         <div class="form">
-            <input type="text" placeholder=" Your email address">
-            <button class="normal">Sign Up</button>
+            <input type="text" placeholder="<fmt:message key='newsletter.emailPlaceholder' />">
+            <button class="normal"><fmt:message key="newsletter.signup" /></button>
         </div>
     </section>
 

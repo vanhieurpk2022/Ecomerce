@@ -9,9 +9,10 @@
 <html lang="en">
 
 <head>
+	<fmt:setBundle basename="i18n.messages" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title><fmt:message key="accessDenied.title" /></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
               <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -26,7 +27,7 @@
      <jsp:include page="../includes/header.jsp"></jsp:include>
 
   	<div class="container">
-  		<h3 class="text-danger text-center mt-2"> You don't have permitsion to access resource.</h3>
+  		<h3 class="text-danger text-center mt-2"><fmt:message key="accessDenied.message" /></h3>
   	</div>
 
        <script src="${pageContext.request.contextPath}/assert/javascript/script.js"></script>

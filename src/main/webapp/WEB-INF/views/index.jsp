@@ -2,16 +2,17 @@
     pageEncoding="UTF-8"%>
 
     <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-        <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
     
     
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+	<fmt:setBundle basename="i18n.messages" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech2etc Ecommerce Tutorial</title>
+    <title><fmt:message key="app.title" /></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
               <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -31,50 +32,50 @@
      <jsp:include page="../includes/header.jsp"></jsp:include>
 
     <section id="hero">
-        <h4>Trade-in-offer</h4>
-        <h2>Super value deals</h2>
-        <h1>On all products</h1>
-        <p>Save more with coupons & up to 70% off!</p>
-        <button>Shop now</button>
+        <h4><fmt:message key="home.hero.h4" /></h4>
+        <h2><fmt:message key="home.hero.h2" /></h2>
+        <h1><fmt:message key="home.hero.h1" /></h1>
+        <p><fmt:message key="home.hero.p" /></p>
+        <button><fmt:message key="home.hero.button" /></button>
     </section>
 
     <section id="feature" class="section-p1">
         <div class="fe-box">
             <img src="${ctx}/assert/img/features/f1.png" alt="">
-            <h6>Free Shipping</h6>
+            <h6><fmt:message key="feature.freeShipping" /></h6>
         </div>
         <div class="fe-box">
             <img src="${ctx}/assert/img/features/f2.png" alt="">
-            <h6>Online Order</h6>
+            <h6><fmt:message key="feature.onlineOrder" /></h6>
         </div>
         <div class="fe-box">
             <img src="${ctx}/assert/img/features/f3.png" alt="">
-            <h6>Save Money</h6>
+            <h6><fmt:message key="feature.saveMoney" /></h6>
         </div>
         <div class="fe-box">
             <img src="${ctx}/assert/img/features/f4.png" alt="">
-            <h6>Promotions</h6>
+            <h6><fmt:message key="feature.promotions" /></h6>
         </div>
         <div class="fe-box">
             <img src="${ctx}/assert/img/features/f5.png" alt="">
-            <h6>Happy Sell</h6>
+            <h6><fmt:message key="feature.happySell" /></h6>
         </div>
         <div class="fe-box">
             <img src="${ctx}/assert/img/features/f6.png" alt="">
-            <h6>F24/7 Support</h6>
+            <h6><fmt:message key="feature.support" /></h6>
         </div>
     </section>
 
     <section id="product1" class="section-p1">
-        <h2>feature Products</h2>
-        <p>Summer Collection New Morden Design</p>
+        <h2><fmt:message key="home.featured.title" /></h2>
+        <p><fmt:message key="home.featured.desc" /></p>
         <div class="pro-container">
         
         <c:forEach var ="p" items="${requestScope.Product1 }" begin="0" end="7">
             <div class="pro">
                 <img src="${ctx}${p.img}" alt="">
                 <div class="des">
-                    <span>adidas</span>
+                    <span><fmt:message key="home.brand" /></span>
                     <h5>${p.productName }</h5>
                     <div class="star">
                         <i class="fas fa-star"></i>
@@ -94,14 +95,14 @@
     </section>
 
     <section id="banner" class="section-m1">
-        <h4>Repair Services</h4>
-        <h2>Up to <span>70% Off</span> - All t-Shirts & Accessorices</h2>
-        <button class="normal">Explore More</button>
+        <h4><fmt:message key="home.banner.h4" /></h4>
+        <h2><fmt:message key="home.banner.h2.prefix" /> <span><fmt:message key="home.banner.h2.highlight" /></span> <fmt:message key="home.banner.h2.suffix" /></h2>
+        <button class="normal"><fmt:message key="home.banner.button" /></button>
     </section>
 
     <section id="product1" class="section-p1">
-        <h2>New Arrivals</h2>
-        <p>Summer Collection New Morden Design</p>
+        <h2><fmt:message key="home.newArrivals.title" /></h2>
+        <p><fmt:message key="home.newArrivals.desc" /></p>
         <div class="pro-container">
         
              <c:forEach var="p" items="${requestScope.Product1}" begin="8" end="16">
@@ -109,7 +110,7 @@
             <div class="pro">
                 <img src="${ctx}${p.img } " alt="">
                 <div class="des">
-                    <span>adidas</span>
+                    <span><fmt:message key="home.brand" /></span>
                     <h5>${p.productName }</h5>
                     <div class="star">
                         <i class="fas fa-star"></i>
@@ -128,42 +129,42 @@
 
     <section id="sm-banner" class="section-p1">
         <div class="banner-box">
-            <h4>Crazy deals</h4>
-            <h2>buy 1 get 1 free</h2>
-            <span>The best classic dress is on sale at cara</span>
-            <button class="white">Learn More</button>
+            <h4><fmt:message key="home.smBanner1.h4" /></h4>
+            <h2><fmt:message key="home.smBanner1.h2" /></h2>
+            <span><fmt:message key="home.smBanner.common.span" /></span>
+            <button class="white"><fmt:message key="home.smBanner1.button" /></button>
         </div>
         <div class="banner-box banner-box2">
-            <h4>Spring / Summer</h4>
-            <h2>upcomming season</h2>
-            <span>The best classic dress is on sale at cara</span>
-            <button class="white">Collection</button>
+            <h4><fmt:message key="home.smBanner2.h4" /></h4>
+            <h2><fmt:message key="home.smBanner2.h2" /></h2>
+            <span><fmt:message key="home.smBanner.common.span" /></span>
+            <button class="white"><fmt:message key="home.smBanner2.button" /></button>
         </div>
     </section>
 
     <section id="banner3">
         <div class="banner-box ">
-            <h2>SEASONAL SALE</h2>
-            <h3>Winter Collection -50% OFF</h3>
+            <h2><fmt:message key="home.banner3.box1.h2" /></h2>
+            <h3><fmt:message key="home.banner3.box1.h3" /></h3>
         </div>
         <div class="banner-box banner-box2">
-            <h2>NEW FOOTWEAR COLLECTION</h2>
-            <h3>Spring / Summer 2026</h3>
+            <h2><fmt:message key="home.banner3.box2.h2" /></h2>
+            <h3><fmt:message key="home.banner3.box2.h3" /></h3>
         </div>
         <div class="banner-box banner-box3">
-            <h2>T-SHIRTS</h2>
-            <h3>New Trendy Prints</h3>
+            <h2><fmt:message key="home.banner3.box3.h2" /></h2>
+            <h3><fmt:message key="home.banner3.box3.h3" /></h3>
         </div>
     </section>
 
     <section id="newsletter" class="section-p1 section-m1">
         <div class="newstext">
-            <h4>Sign Up For Newsletters</h4>
-            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+            <h4><fmt:message key="newsletter.title" /></h4>
+            <p><fmt:message key="newsletter.desc" /> <span><fmt:message key="newsletter.specialOffers" /></span></p>
         </div>
         <div class="form">
-            <input type="text" placeholder=" Your email address">
-            <button class="normal">Sign Up</button>
+            <input type="text" placeholder="<fmt:message key='newsletter.emailPlaceholder' />">
+            <button class="normal"><fmt:message key="newsletter.signup" /></button>
         </div>
     </section>
 

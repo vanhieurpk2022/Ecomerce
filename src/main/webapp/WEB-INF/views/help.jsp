@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+	<fmt:setBundle basename="i18n.messages" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Help & Support | Cara Clothes</title>
+    <title><fmt:message key="help.title" /> | <fmt:message key="brand.name" /></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
               <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -109,48 +111,48 @@
 
     <div class="help-container">
         <div class="help-header">
-            <h1><i class="bi bi-question-circle"></i> Help & Support</h1>
+            <h1><i class="bi bi-question-circle"></i> <fmt:message key="help.title" /></h1>
             <p>
-                We're here to help! Browse our most frequently asked questions or contact our support team below.
+                <fmt:message key="help.subtitle" />
             </p>
         </div>
         <!-- FAQ Section -->
         <section class="faq-section">
-            <div class="faq-title"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions</div>
+            <div class="faq-title"><i class="fa-solid fa-circle-question"></i> <fmt:message key="help.faq.title" /></div>
             <ul class="faq-list">
                 <li>
-                    <span class="faq-q">How do I reset my password?</span><br>
-                    Go to <b>Sign In</b> &rarr; <b>Forgot Password</b>, enter your email, and follow the instructions to reset your password via email.
+                    <span class="faq-q"><fmt:message key="help.faq.q1" /></span><br>
+                    <fmt:message key="help.faq.a1" />
                 </li>
                 <li>
-                    <span class="faq-q">How can I track my order?</span><br>
-                    After logging in, visit <b>My Account</b> &rarr; <b>Track My Order</b> to see your recent orders and shipment status.
+                    <span class="faq-q"><fmt:message key="help.faq.q2" /></span><br>
+                    <fmt:message key="help.faq.a2" />
                 </li>
                 <li>
-                    <span class="faq-q">Can I return or exchange a product?</span><br>
-                    Yes! Simply go to <b>My Orders</b>, choose your product, and click <b>Return/Exchange</b>. Follow on-screen instructions.
+                    <span class="faq-q"><fmt:message key="help.faq.q3" /></span><br>
+                    <fmt:message key="help.faq.a3" />
                 </li>
                 <li>
-                    <span class="faq-q">How can I contact Cara Clothes?</span><br>
-                    Use one of the contact methods below, or send us a message using the website contact form.
+                    <span class="faq-q"><fmt:message key="help.faq.q4" /></span><br>
+                    <fmt:message key="help.faq.a4" />
                 </li>
             </ul>
         </section>
         <!-- Contact Support Section -->
         <div class="contact-support">
-            <h2>Contact Support</h2>
+            <h2><fmt:message key="help.contact.title" /></h2>
             <div class="support-methods">
                 <div class="support-item">
                     <i class="fa-solid fa-envelope"></i>
-                    Email: <a href="mailto:support@caraclothes.com">support@caraclothes.com</a>
+                    <fmt:message key="help.contact.emailLabel" />: <a href="mailto:support@caraclothes.com">support@caraclothes.com</a>
                 </div>
                 <div class="support-item">
                     <i class="fa-solid fa-phone"></i>
-                    Hotline: +84 1234 56789 (8:00 - 18:00, Mon - Sat)
+                    <fmt:message key="help.contact.hotlineLabel" />: <fmt:message key="help.contact.hotlineValue" />
                 </div>
                 <div class="support-item">
                     <i class="fa-brands fa-facebook-messenger"></i>
-                    Messenger: <a href="#">Cara Clothes Messenger</a>
+                    <fmt:message key="help.contact.messengerLabel" />: <a href="#"><fmt:message key="help.contact.messengerValue" /></a>
                 </div>
             </div>
         </div>

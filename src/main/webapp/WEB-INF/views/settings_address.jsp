@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<fmt:setBundle basename="i18n.messages" />
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,20 +41,20 @@
 
                     <!-- Address Section -->
                     <section class="section" id="address">
-                        <h2 class="section-title"><i class="fas fa-map-marker-alt"></i> Address</h2>
+                        <h2 class="section-title"><i class="fas fa-map-marker-alt"></i> <fmt:message key="addr.title"/></h2>
                         <form class="form-grid"  >
                             <div class="form-group full-width">
-                                <label for="address1">Address Line 1</label>
-                                <input type="text" id="address1" placeholder="Enter your address" name="fulladdress" required>
+                                <label for="address1"><fmt:message key="addr.line1"/></label>
+                                <input type="text" id="address1" placeholder="<fmt:message key="addr.enter_address"/>" name="fulladdress" required>
                             </div>
                             <div class="form-group">
-                                <label for="district">Ward / District</label>
-                                <input type="text" id="district" placeholder="Enter ward / District" name="district" required>
+                                <label for="district"><fmt:message key="addr.ward"/></label>
+                                <input type="text" id="district" placeholder="<fmt:message key="addr.enter_ward"/>" name="district" required>
                             </div>
                             <div class="form-group">
-                                <label for="city">City / Province</label>
+                                <label for="city"><fmt:message key="addr.city"/></label>
                                 <select  name="city" id="city" required>
-								    <option value="">-- Chọn thành phố --</option>
+								    <option value=""><fmt:message key="addr.select_city"/></option>
 								
 								    <option value="HN">Hà Nội</option>
 								    <option value="HCM">TP Hồ Chí Minh</option>
@@ -72,7 +74,7 @@
 								</select>
                             </div>
                             <div class="form-group">
-                                <label for="country">Country</label>
+                                <label for="country"><fmt:message key="addr.country"/></label>
                                 <select id="country" name="country" required>
                                     <option value="vn">Việt Nam</option>
                                     <option value="cn">Trung Quốc</option>
@@ -81,8 +83,8 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="postal">Phone</label>
-                                <input type="text" id="phone" placeholder="Enter your phone" name="phone" required>
+                                <label for="postal"><fmt:message key="addr.phone"/></label>
+                                <input type="text" id="phone" placeholder="<fmt:message key="addr.enter_phone"/>" name="phone" required>
                             </div>
                         </form>
 					<div class="list-display-address">
@@ -90,7 +92,7 @@
 				
 						<c:choose>
 							<c:when test="${empty address }">
-								<div class="mt-3 text-center text-danger" id="warning_list">You don't have an address yet.</div>
+								<div class="mt-3 text-center text-danger" id="warning_list"><fmt:message key="addr.no_address"/></div>
 							</c:when>	
 							<c:otherwise >
 								<c:forEach var="a" items="${address }">
@@ -115,8 +117,8 @@
                       </div>
                    	</div>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-primary" onclick="addAddress(this,'#address-list','${ctx}')"><i class="fas fa-save" ></i> Update</button>
-                            <button type="reset" class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</button>
+                            <button type="button" class="btn btn-primary" onclick="addAddress(this,'#address-list','${ctx}')"><i class="fas fa-save" ></i> <fmt:message key="btn.update"/></button>
+                            <button type="reset" class="btn btn-secondary"><i class="fas fa-times"></i> <fmt:message key="btn.cancel"/></button>
                         </div>
                     </section>
                 </div>

@@ -9,9 +9,10 @@
 <html lang="en">
 
 <head>
+	<fmt:setBundle basename="i18n.messages" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Not Found 404</title>
+    <title><fmt:message key="notFound.title" /></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
               <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -27,7 +28,7 @@
 
   	<div class="container">
 		<img id="image-1" alt="" src="${ctx }/assert/img/404Img.jpg"/>
-  		<h3 class="text-danger"> You don't have permission to access resource.</h3>
+  		<h3 class="text-danger"> <fmt:message key="notFound.message" /></h3>
   	</div>
 
        <script src="${pageContext.request.contextPath}/assert/javascript/script.js"></script>
