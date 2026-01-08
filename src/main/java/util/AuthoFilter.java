@@ -53,9 +53,12 @@ public class AuthoFilter implements Filter {
 
 	        // 1. Khai báo các đường dẫn KHÔNG cần đăng nhập (Public)
 	        // Bao gồm trang chủ, shop, login, register và các file static (css, js, img)
-	        boolean isPublicPath = path.equals("/signin") || path.equals("/signup") || 
-	                               path.equals("/home") || path.equals("/shop") ||
-	                               path.startsWith("/assets") || path.startsWith("/css");
+	        boolean isPublicPath = path.equals("/signin") || path.equals("/signup")
+	                || path.equals("/home") || path.equals("/shop")
+	                || path.equals("/search")                      
+	                || path.startsWith("/assert")                  
+	                || path.startsWith("/assets")
+	                || path.startsWith("/css");
 
 	        // 2. Lấy user từ session
 	        UserSession user = (UserSession) session.getAttribute("user");

@@ -46,17 +46,22 @@
       <i class="bi bi-funnel"></i> <fmt:message key="shop.filter.btn" />
     </a>
 
-    <!-- Search -->
-    <form class="d-flex" >
-      <input type="hidden" name="action" value="">
-      <input class="form-control me-2"
-             type="search"
-             name="keyword"
-             placeholder="<fmt:message key='shop.search.placeholder' />">
-      <button class="btn btn-success"><fmt:message key="shop.search.btn" /></button>
-    </form>
+   <!-- Search -->
+	<form class="d-flex"
+	      action="${pageContext.request.contextPath}/search"
+	      method="get">
+	
+	  <input class="form-control me-2"
+	         type="search"
+	         name="q"
+	         value="${q}"
+	         placeholder="<fmt:message key='shop.search.placeholder' />">
+	
+	  <button class="btn btn-success" type="submit">
+	    <fmt:message key="shop.search.btn" />
+	  </button>
+	</form>
 
-  </div>
   
 		  <div class="offcanvas offcanvas-start" tabindex="-1"
 		     id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
@@ -157,8 +162,21 @@
 
 		
 		
-        <div class="pro-container">
-        <c:forEach var="p" items="${ListProducts}">
+			        <c:set var="displayProducts" value="${not empty products ? products : ListProducts}" />
+									<c:if test="${not empty q}">
+						  <h5 class="mb-3">
+						    Kết quả tìm kiếm cho:
+						    "<strong><c:out value='${q}'/></strong>"
+						  </h5>
+						</c:if>
+						
+						<c:if test="${not empty q and empty products}">
+						  <p class="text-muted">Không tìm thấy sản phẩm phù hợp.</p>
+						</c:if>
+			
+			<div class="pro-container">
+			<c:forEach var="p" items="${displayProducts}">
+
 
             <div class="pro" >
                 <img src="${ctx}${p.img}" alt="">
@@ -180,7 +198,7 @@
         </c:forEach>
         </div>
     </section>
-
+	<c:if test="${empty q}">
     <section id="pagination" class="section-p1">
             <c:set var="currentPage" value="${param.page != null ? param.page : 1}" />
       <a href="${pageContext.request.contextPath}/shop?action=showCard&page=0">0</a>
@@ -192,6 +210,7 @@
 </a>
 
     </section>
+     </c:if>
 
     <section id="newsletter" class="section-p1 section-m1">
         <div class="newstext">
@@ -203,6 +222,7 @@
             <button class="normal"><fmt:message key="newsletter.signup" /></button>
         </div>
     </section>
+   
 
 
     <%@ include file="../includes/footer.jsp" %>

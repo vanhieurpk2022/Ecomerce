@@ -329,11 +329,13 @@ body {
 }
 
 #product1 .pro-container {
-	display: flex;
-	justify-content: space-between;
-	padding-top: 20px;
-	flex-wrap: wrap;
+    display: flex;
+    justify-content: flex-start; /* dồn về bên trái */
+    gap: 24px;                  /* khoảng cách đều */
+    padding-top: 20px;
+    flex-wrap: wrap;
 }
+
 
 #banner {
 	display: flex;
@@ -2004,9 +2006,7 @@ input:checked+.slider:before {
 	#feature .fe-box {
 		margin: 15px 15px;
 	}
-	#product1 .pro-container {
-		justify-content: space-between;
-	}
+	
 	#product1 .pro {
 		margin: 15px;
 	}
