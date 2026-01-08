@@ -28,19 +28,20 @@
 
         <div class="col">
             <h4><fmt:message key="fo.about"/></h4>
-            <a href="#"> <fmt:message key="fo.aboutus"/></a>
-            <a href="#"> <fmt:message key="fo.delivery"/></a>
-            <a href="#"> <fmt:message key="fo.privacy"/></a>
+            <a href="${ctx}/about"> <fmt:message key="fo.aboutus"/></a>
+            <a href="${ctx}/user/orders_shipping"> <fmt:message key="fo.delivery"/></a>
+            <a href="${ctx}/privacy"> <fmt:message key="fo.privacy"/></a>
             <a href="#"> <fmt:message key="fo.term"/></a>
-            <a href="#"> <fmt:message key="fo.contactus"/></a>
+            <a href="${ctx}/contact"> <fmt:message key="fo.contactus"/></a>
         </div>
         <div class="col">
             <h4><fmt:message key="fo.myaccount"/></h4>
-            <a href="#"> <fmt:message key="fo.sign"/></a>
-            <a href="#"> <fmt:message key="fo.view"/></a>
+			<a href="${ctx}/login/signin"><fmt:message key="fo.sign"/></a>
+	        <a href="${ctx}/cart"><fmt:message key="fo.view"/></a>
+
             <a href="#"> <fmt:message key="fo.mywhish"/></a>
-            <a href="#"> <fmt:message key="fo.track"/>r</a>
-            <a href="#"> <fmt:message key="fo.help"/></a>
+            <a href="${ctx}/user/orders_shipping"> <fmt:message key="fo.track"/>r</a>
+            <a href="${ctx}/contact"> <fmt:message key="fo.help"/></a>
         </div>
 
         <div class="col install">
