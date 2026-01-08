@@ -59,7 +59,8 @@ public class AuthoFilter implements Filter {
 	             || path.equals("/home")
 	             || path.startsWith("/shop")      
 	             || path.startsWith("/search")    
-	             || path.equals("/policy")        // trang chính sách
+	             || path.equals("/policy")    // trang chính sách
+	             || path.equals("/terms")
 	             || path.startsWith("/assert")
 	             || path.startsWith("/assets")
 	             || path.startsWith("/css");

@@ -686,9 +686,18 @@ footer .copyright {
 
 /* Blog page */
 #page-header.blog-header {
-	background-image: url(../img/banner/b19.jpg);
+    background-image: url("../img/banner/b19.jpg");
+    height: 40vh;
+    background-size: cover;
+    background-position: center;
 }
 
+#page-header.terms-header {
+    background-image: url("../img/banner/b4.jpg"); /* 👈 ảnh mới */
+    height: 40vh;
+    background-size: cover;
+    background-position: center;
+}
 #blog {
 	padding: 150px 150px 0 150px;
 }
