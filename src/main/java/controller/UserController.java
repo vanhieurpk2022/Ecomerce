@@ -1,16 +1,20 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.http.HttpResponse;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import dao.AddressDao;
 import dao.OrdersDao;
@@ -28,6 +32,12 @@ import util.Encode;
 /**
  * Servlet implementation class UserController
  */
+@MultipartConfig(
+	    fileSizeThreshold = 1024 * 512,     // 512KB
+	    maxFileSize = 1024 * 1024 * 3,      // 3MB
+	    maxRequestSize = 1024 * 1024 * 6    // 6MB
+	)
+
 @WebServlet("/user/*")
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -240,6 +250,9 @@ public class UserController extends HttpServlet {
             case "/reviews":
     			reviewProducts(request,response);
     			break;
+            case "/uploadAvatar": 
+            	uploadAvatar(request, response); 
+            	break; // NEW
             default:
             	response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
@@ -343,6 +356,61 @@ public class UserController extends HttpServlet {
 	    response.getWriter().write("{\"addressID\":" + getId +","+"\"count\":"+count + "}");
 
 	}
+	 private void uploadAvatar(HttpServletRequest request, HttpServletResponse response)
+	            throws IOException, ServletException {
+	        HttpSession session = request.getSession(false);
+	        UserSession userSession = (UserSession) session.getAttribute("user");
+	        if (userSession == null) {
+	            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+	            return;
+	        }
+
+	        Part part = request.getPart("avatar");
+	        if (part == null || part.getSize() == 0) {
+	            session.setAttribute("msg_type", "error");
+	            session.setAttribute("msg", "Vui lòng chọn ảnh!");
+	            response.sendRedirect(request.getContextPath() + "/user/settings");
+	            return;
+	        }
+
+	        String contentType = part.getContentType();
+	        if (contentType == null || !(contentType.equals("image/png")
+	                || contentType.equals("image/jpeg")
+	                || contentType.equals("image/webp"))) {
+	            session.setAttribute("msg_type", "error");
+	            session.setAttribute("msg", "Chỉ hỗ trợ PNG/JPEG/WEBP!");
+	            response.sendRedirect(request.getContextPath() + "/user/settings");
+	            return;
+	        }
+
+	        String original = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+	        String safe = original.replaceAll("[^a-zA-Z0-9._-]", "_");
+	        String fileName = System.currentTimeMillis() + "_" + safe;
+
+	        String uploadDirPath = request.getServletContext().getRealPath("/assert/upload/avatars");
+	        File uploadDir = new File(uploadDirPath);
+	        if (!uploadDir.exists()) uploadDir.mkdirs();
+
+	        part.write(uploadDirPath + File.separator + fileName);
+
+	        String avatarUrl = "/assert/upload/avatars/" + fileName;
+
+	        UserDao userDao = new UserDao();
+	        boolean ok = userDao.updateAvatar(userSession.getIdUser(), avatarUrl);
+
+	        // cập nhật vào session để header hiển thị ngay
+	        if (ok) {
+	            userSession.setAvatar(avatarUrl);
+	            session.setAttribute("user", userSession);
+	            session.setAttribute("msg_type", "sus");
+	            session.setAttribute("msg", "Cập nhật ảnh thành công!");
+	        } else {
+	            session.setAttribute("msg_type", "error");
+	            session.setAttribute("msg", "Cập nhật ảnh thất bại!");
+	        }
+
+	        response.sendRedirect(request.getContextPath() + "/user/settings");
+	    }
 	
 
 }

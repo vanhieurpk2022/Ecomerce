@@ -153,3 +153,7 @@ INSERT INTO shipping (city_name, price, city_code) VALUES
 
 INSERT INTO vouchers(voucherID,`code`,discount,quantity,used,`status`)
 VALUES(1,'FREESHIP',30000,20,0,'active');
+
+-- Thêm trường avatar để thay đổi ảnh đại diện
+ALTER TABLE Users
+	  ADD COLUMN avatar NVARCHAR(255) DEFAULT '/assert/img/avatar.jpg';

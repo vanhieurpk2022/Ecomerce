@@ -8,6 +8,7 @@ public class UserSession {
 	private String lastname;
 	private String TokenID;
 	private LocalDate expired;
+	private String avatar; 
 
 	private Integer role;
 	public UserSession(Integer idUser, String firstname,String lastname, Integer role) {
@@ -23,6 +24,7 @@ public class UserSession {
 	    this.firstname = userFromDB.getFirstName(); 
 	    this.lastname = userFromDB.getLastName();
 	    this.role = userFromDB.getRole();
+	    this.avatar = userFromDB.getAvatar(); 
 	    // Các trường khác như TokenID hay expired có thể để null hoặc gán tùy ý
 	}
 	public Integer getIdUser() {
@@ -54,6 +56,12 @@ public class UserSession {
 	}
 	public void setRole(Integer role) {
 		this.role = role;
+	}
+	 public String getAvatar() { 
+		 return avatar; 
+	}
+	 public void setAvatar(String avatar) {
+	    	this.avatar = avatar;
 	}
 
 

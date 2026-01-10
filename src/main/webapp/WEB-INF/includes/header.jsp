@@ -57,14 +57,16 @@
             <c:choose>
                 <c:when test="${sessionScope.user != null}">
                     <li class="user-menu">
-                        <div class="avatar">
-                            <img src="${ctx}/assert/img/avatar.jpg" alt="">
-                            <span class="overflow-x-hidden">
-                                ${sessionScope.user.firstname} ${sessionScope.user.lastname}
-                            </span>
-                        </div>
+						<div class="avatar">
+							<img
+								src="${empty sessionScope.user.avatar
+               ? ctx.concat('/assert/img/avatar.jpg')
+               : ctx.concat(sessionScope.user.avatar)}"
+								alt=""> <span class="overflow-x-hidden">
+								${sessionScope.user.firstname} ${sessionScope.user.lastname} </span>
+						</div>
 
-                        <ul class="dropdown">
+						<ul class="dropdown">
                             <li>
                                 <a href="${ctx}/user/orders_his">
                                     <i class="bi bi-cart"></i> <fmt:message key="nav.orders" />

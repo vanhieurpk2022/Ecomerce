@@ -270,6 +270,7 @@ public class LoginController extends HttpServlet {
 		}else {
 			User user = dao.getFullName(username);
 			UserSession userSession = new UserSession(user.getIdUser(), user.getFirstName(),user.getLastName(), user.getRole());
+			userSession.setAvatar(user.getAvatar());
 			boolean checkPass = Encode.verify(password, user.getPassword());
 			
 			if(!checkPass) {

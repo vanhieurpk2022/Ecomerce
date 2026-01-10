@@ -92,6 +92,7 @@ public class UserDao extends BaseDao {
 
 				user.setBirthday(birthDate);
 				user.setGender(result.getInt("gender"));
+				user.setAvatar(result.getString("avatar")); 
 			}
 			return user;
 		} catch (Exception e) {
@@ -125,6 +126,7 @@ public class UserDao extends BaseDao {
 				user.setBirthday(birthDate);
 				user.setGender(result.getInt("gender"));
 				user.setStatus(result.getInt("status"));
+				user.setAvatar(result.getString("avatar")); 
 			}
 			return user;
 		} catch (Exception e) {
@@ -212,5 +214,13 @@ public class UserDao extends BaseDao {
 
 		}
 	}
-
+	public boolean updateAvatar(int userID, String avatarUrl) {
+	    String sql = "UPDATE users SET avatar=? WHERE userID=?";
+	    try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+	        ps.setString(1, avatarUrl);
+	        ps.setInt(2, userID);
+	        int result = ps.executeUpdate();
+	        return result > 0;
+	    } catch (Exception e) { throw new RuntimeException(e); }
+	}
 }

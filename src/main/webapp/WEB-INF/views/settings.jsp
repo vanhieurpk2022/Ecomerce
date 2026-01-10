@@ -42,7 +42,24 @@
                     <!-- Account Section -->
                     <section class="section" id="account">
                         <h2 class="section-title"><i class="fas fa-user-circle"></i> <fmt:message key="set.account_info"/></h2>
-                        <form class="form-grid" method="POST" action="${ctx }/user/updateAccountInfo">
+                           
+
+						<!-- NEW: Avatar -->
+						<div class="d-flex gap-3 align-items-center mb-3">
+							<img
+								src="${empty sessionScope.user.avatar ? ctx.concat('/assert/img/avatar.jpg') : ctx.concat(sessionScope.user.avatar)}"
+								alt="Avatar" width="72" height="72"
+								style="border-radius: 50%; object-fit: cover; border: 1px solid #eee;">
+							<form action="${ctx}/user/uploadAvatar" method="post"
+								enctype="multipart/form-data">
+								<input type="file" name="avatar" accept="image/*"
+									class="form-control form-control-sm" required>
+								<button type="submit" class="btn btn-primary btn-sm mt-2">
+									<i class="bi bi-upload"></i> Đổi ảnh đại diện
+								</button>
+							</form>
+						</div>
+						<form class="form-grid" method="POST" action="${ctx }/user/updateAccountInfo">
                             <div class="form-group">
                                 <label for="username"> <fmt:message key="set.username"/></label>
                                 <input type="text" id="username" value="${requestScope.getProfile.username }" placeholder=" <fmt:message key="set.enter_username"/>" disabled>

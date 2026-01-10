@@ -18,6 +18,7 @@ public class User {
 	private LocalDate birthday;
 	private Integer gender;
 	private Integer status;
+	private String avatar;
 	
 	private Integer puchasedOrders;
 	
@@ -161,6 +162,12 @@ public class User {
 	public void setPuchasedOrders(Integer puchasedOrders) {
 		this.puchasedOrders = puchasedOrders;
 	}
+	public String getAvatar() {
+		return avatar; 
+	}
+    public void setAvatar(String avatar) {
+    	this.avatar = avatar; 
+    }
 
 	
 	
