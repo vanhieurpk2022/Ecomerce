@@ -94,30 +94,41 @@ public class AdminDao extends BaseDao{
 			throw new RuntimeException(e);
 		}
 	}
-	public List<User> selectListUser(){
-		List<User> list = new ArrayList<User>();
-		String sql = "SELECT u.*,oa.SoDonDaMua FROM users u\r\n"
-				+ "JOIN (SELECT COUNT(*) AS SoDonDaMua,o.userID FROM orders o) oa ON oa.userID =u.userID;";
-		try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
+	public List<User> selectListUser() {
+	    List<User> list = new ArrayList<User>();
 
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
-			User s1 = new User();
-			s1.setIdUser(rs.getInt("userID"));
-			s1.setFirstName(rs.getString("firstName"));
-			s1.setLastName(rs.getString("lastName"));
-			s1.setEmail(rs.getString("email"));
-			s1.setPhone(rs.getString("Phone"));
-			s1.setPuchasedOrders(rs.getInt("SoDonDaMua"));
-			s1.setStatus(rs.getInt("status"));
-			s1.setCreatedAt(rs.getTimestamp("createAt"));
-			list.add(s1);
-			}
-			return list;
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+	    String sql =
+	        "SELECT u.*, IFNULL(oa.SoDonDaMua, 0) AS SoDonDaMua " +
+	        "FROM users u " +
+	        "LEFT JOIN ( " +
+	        "   SELECT o.userID, COUNT(*) AS SoDonDaMua " +
+	        "   FROM orders o " +
+	        "   GROUP BY o.userID " +
+	        ") oa ON oa.userID = u.userID;";
+
+	    try (Connection conn = getConnection();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+	        ResultSet rs = ps.executeQuery();
+	        while (rs.next()) {
+	            User s1 = new User();
+	            s1.setIdUser(rs.getInt("userID"));
+	            s1.setFirstName(rs.getString("firstName"));
+	            s1.setLastName(rs.getString("lastName"));
+	            s1.setEmail(rs.getString("email"));
+	            s1.setPhone(rs.getString("phone")); // ⚠️ bạn đang dùng "Phone" chỗ khác -> nên thống nhất
+	            s1.setPuchasedOrders(rs.getInt("SoDonDaMua"));
+	            s1.setStatus(rs.getInt("status"));
+	            s1.setCreatedAt(rs.getTimestamp("createAt")); // nếu DB là createdAt thì đổi lại cho đúng
+	            list.add(s1);
+	        }
+	        return list;
+
+	    } catch (Exception e) {
+	        throw new RuntimeException(e);
+	    }
 	}
+
 	public boolean bannedAccount(int userID){
 		String sql = "UPDATE USERS SET status =0 WHERE userID =?";
 		try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
