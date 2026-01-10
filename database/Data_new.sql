@@ -156,4 +156,132 @@ VALUES(1,'FREESHIP',30000,20,0,'active');
 
 -- Thêm trường avatar để thay đổi ảnh đại diện
 ALTER TABLE Users
-	  ADD COLUMN avatar NVARCHAR(255) DEFAULT '/assert/img/avatar.jpg';
+ADD COLUMN avatar NVARCHAR(255) DEFAULT '/assert/img/avatar.jpg';
+
+-- Thêm trường product_detail (thể hiện thông tin của sản phẩm)
+CREATE TABLE IF NOT EXISTS product_details (
+  productID INT PRIMARY KEY,
+  material       NVARCHAR(255),
+  fabric_weight  NVARCHAR(50),
+  colors         NVARCHAR(255),
+  fit            NVARCHAR(255),
+  care           NVARCHAR(255),
+  CONSTRAINT fk_pd_product
+    FOREIGN KEY (productID) REFERENCES Products(ProductsID) ON DELETE CASCADE
+);
+
+
+-- Seed product_details mapped by productsName.
+-- Adjust text if you want different specs per item.
+
+INSERT INTO product_details (productID, material, fabric_weight, colors, fit, care)
+SELECT p.ProductsID, '100% Cotton', '180gsm', 'Nhiều màu', 'Regular fit / Unisex',
+       'Giặt nhiệt độ thấp, không tẩy, hạn chế sấy'
+FROM Products p WHERE p.productsName = 'Áo Sơ Mi Họa Tiết Tropical Art Shirt'
+ON DUPLICATE KEY UPDATE material=VALUES(material), fabric_weight=VALUES(fabric_weight),
+  colors=VALUES(colors), fit=VALUES(fit), care=VALUES(care);
+
+INSERT INTO product_details (productID, material, fabric_weight, colors, fit, care)
+SELECT p.ProductsID, '100% Cotton', '180gsm', 'Nhiều màu', 'Regular fit / Unisex',
+       'Giặt nhiệt độ thấp, không tẩy, hạn chế sấy'
+FROM Products p WHERE p.productsName = 'Áo Sơ Mi Hoa Lá Vintage Nature Shirt'
+ON DUPLICATE KEY UPDATE material=VALUES(material), fabric_weight=VALUES(fabric_weight),
+  colors=VALUES(colors), fit=VALUES(fit), care=VALUES(care);
+
+INSERT INTO product_details (productID, material, fabric_weight, colors, fit, care)
+SELECT p.ProductsID, '100% Cotton', '180gsm', 'Nhiều màu', 'Regular fit / Unisex',
+       'Giặt nhiệt độ thấp, không tẩy, hạn chế sấy'
+FROM Products p WHERE p.productsName = 'Áo Sơ Mi Hoa Nhí Vintage Floral Shirt'
+ON DUPLICATE KEY UPDATE material=VALUES(material), fabric_weight=VALUES(fabric_weight),
+  colors=VALUES(colors), fit=VALUES(fit), care=VALUES(care);
+
+INSERT INTO product_details (productID, material, fabric_weight, colors, fit, care)
+SELECT p.ProductsID, '100% Cotton', '180gsm', 'Trắng/Hoa hồng nhạt', 'Regular fit / Unisex',
+       'Giặt nhiệt độ thấp, không tẩy, hạn chế sấy'
+FROM Products p WHERE p.productsName = 'Áo Sơ Mi Hoa Anh Đào Blossom Shirt'
+ON DUPLICATE KEY UPDATE material=VALUES(material), fabric_weight=VALUES(fabric_weight),
+  colors=VALUES(colors), fit=VALUES(fit), care=VALUES(care);
+
+INSERT INTO product_details (productID, material, fabric_weight, colors, fit, care)
+SELECT p.ProductsID, '100% Cotton', '180gsm', 'Navy/Hoa hồng', 'Regular fit / Unisex',
+       'Giặt nhiệt độ thấp, không tẩy, hạn chế sấy'
+FROM Products p WHERE p.productsName = 'Áo Sơ Mi Hoa Hồng Đêm Midnight Rose Shirt'
+ON DUPLICATE KEY UPDATE material=VALUES(material), fabric_weight=VALUES(fabric_weight),
+  colors=VALUES(colors), fit=VALUES(fit), care=VALUES(care);
+
+INSERT INTO product_details (productID, material, fabric_weight, colors, fit, care)
+SELECT p.ProductsID, 'Corduroy (Nhung tăm)', '230gsm', 'Cam đất/Xanh denim', 'Regular fit',
+       'Giặt nhẹ, lộn trái; không tẩy; hạn chế sấy'
+FROM Products p WHERE p.productsName = 'Áo Sơ Mi Nhung Tăm Color Block Casual Shirt'
+ON DUPLICATE KEY UPDATE material=VALUES(material), fabric_weight=VALUES(fabric_weight),
+  colors=VALUES(colors), fit=VALUES(fit), care=VALUES(care);
+
+INSERT INTO product_details (productID, material, fabric_weight, colors, fit, care)
+SELECT p.ProductsID, 'Linen', '200gsm', 'Màu tự nhiên', 'Relaxed fit',
+       'Giặt nhẹ, không vắt mạnh; ủi nhiệt thấp'
+FROM Products p WHERE p.productsName = 'Quần Linen Thêu Hoa Relaxed Fit Pants'
+ON DUPLICATE KEY UPDATE material=VALUES(material), fabric_weight=VALUES(fabric_weight),
+  colors=VALUES(colors), fit=VALUES(fit), care=VALUES(care);
+
+INSERT INTO product_details (productID, material, fabric_weight, colors, fit, care)
+SELECT p.ProductsID, 'Polyester/Rayon blend', '170gsm', 'Đa sắc (Art line)', 'Oversize',
+       'Giặt nhiệt độ thấp, không tẩy, hạn chế sấy'
+FROM Products p WHERE p.productsName = 'Áo Blouse Họa Tiết Art Line Oversize Top'
+ON DUPLICATE KEY UPDATE material=VALUES(material), fabric_weight=VALUES(fabric_weight),
+  colors=VALUES(colors), fit=VALUES(fit), care=VALUES(care);
+
+INSERT INTO product_details (productID, material, fabric_weight, colors, fit, care)
+SELECT p.ProductsID, 'Linen/Cotton', '180gsm', 'Xanh nhạt', 'Regular fit',
+       'Giặt nhẹ, ủi nhiệt thấp'
+FROM Products p WHERE p.productsName = 'Áo Sơ Mi Cổ Trụ Linen Minimal Shirt'
+ON DUPLICATE KEY UPDATE material=VALUES(material), fabric_weight=VALUES(fabric_weight),
+  colors=VALUES(colors), fit=VALUES(fit), care=VALUES(care);
+
+INSERT INTO product_details (productID, material, fabric_weight, colors, fit, care)
+SELECT p.ProductsID, '100% Cotton', '180gsm', 'Carô xanh xám', 'Regular fit / Unisex',
+       'Giặt nhiệt độ thấp, không tẩy, hạn chế sấy'
+FROM Products p WHERE p.productsName = 'Áo Sơ Mi Caro Nhỏ Classic Check Shirt'
+ON DUPLICATE KEY UPDATE material=VALUES(material), fabric_weight=VALUES(fabric_weight),
+  colors=VALUES(colors), fit=VALUES(fit), care=VALUES(care);
+
+INSERT INTO product_details (productID, material, fabric_weight, colors, fit, care)
+SELECT p.ProductsID, '100% Cotton', '180gsm', 'Trắng', 'Regular fit',
+       'Giặt nhiệt độ thấp, không tẩy, hạn chế sấy'
+FROM Products p WHERE p.productsName = 'Áo Sơ Mi Trắng Cổ Trụ Essential White Shirt'
+ON DUPLICATE KEY UPDATE material=VALUES(material), fabric_weight=VALUES(fabric_weight),
+  colors=VALUES(colors), fit=VALUES(fit), care=VALUES(care);
+
+INSERT INTO product_details (productID, material, fabric_weight, colors, fit, care)
+SELECT p.ProductsID, '100% Cotton', '190gsm', 'Be/Nâu (Urban)', 'Regular fit',
+       'Giặt nhiệt độ thấp, không tẩy, hạn chế sấy'
+FROM Products p WHERE p.productsName = 'Áo Sơ Mi Họa Tiết Urban Military Shirt'
+ON DUPLICATE KEY UPDATE material=VALUES(material), fabric_weight=VALUES(fabric_weight),
+  colors=VALUES(colors), fit=VALUES(fit), care=VALUES(care);
+
+INSERT INTO product_details (productID, material, fabric_weight, colors, fit, care)
+SELECT p.ProductsID, 'Denim (100% Cotton)', '220gsm', 'Xanh nhạt', 'Regular fit',
+       'Giặt riêng màu, lộn trái; không tẩy; hạn chế sấy'
+FROM Products p WHERE p.productsName = 'Áo Sơ Mi Denim Xanh Nhạt Classic Denim Shirt'
+ON DUPLICATE KEY UPDATE material=VALUES(material), fabric_weight=VALUES(fabric_weight),
+  colors=VALUES(colors), fit=VALUES(fit), care=VALUES(care);
+
+INSERT INTO product_details (productID, material, fabric_weight, colors, fit, care)
+SELECT p.ProductsID, 'Kaki (Cotton twill)', '200gsm', 'Sọc nhỏ', 'Regular fit',
+       'Giặt nhiệt độ thấp, không tẩy, hạn chế sấy'
+FROM Products p WHERE p.productsName = 'Quần Short Kaki Sọc Nhỏ Smart Casual Shorts'
+ON DUPLICATE KEY UPDATE material=VALUES(material), fabric_weight=VALUES(fabric_weight),
+  colors=VALUES(colors), fit=VALUES(fit), care=VALUES(care);
+
+INSERT INTO product_details (productID, material, fabric_weight, colors, fit, care)
+SELECT p.ProductsID, 'Kaki (Cotton twill)', '240gsm', 'Kaki', 'Regular fit',
+       'Giặt nhiệt độ thấp, không tẩy, hạn chế sấy'
+FROM Products p WHERE p.productsName = 'Áo Khoác Sơ Mi Kaki Utility Overshirt'
+ON DUPLICATE KEY UPDATE material=VALUES(material), fabric_weight=VALUES(fabric_weight),
+  colors=VALUES(colors), fit=VALUES(fit), care=VALUES(care);
+
+INSERT INTO product_details (productID, material, fabric_weight, colors, fit, care)
+SELECT p.ProductsID, '100% Cotton', '180gsm', 'Xám đậm', 'Regular fit / Unisex',
+       'Giặt nhiệt độ thấp, không tẩy, hạn chế sấy'
+FROM Products p WHERE p.productsName = 'Áo Sơ Mi Cổ Trụ Dark Minimal Shirt'
+ON DUPLICATE KEY UPDATE material=VALUES(material), fabric_weight=VALUES(fabric_weight),
+  colors=VALUES(colors), fit=VALUES(fit), care=VALUES(care);

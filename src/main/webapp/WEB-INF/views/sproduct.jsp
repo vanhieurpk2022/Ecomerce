@@ -301,14 +301,38 @@
             <!-- Bên phải: Mở rộng thông tin sản phẩm -->
             <div class="product-info-extend">
                 <div class="product-info-title"><fmt:message key="product.info.title"/></div>
-                <ul class="product-info-list">
-                    <li><span class="product-info-label info-material"><i class="fa-solid fa-shirt"></i> <fmt:message key="product.info.material"/>:</span> <span class="product-info-value">100% Cotton</span></li>
-                    <li><span class="product-info-label info-weight"><i class="fa-solid fa-weight-hanging"></i> <fmt:message key="product.info.weight"/>:</span> <span class="product-info-value">180gsm</span></li>
-                    <li><span class="product-info-label info-color"><i class="fa-solid fa-palette"></i> <fmt:message key="product.info.color"/>:</span> <span class="product-info-value"><fmt:message key="product.info.color_value"/> </span></li>
-                    <li><span class="product-info-label info-style"><i class="fa-solid fa-tag"></i> <fmt:message key="product.info.style"/>:</span> <span class="product-info-value">Regular fit / Unisex</span></li>
-                    <li><span class="product-info-label info-care"><i class="fa-solid fa-box-archive"></i> <fmt:message key="product.info.care"/>:</span> <span class="product-info-value"><fmt:message key="product.info.care_value"/></span></li>
-                </ul>
-            </div>
+				<ul class="product-info-list">
+					<li><span class="product-info-label info-material"> <i
+							class="fa-solid fa-shirt"></i> <fmt:message
+								key="product.info.material" />:
+					</span> <span class="product-info-value"> ${empty pdetail.material ? '100% Cotton' : pdetail.material}
+					</span></li>
+
+					<li><span class="product-info-label info-weight"> <i
+							class="fa-solid fa-weight-hanging"></i> <fmt:message
+								key="product.info.weight" />:
+					</span> <span class="product-info-value"> ${empty pdetail.fabricWeight ? '180gsm' : pdetail.fabricWeight}
+					</span></li>
+
+					<li><span class="product-info-label info-color"> <i
+							class="fa-solid fa-palette"></i> <fmt:message
+								key="product.info.color" />:
+					</span> <span class="product-info-value"> ${empty pdetail.colors ? 'Nhiều màu' : pdetail.colors}
+					</span></li>
+
+					<li><span class="product-info-label info-style"> <i
+							class="fa-solid fa-tag"></i> <fmt:message
+								key="product.info.style" />:
+					</span> <span class="product-info-value"> ${empty pdetail.fit ? 'Regular fit / Unisex' : pdetail.fit}
+					</span></li>
+
+					<li><span class="product-info-label info-care"> <i
+							class="fa-solid fa-box-archive"></i> <fmt:message
+								key="product.info.care" />:
+					</span> <span class="product-info-value"> ${empty pdetail.care ? 'Giặt nhiệt độ thấp, không tẩy, hạn chế sấy' : pdetail.care}
+					</span></li>
+				</ul>
+			</div>
         </div>
     </section>
     <!-- End Đánh giá & Mở rộng -->
