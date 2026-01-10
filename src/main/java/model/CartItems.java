@@ -28,10 +28,16 @@ public class CartItems {
 		this.quantity = quanity;
 	}
 
-    public BigDecimal getSubtotal() {
-        return variant.getFinalPrice(products.getPrice())
-                      .multiply(BigDecimal.valueOf(quantity));
-    }
+	 public BigDecimal getSubtotal() {
+	        // Tránh NPE khi variant/products chưa nạp được
+	        if (variant == null || products == null) {
+	            return BigDecimal.ZERO;
+	        }
+	        BigDecimal base = products.getPrice() != null ? products.getPrice() : BigDecimal.ZERO;
+	        BigDecimal finalPrice = variant.getFinalPrice(base);
+	        if (finalPrice == null) finalPrice = base;
+	        return finalPrice.multiply(BigDecimal.valueOf(quantity));
+	    }
 
 	public ProductVariants getVariant() {
 		return variant;

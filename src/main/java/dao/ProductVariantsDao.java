@@ -102,28 +102,29 @@ public class ProductVariantsDao extends BaseDao {
 		return color;
 	}
 
-	public ProductVariants selectById(int variantID) {
-		ProductVariants variant = null;
+	 public ProductVariants selectById(int variantID) {
+	        ProductVariants variant = null;
 
-		String sql = "SELECT * FROM products_variants WHERE variantID = ? AND Status='active'";
+	        // Trước đây: Status='active' (chữ thường) dễ trả về null khi DB lưu 'ACTIVE'
+	        // Chấp nhận cả ACTIVE/active hoặc bỏ lọc trạng thái
+	        String sql = "SELECT * FROM products_variants WHERE variantID = ? AND (status = 'ACTIVE' OR status = 'active')";
 
-		try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-			ps.setInt(1, variantID);
-			ResultSet rs = ps.executeQuery();
+	        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+	            ps.setInt(1, variantID);
+	            ResultSet rs = ps.executeQuery();
 
-			if (rs.next()) {
-				variant = new ProductVariants();
-				variant.setVariantID(rs.getInt("variantID"));
-				variant.setProductID(rs.getInt("productID"));
-				variant.setSize(rs.getString("size"));
-				variant.setPriceAdjustment(rs.getBigDecimal("priceAdjustment"));
-				variant.setStock(rs.getInt("stock"));
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return variant;
-	}
+	            if (rs.next()) {
+	                variant = new ProductVariants();
+	                variant.setVariantID(rs.getInt("variantID"));
+	                variant.setProductID(rs.getInt("productID"));
+	                variant.setSize(rs.getString("size"));
+	                variant.setPriceAdjustment(rs.getBigDecimal("priceAdjustment"));
+	                variant.setStock(rs.getInt("stock"));
+	                variant.setStatus(rs.getString("status"));
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        return variant;
+	    }
 }
