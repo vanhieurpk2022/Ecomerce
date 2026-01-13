@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -53,10 +54,10 @@ public class CartController extends HttpServlet {
 		
 		HttpSession session = request.getSession(false);
 		UserSession userSession = (UserSession) session.getAttribute("user");
-
 		if (path != null) {
 			switch (path) {
 			case "/checkout":
+
 				AddressDao address = new AddressDao();
 				List<Address> getAddress = address.selectAddressByUserID(userSession.getIdUser());
 				request.setAttribute("getAddress", getAddress);

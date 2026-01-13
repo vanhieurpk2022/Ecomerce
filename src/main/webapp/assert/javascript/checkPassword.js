@@ -29,7 +29,15 @@ function sendData() {
 			       } else if (data.status === "success") {
 			           msgEmail.textContent = "Verification code sent";
 			           msgEmail.classList.add("text-success");
-			       }
+					   
+					   setTimeout(() => {
+					           msgEmail.textContent = "";
+					           msgEmail.classList.remove("text-success");
+					       }, 5000); // 5 giây
+			       }else if(data.status =="error"){
+					msgEmail.textContent = "Error Send Mail";
+					msgEmail.classList.add("text-danger");
+				   }
              
          })
          .catch(error => console.error("Error:", error));

@@ -39,7 +39,7 @@
   <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
 
     <!-- Filter button -->
-    <a class="btn btn-outline-secondary"
+    <a class="btn btn-secondary"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasExample">
       <i class="bi bi-funnel"></i> Filter
@@ -48,7 +48,7 @@
     <!-- Search -->
     <form class="d-flex" >
       <input type="hidden" name="action" value="">
-      <input class="form-control me-2"
+      <input class="form-control me-2 rounded-4"
              type="search"
              name="keyword"
              placeholder="Search product...">

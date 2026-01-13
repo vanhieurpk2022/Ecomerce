@@ -215,11 +215,18 @@
 			<div class="d-flex flex-row">
 				<div class="d-flex flex-row align-items-center"> 
 				<p class="me-3 p-2 mt-2">Size: </p>
+				<c:if test="${empty getVariants}"> <span class="opacity-50" >Out Stock</span></c:if>
+				<c:if test="${not empty getVariants}"> 
+				
 					<select id="selectTagSize"  >
 				<c:forEach var="v" items="${getVariants}">
-				    <option value="${v.size}" data-productid="${sproduct.productID }" data-variantid="${v.variantID}" data-stock="${v.stock }" data-final-price = "${v.priceAdjustment + sproduct.price}" <c:if test="${v.stock <= 0}">disabled</c:if>>${v.size}</option>
+				    <option value="${v.size}" data-productid="${sproduct.productID }" data-variantid="${v.variantID}" 
+				    data-stock="${v.stock }" data-final-price = "${v.priceAdjustment + sproduct.price}" 
+				    <c:if test="${v.stock <= 0}">disabled</c:if>>${v.size}<c:if test="${v.stock <= 0}">- Out stock</c:if></option>
 				</c:forEach>
+				
 			</select>
+			</c:if>
 				</div>
 				
 		</div>
@@ -230,7 +237,7 @@
 		</div>
 		
 		<div>
-					<button class="normal" id="btn_AddToCart" onclick="addToCart()">Add To Cart</button>
+					<button class="normal" id="btn_AddToCart" ${empty getVariants?'disabled':'' } onclick="addToCart()">Add To Cart</button>
 		
 		</div>
     
@@ -260,31 +267,31 @@
                     <div class="rating-row">
                         <span class="rating-bar-label">5</span>
                         <span class="rating-bar-star"><i class="fa-solid fa-star"></i></span>
-                        <span class="rating-bar-body"><span class="rating-bar-active" style="width:100%;"></span></span>
+                        <span class="rating-bar-body"><span class="rating-bar-active" ${sproduct.rate[0].rating != 0?'style="width:100%;"':''} ></span></span>
                         <span class="rating-bar-percent">${sproduct.rate[0].rating } </span>
                     </div>
                     <div class="rating-row">
                         <span class="rating-bar-label">4</span>
                         <span class="rating-bar-star"><i class="fa-solid fa-star"></i></span>
-                        <span class="rating-bar-body"><span class="rating-bar-active" style="width:0%;"></span></span>
+                        <span class="rating-bar-body"><span class="rating-bar-active" ${sproduct.rate[1].rating != 0?'style="width:100%;"':''}></span></span>
                         <span class="rating-bar-percent">${sproduct.rate[1].rating }</span>
                     </div>
                     <div class="rating-row">
                         <span class="rating-bar-label">3</span>
                         <span class="rating-bar-star"><i class="fa-solid fa-star"></i></span>
-                        <span class="rating-bar-body"><span class="rating-bar-active" style="width:0%;"></span></span>
+                        <span class="rating-bar-body"><span class="rating-bar-active" ${sproduct.rate[2].rating != 0?'style="width:100%;"':''}></span></span>
                         <span class="rating-bar-percent">${sproduct.rate[2].rating }</span>
                     </div>
                     <div class="rating-row">
                         <span class="rating-bar-label">2</span>
                         <span class="rating-bar-star"><i class="fa-solid fa-star"></i></span>
-                        <span class="rating-bar-body"><span class="rating-bar-active" style="width:0%;"></span></span>
+                        <span class="rating-bar-body"><span class="rating-bar-active" ${sproduct.rate[3].rating != 0?'style="width:100%;"':''}></span></span>
                         <span class="rating-bar-percent">${sproduct.rate[3].rating }</span>
                     </div>
                     <div class="rating-row">
                         <span class="rating-bar-label">1</span>
                         <span class="rating-bar-star"><i class="fa-solid fa-star"></i></span>
-                        <span class="rating-bar-body"><span class="rating-bar-active" style="width:0%;"></span></span>
+                        <span class="rating-bar-body"><span class="rating-bar-active" ${sproduct.rate[4].rating != 0?'style="width:100%;"':''}></span></span>
                         <span class="rating-bar-percent">${sproduct.rate[4].rating }</span>
                     </div>
                 </div>

@@ -48,7 +48,7 @@
                 
                 <c:if test="${requestScope.getAddress !=null}">
                 <c:forEach var="a" items="${requestScope.getAddress }">
-                
+            
                   <!-- Address 1 (Default) -->
                   <div class="address-card ${a.isDefault?'selected':''} " data-city="${a.city }">
                      <input type="radio" name="address" value="${a.addressID }" ${a.isDefault?'checked':'' }>
@@ -147,7 +147,6 @@
                   
                   <c:if test="${sessionScope.Cart != null }">
                   <c:forEach var="c" items="${sessionScope.Cart.items }">
-                
                      <!-- Product Items -->
                      <div class="product-item">
                         <img src="${ctx }${c.products.img }" alt="Product" class="product-img">

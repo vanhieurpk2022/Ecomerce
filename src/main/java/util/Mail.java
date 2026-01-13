@@ -40,7 +40,7 @@ public class Mail {
 	
 	}
 	
-	public void SendVerifyMail(String To, String code) {
+	public boolean SendVerifyMail(String To, String code) {
 	    Message msg = new MimeMessage(session);
 	    try {
 	        msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
@@ -52,10 +52,12 @@ public class Mail {
 	                + "<p>Please enter this code to verify your account</p>" + "\n"
 	                + "<p>Best regards,</p>" + "\n" + "<p>Support team</p>", "text/html");
 	        Transport.send(msg);
+	        return true;
 	    } catch (Exception e) {
 	        System.out.println("lỗi gửi mail");
 	        e.printStackTrace();
 	    }
+	    return false;
 	}
 	
 }

@@ -62,7 +62,13 @@ public class VerifyCodeSending extends HttpServlet {
 	    request.getSession().setAttribute("register_code", code);
 
 	    Mail mail = new Mail();
-	    mail.SendVerifyMail(email, code);
+	    boolean sent = mail.SendVerifyMail(email, code);
+
+	    if(!sent) {
+	        response.getWriter().write("{\"status\":\"error\"}");
+	        return;
+
+	    }
 	    response.getWriter().write("{\"status\":\"success\"}");
 
 	}
