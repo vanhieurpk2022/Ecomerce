@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+           <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+ <fmt:setLocale value="${sessionScope.lang != null ? sessionScope.lang : 'en'}" />
+	<fmt:setBundle basename="messages" />
+<fmt:message key="auth.username.placeholder" var="phUsername"/>
+<fmt:message key="auth.password.placeholder" var="phPassword"/>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${sessionScope.lang != null ? sessionScope.lang : 'en'}">
+
 
 <head>
     <meta charset="UTF-8">
@@ -34,9 +39,9 @@
                 <h2>Sign in</h2>
             </div>
             <div class="signup_Main">
-                <input type="text" placeholder="User name" required name="username" value="${AccountCookies.username }">
+                <input type="text" placeholder="${phUsername}" required name="username" value="${AccountCookies.username }">
                 <div class="input-wrapper">
-                <input type="password"  placeholder="Password" id="pwd" required name="password_sigin" value="${AccountCookies.password }">
+                <input type="password"  placeholder="${phPassword}" id="pwd" required name="password_sigin" value="${AccountCookies.password }">
                 <span id="icon_show" class="icon_show"><i class="bi bi-eye"></i></span>
                 </div>
                 <c:choose>
@@ -52,14 +57,14 @@
             <div class="forgot">
                 <label for="remember" class="remember">
                     <input type="checkbox" id="remember"  name="checkbox_re" ${not empty AccountCookies.remember ? 'checked' : ''}>
-                    <span>Remember me</span>
+                    <span><fmt:message key="auth.remember"/></span>
                 </label>
-                <div> <a href="${ctx }/login/forgot">Forgot password?</a></div>
+                <div> <a href="${ctx }/login/forgot"><fmt:message key="auth.forgot"/></a></div>
             </div>
 
-            <button type="submit">Sign in</button>
+            <button type="submit"><fmt:message key="auth.signin.btn"/></button>
             <hr>
-            <p>Don't have an account? <a href="${ctx }/login/signup">Sign up</a></p>
+            <p><fmt:message key="auth.noAccount"/> <a href="${ctx }/login/signup"><fmt:message key="auth.signup.link"/></a></p>
         </form>
     </section>
 

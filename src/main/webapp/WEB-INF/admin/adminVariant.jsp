@@ -95,8 +95,9 @@
                                             <td class=" fw-bold">${pv.status }</td>
                                             <td>      <div>
                      					 			<a href="${ctx }/admin/lockVariant?id=${pv.variantID}" class="btn btn-warning">Lock</a>
-                     					 			<a href="${ctx }/admin/unLockVariant?id=${p.variantID}" class="btn btn-success">Unlock</a>
-                      
+                     					 			<a href="${ctx }/admin/unLockVariant?id=${pv.variantID}" class="btn btn-success">Unlock</a>
+                                                        <button onclick="loadVariantData('${ctx}', this);" data-bs-toggle="modal" data-productID="${pp.productID}" data-bs-target="#variantModalModify" data-variantID="${pv.variantID}" class="btn btn-danger">Modify</button>
+                      				
                       						 </div></td>
                       		                  </tr>
                                         </c:forEach>
@@ -108,7 +109,90 @@
                     </div>
     
                 </div>
-
+									<!-- Modal Modify-->
+										<div class="modal fade" id="variantModalModify" tabindex="-1"
+									     aria-labelledby="variantModalLabel" aria-hidden="true">
+									  <div class="modal-dialog modal-lg">
+									    <div class="modal-content">
+									
+									      <!-- HEADER -->
+									      <div class="modal-header">
+									        <h5 class="modal-title" id="variantModalLabel">
+									          Modify Products
+									        </h5>
+									        <button type="button" class="btn-close"
+									                data-bs-dismiss="modal"></button>
+									      </div>
+									
+									      <!-- FORM -->
+									      <form action="${ctx}/admin/modifyVariant" method="post">
+									
+									        <div class="modal-body">
+									
+									          <!-- Product ID (hidden) -->
+         							 <input type="hidden" id="modal_productID" name="productID" value="">
+									 <input type="hidden" id="modal_variantID" name="variantID" value="">
+									
+									          <div class="row g-3">
+									
+									            <!-- Size -->
+									            <div class="col-md-4">
+									              <label class="form-label">Size</label>
+									              <select id="modal_Size" name="size" class="form-select" required>
+									                <option value="">-- Select size --</option>
+									                <option value="S">S</option>
+									                <option value="M">M</option>
+									                <option value="L">L</option>
+									                <option value="XL">XL</option>
+									              </select>
+									            </div>
+									
+									            <!-- Stock -->
+									            <div class="col-md-4">
+									              <label class="form-label">Stock</label>
+									              <input id="modal_stock" type="number" name="stock"
+									                     class="form-control"
+									                     min="0" required>
+									            </div>
+									
+									            <!-- Price Adjustment -->
+									            <div class="col-md-6">
+									              <label class="form-label">Price Adjustment (VNĐ)</label>
+									              <input id="modal_price" type="number" name="priceAdjustment"
+									                     class="form-control"
+									                     step="1000" value="0">
+									            </div>
+									
+									            <!-- Status -->
+									            <div class="col-md-6">
+									              <label class="form-label">Status</label>
+									              <select id="modal_status" name="status" class="form-select">
+									                <option value="ACTIVE">ACTIVE</option>
+									                <option value="INACTIVE">INACTIVE</option>
+									              </select>
+									            </div>
+									
+									          </div>
+									        </div>
+									
+									        <!-- FOOTER -->
+									        <div class="modal-footer">
+									          <button type="button"
+									                  class="btn btn-secondary"
+									                  data-bs-dismiss="modal">
+									            Close
+									          </button>
+									          <button type="submit" class="btn btn-primary">
+									           Save
+									          </button>
+									        </div>
+									
+									      </form>
+									
+									    </div>
+									  </div>
+									</div>
+									<!-- End Modal -->
                 <!-- Cột bên phải: Thông tin khách hàng & Tổng tiền -->
                 <div class="col-lg-4">
                     <!-- Trạng thái đơn hàng -->
@@ -215,7 +299,11 @@
         </div>
          </div>
     </div>
+                   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" ></script>
+	            <script src="${ctx}/assert/javascript/adminAjax.js"></script>
+	
 	<script>
 
 	document.querySelectorAll(".order-row").forEach(row => {

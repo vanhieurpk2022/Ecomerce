@@ -126,4 +126,28 @@ public class ProductVariantsDao extends BaseDao {
 
 		return variant;
 	}
+	public ProductVariants selectToModify(int variantID, int productID) {
+		ProductVariants variant = null;
+
+		String sql = "SELECT * FROM products_variants WHERE variantID = ? AND productID=?";
+
+		try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setInt(1, variantID);
+			ps.setInt(2, productID);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				variant = new ProductVariants();
+				variant.setSize(rs.getString("size"));
+				variant.setPriceAdjustment(rs.getBigDecimal("priceAdjustment"));
+				variant.setStock(rs.getInt("stock"));
+				variant.setStatus(rs.getString("status").toUpperCase());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return variant;
+	}
 }

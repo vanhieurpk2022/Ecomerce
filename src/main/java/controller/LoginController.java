@@ -179,7 +179,7 @@ public class LoginController extends HttpServlet {
 		
 		CookieUtil.clearLoginInfo(response);
 		session.invalidate();
-		request.getRequestDispatcher("/home").forward(request, response);
+		response.sendRedirect(request.getContextPath()+"/home");
 
 	}
 

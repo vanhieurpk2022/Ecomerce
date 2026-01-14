@@ -60,7 +60,10 @@ function caculateFinalPrice(){
 	   const shipping = Number(shippingText.replace(/[^\d]/g, ""));
 	   const discount = Number(discountText.replace(/[^\d]/g, ""));
 	   
-	   
+		console.log(subtotal);
+		console.log(shipping)   
+		console.log(discount)   
+
 	const finalTotal =( subtotal + shipping -discount);
 	
 	

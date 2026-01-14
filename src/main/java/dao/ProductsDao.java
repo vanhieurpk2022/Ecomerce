@@ -132,5 +132,32 @@ public class ProductsDao extends BaseDao {
 
 		return p;
 	}
+	public List<Products> selectProductsByKeyWord(String name, int limit,int offset){
+		List<Products> list= new ArrayList<Products>();
+		String sql = "SELECT * FROM products WHERE productsName LIKE ? AND STATUS='ACTIVE' LIMIT ? OFFSET ?;";
+		Products p;
+		int getOff = offset * limit;
+		try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, "%"+name+"%");
+			ps.setInt(2, limit);
+			ps.setInt(3, getOff);
+			ResultSet rs = ps.executeQuery();
 
+			while (rs.next()) {
+				 p= new Products();
+				p.setProductName(rs.getString("productsName"));
+				p.setPrice(rs.getBigDecimal("price"));
+				p.setImg(rs.getString("img"));
+				p.setProductID(rs.getInt("ProductsID"));
+				p.setCategoryID(rs.getInt("categoryID"));
+				list.add(p);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return list;
+		
+	}
 }

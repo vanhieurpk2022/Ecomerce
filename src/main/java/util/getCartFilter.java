@@ -44,7 +44,8 @@ public class getCartFilter implements Filter {
 
 		 // không tự tạo session
 		 HttpSession session = req.getSession(false);
-
+		 
+		
 		 /* ================== LOAD CART ================== */
 		 Cart cart = CookieUtil.getCart(req);
 		 if (cart != null) {

@@ -51,11 +51,33 @@ public class ShopController extends HttpServlet {
 		case "FilterProducts":
 			filterProducts(request, response);
 			break;
+		case "search":
+			int offs = Integer.parseInt(request.getParameter("page"));
+			searchHandle(request, response,offs);
+			break;
 		
 	
 		}
 	}
 	
+
+
+	private void searchHandle(HttpServletRequest request, HttpServletResponse response,int offset) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+
+		String keyword = request.getParameter("keyword");
+		String url = "/WEB-INF/views/shop.jsp";
+		ProductsDao dao = new ProductsDao();
+		List<Products> productsSearch = dao.selectProductsByKeyWord(keyword,20,offset);
+
+		request.setAttribute("key", keyword);
+		request.setAttribute("ListProducts", productsSearch);
+	
+		getServletContext().getRequestDispatcher(url).forward(request, response);
+
+	}
 
 
 	private void ShowSProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

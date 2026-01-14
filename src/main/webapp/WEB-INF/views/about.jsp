@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+       <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+    
+    <fmt:setLocale value="${sessionScope.lang != null ? sessionScope.lang : 'en'}" />
+	<fmt:setBundle basename="messages" />
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${sessionScope.lang != null ? sessionScope.lang : 'en'}">
+
 
 <head>
 <meta charset="UTF-8">
@@ -36,13 +41,35 @@
 	<jsp:include page="../includes/header.jsp"></jsp:include>
 	
 	
- <section id="page-header" class="blog-header">
-        <h2>#readmore</h2>
-        <p>Read all case studies about our products!</p>
+ <section id="page-header" class="about-header">
+        <h2><fmt:message key="about.aboutHeader.know" /></h2>
+        <p>Lorem ipsum dolor sit amet.</p>
     </section>
+    <section id="about-head" class=" section-p1">
+        <img src="${ctx }/assert/img/about/a6.jpg" alt="">
+        <div>
+            <h2><fmt:message key="about.aboutHeader.h2" /></h2>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus nihil harum consequuntur iusto eligendi
+                placeat numquam eos, fugit animi dolore modi repudiandae nesciunt architecto beatae voluptatum error
+                impedit! Assumenda, dignissimos.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus nihil
+                harum
+                consequuntur iusto eligendi
+                placeat numquam eos, fugit animi dolore modi repudiandae nesciunt architecto beatae voluptatum error
+                impedit! Assumenda, dignissimos.</p>
+
+            <!-- khi rê chuột vào sẽ hiển thị tooltip -->
+            <abbr title=""><fmt:message key="about.aboutHeader.title" /></abbr>
+
+            <br><br>
+            <!-- sliding text -->
+
+            <marquee bgcolor="#ccc" loop="-1" scrollamount="5" width="100%"><fmt:message key="about.marque" /></marquee>
+        </div>
+    </section>
+    
 	<section id="about-app" class="section-p1">
 		<h1>
-			Download Our <a href="#">App</a>
+		<fmt:message key="about.download.title" /> <a href="#"><fmt:message key="about.download.app" /></a>
 		</h1>
 		<div class="video">
 			<video autoplay muted loop src="${ctx }/assert/img/about/1.mp4"></video>
@@ -52,44 +79,42 @@
 	<section id="feature" class="section-p1">
 		<div class="fe-box">
 			<img src="${ctx }/assert/img/features/f1.png" alt="">
-			<h6>Free Shipping</h6>
+			<h6><fmt:message key="feature.freeShipping" /></h6>
 		</div>
 		<div class="fe-box">
 			<img src="${ctx }/assert/img/features/f2.png" alt="">
-			<h6>Online Order</h6>
+			<h6><fmt:message key="feature.onlineOrder" /></h6>
 		</div>
 		<div class="fe-box">
 			<img src="${ctx }/assert/img/features/f3.png" alt="">
-			<h6>Save Money</h6>
+			<h6><fmt:message key="feature.saveMoney" /></h6>
 		</div>
 		<div class="fe-box">
 			<img src="${ctx }/assert/img/features/f4.png" alt="">
-			<h6>Promotions</h6>
+			<h6><fmt:message key="feature.promotions" /></h6>
 		</div>
 		<div class="fe-box">
 			<img src="${ctx }/assert/img/features/f5.png" alt="">
-			<h6>Happy Sell</h6>
+			<h6><fmt:message key="feature.happySell" /></h6>
 		</div>
 		<div class="fe-box">
 			<img src="${ctx }/assert/img/features/f6.png" alt="">
-			<h6>F24/7 Support</h6>
+			<h6><fmt:message key="feature.support" /></h6>
 		</div>
 	</section>
 
 	<section id="newsletter" class="section-p1 section-m1">
 		<div class="newstext">
-			<h4>Sign Up For Newsletters</h4>
+			<h4><fmt:message key="newsletter.title" /></h4>
 			<p>
-				Get E-mail updates about our latest shop and <span>special
-					offers.</span>
+				<fmt:message key="newsletter.desc" /> <span><fmt:message key="newsletter.specialOffers" /></span>
 			</p>
 		</div>
 		<div class="form">
-			<input type="text" placeholder=" Your email address">
-			<button class="normal">Sign Up</button>
+			<input type="text" placeholder="<fmt:message key='newsletter.emailPlaceholder' />">
+			<button class="normal"><fmt:message key="newsletter.signup" /></button>
 		</div>
 	</section>
-
 
 
 

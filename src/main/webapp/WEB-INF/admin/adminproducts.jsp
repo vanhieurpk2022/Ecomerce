@@ -87,6 +87,8 @@
                                  <div>
                                     <a href="${ctx }/admin/lock?id=${p.productID}" class="btn btn-warning">Lock</a>
                                     <a href="${ctx }/admin/unLock?id=${p.productID}" class="btn btn-success">Unlock</a>
+                                  <button data-productid="${p.productID}" data-bs-toggle="modal" onclick="event.stopPropagation();loadProducts('${ctx}',this);" data-bs-target="#productModalModify" class="btn btn-danger">  Modify</button>
+                                    
                                  </div>
                               </td>
                            </tr>
@@ -96,6 +98,95 @@
                   </table>
                </div>
             </div>
+            <!-- Modal Modify -->
+                  <div class="modal fade" id="productModalModify" tabindex="-1"
+                     aria-labelledby="productModalLabel" aria-hidden="true">
+                     <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                           <!-- HEADER -->
+                           <div class="modal-header">
+                              <h5 class="modal-title" id="productModalLabel">
+                                Modify Products
+                              </h5>
+                              <button type="button" class="btn-close"
+                                 data-bs-dismiss="modal"></button>
+                           </div>
+                           <!-- FORM -->
+                           <form action="${ctx}/admin/modifyProducts" method="post" enctype="multipart/form-data">
+                              <div class="modal-body">
+                                 <div class="row g-3">
+                                    <!-- Product Name -->
+                                    <div class="col-md-6">
+                                       <label class="form-label">Product Name</label>
+                                       <input type="text" id="modal_productName" name="productName"
+                                          class="form-control" required>
+                                    </div>
+                                  <input type="hidden" id="productsID" name="pid" value="">
+                                    <!-- Category -->
+                                    <div class="col-md-6">
+                                       <label class="form-label">Category</label>
+                                       <select id="modal_categoryProducts" name="categoryID" class="form-select" required>
+                                          <option value="">-- Select category --</option>
+                                          <c:forEach items="${categoryList}" var="c">
+                                             <option value="${c.categoryID}">
+                                                ${c.categoryName}
+                                             </option>
+                                          </c:forEach>
+                                       </select>
+                                    </div>
+                                    <!-- Base Price -->
+                                    <div class="col-md-6">
+                                       <label class="form-label">Base Price (VNĐ)</label>
+                                       <input id="modal_basePrice" type="number" name="price"
+                                          class="form-control"
+                                          min="0" step="1000" required>
+                                    </div>
+                                    <!-- Product Status -->
+                                    <div class="col-md-6">
+                                       <label class="form-label">Status</label>
+                                       <select id="modal_status" name="status" class="form-select">
+                                          <option value="ACTIVE">ACTIVE</option>
+                                          <option value="INACTIVE">INACTIVE</option>
+                                       </select>
+                                    </div>
+                                    <!-- Description -->
+                                    <div class="col-md-12">
+                                       <label class="form-label">Description</label>
+                                       <textarea id="modal_textarea" name="description"
+                                          class="form-control"
+                                          rows="3"></textarea>
+                                    </div>
+                                    <!-- Preview -->
+                                    <div class="d-flex justify-content-center">
+                                    <img  class="border"  id="preview" src="" alt="Preview" width="80" height="80" style="max-width:200px; display:none;">
+                                    
+                                    </div>
+                                    <!-- Image -->
+                                    <div class="col-md-12">
+                                       <label class="form-label">Product Image</label>
+                                       <input  type="file" name="image"
+                                          class="form-control" accept="image/*" onchange="previewImage(event)">
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- FOOTER -->
+                              <div class="modal-footer">
+                                 <button type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-dismiss="modal">
+                                 Close
+                                 </button>
+                                 <button type="submit" class="btn btn-primary">
+                                 Save Product
+                                 </button>
+                              </div>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- End Modal -->
+            
+            
             <section>
                <h6>Tool</h6>
                <div>
@@ -157,11 +248,16 @@
                                           class="form-control"
                                           rows="3"></textarea>
                                     </div>
+                                    <!-- Preview -->
+                                    <div class="d-flex justify-content-center">
+                                    <img class="border"  id="preview" src="" alt="Preview" width="80" height="80" style="max-width:200px; display:none;">
+                                    
+                                    </div>
                                     <!-- Image -->
                                     <div class="col-md-12">
                                        <label class="form-label">Product Image</label>
                                        <input type="file" name="image"
-                                          class="form-control" accept="image/*">
+                                          class="form-control" accept="image/*" onchange="previewImage(event)">
                                     </div>
                                  </div>
                               </div>
@@ -186,13 +282,23 @@
          </div>
       </div>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" ></script>
+                               <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="${ctx}/assert/javascript/adminAjax.js"></script>
+            
       <script>
          document.querySelectorAll(".order-row").forEach(row => {
              row.addEventListener("click", function () {
                  window.location.href = this.dataset.href;
              });
          });
-         	
+         function previewImage(event) {
+        	    const file = event.target.files[0];
+        	    if (!file) return;
+
+        	    const img = document.getElementById("preview");
+        	    img.src = URL.createObjectURL(file);
+        	    img.style.display = "block";
+        	}
          	
       </script>
    </body>
