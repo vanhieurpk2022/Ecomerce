@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+        <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+ <fmt:setLocale value="${sessionScope.lang != null ? sessionScope.lang : 'en'}" />
+	<fmt:setBundle basename="messages" />
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${sessionScope.lang != null ? sessionScope.lang : 'en'}">
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +29,7 @@
       <div class="container-fluid">
         <!-- Main Content -->
         <div class="container">
-            <h1 class="page-title"><i class="fas fa-cog"></i> Settings</h1>
+            <h1 class="page-title"><i class="fas fa-cog"></i> <fmt:message key="setting" /></h1>
             <div class="settings-wrapper">
                 <!-- Sidebar -->
                 <jsp:include page="../includes/_SidebarSetting.jsp"></jsp:include>
@@ -35,7 +38,7 @@
                 <div class="content-area">
                     <!-- Orders Section -->
                     <section class="section" id="orders">
-                        <h3 class="section-title"><i class="bi bi-star"></i> Rating Products</h3>
+                        <h3 class="section-title"><i class="bi bi-star"></i> <fmt:message key="rating.products.title"/></h3>
                    
                             <c:forEach var="od" items="${requestScope.od }">
                         <!-- Order Card -->
@@ -43,7 +46,7 @@
                             <!-- Order Header -->
                             <div class="d-flex flex-row justify-content-end">
                              <div class="text-success p-2 bg-success-subtle fw-bold rounded-2 mt-2 mt-md-0 text-end" >
-                                    <i class="bi bi-archive"></i> Complete
+                                    <i class="bi bi-archive"></i> <fmt:message key="status.SUCCESS"/>
                                 </div>
                                 </div>
                             <hr>
@@ -56,7 +59,7 @@
                                 </div>
                                 <div class="flex-grow-1 px-3 position-relative">
                                     <p class="mb-1 fw-semibold">${od.product.productName }</p>
-                                    <div class="small text-muted">Quantity: ${od.quantity }</div>
+                                    <div class="small text-muted"><fmt:message key="label.quantity"/>: ${od.quantity }</div>
                                     <div class="d-md-none mt-1">
                                         <span class="fw-bold"><fmt:formatNumber value="${od.price }" pattern="#,##0 VNĐ"/></span>
                                     </div>
@@ -71,10 +74,10 @@
                             <!-- Order Total -->
                             <div class="d-flex flex-column flex-md-row justify-content-end align-items-start align-items-md-center mb-2">
                                <a href="${pageContext.request.contextPath}/shop?action=SProduct&productID=${od.productID}&type=${od.product.categoryID}" class="btn btn-info  text-light mt-2 mt-md-0 me-2">
-                                   Buy
+                                   <fmt:message key="btn.buy"/>
                                 </a>
                                 <button class="btn btn-warning text-light mt-2 mt-md-0 ${od.isReview ?'disabled':'' }" data-bs-toggle="modal" data-bs-target="#exampleModal-${od.orderDetailID }">
-                                    <i class="bi bi-star"></i> Review
+                                    <i class="bi bi-star"></i> <fmt:message key="rating.review"/>
                                 </button>
                             </div>
                           <div class="modal fade review-modal" id="exampleModal-${od.orderDetailID }" tabindex="-1">
@@ -82,7 +85,7 @@
 								    <div class="modal-content">
 								
 								      <div class="modal-header">
-								        <h5 class="modal-title ">Rating</h5>
+								        <h5 class="modal-title "> <fmt:message key="rating.modal.title"/></h5>
 								        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 								      </div>
 								
@@ -95,13 +98,13 @@
 							                        <i class="bi bi-star-fill" data-value="4"></i>
 							                        <i class="bi bi-star-fill" data-value="5"></i>
 							                    </div>
-												  <p id="ratingText-${od.orderDetailID}" class="fw-semibold rating-text">Chưa đánh giá</p>
+												  <p id="ratingText-${od.orderDetailID}" class="fw-semibold rating-text"> <fmt:message key="rating.notRated"/></p>
 											</div>
             							    <input type="hidden" id="ratingValue-${od.orderDetailID}" class="rating-value" value="0">
 								   	
 								      </div>
 								         <div class="modal-footer  ">
-										<button class="btn btn-primary btn-submit-review" data-url="${pageContext.request.contextPath}" data-odid="${od.orderDetailID}" data-pid="${od.productID}">Gửi đánh giá</button>
+										<button class="btn btn-primary btn-submit-review" data-url="${pageContext.request.contextPath}" data-odid="${od.orderDetailID}" data-pid="${od.productID}"><fmt:message key="rating.submit"/></button>
 								         </div>
 								
 								

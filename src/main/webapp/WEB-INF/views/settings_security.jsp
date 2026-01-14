@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+           <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+ <fmt:setLocale value="${sessionScope.lang != null ? sessionScope.lang : 'en'}" />
+	<fmt:setBundle basename="messages" />
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${sessionScope.lang != null ? sessionScope.lang : 'en'}">
 
 <head>
     <meta charset="UTF-8">
@@ -30,7 +33,7 @@
         <!-- Main Content -->
 
         <div class="container">
-            <h1 class="page-title"><i class="fas fa-cog"></i> Settings</h1>
+            <h1 class="page-title"><i class="fas fa-cog"></i> <fmt:message key="setting" /></h1>
 
             <div class="settings-wrapper">
                 <!-- Sidebar -->
@@ -43,26 +46,26 @@
 
                     <!-- Security Section -->
                     <section class="section" id="security">
-                        <h2 class="section-title"><i class="fas fa-shield-alt"></i> Security</h2>
+                        <h2 class="section-title"><i class="fas fa-shield-alt"></i> <fmt:message key="ser.sercurity"/></h2>
 
-                        <h3 style="margin-bottom: 1rem; color: #555;">Change Password</h3>
+                        <h3 style="margin-bottom: 1rem; color: #555;"><fmt:message key="ser.changepass"/></h3>
                         <form class="form-grid" action="${ctx }/login/changePass" method="POST">
                             <div class="form-group full-width">
-                                <label for="current-password">Current Password</label>
+                                <label for="current-password"><fmt:message key="ser.curpass"/></label>
                                 <input type="password" id="current-password" placeholder="Enter current password" name="currPass">
                             </div>
                             <div class="form-group">
-                                <label for="new-password">New Password</label>
+                                <label for="new-password"><fmt:message key="ser.newpass"/></label>
                                 <div class="input-wrapper">
-                                    <input type="password" id="pwd" name="password" placeholder="Enter new password">
+                                    <input type="password" id="pwd" name="password" placeholder="<fmt:message key="ser.enter_new"/>">
                                     <span id="icon_show" class="icon_show"><i class="bi bi-eye"></i></span>
 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="confirm-password">Confirm Password</label>
+                                <label for="confirm-password"><fmt:message key="ser.confirmpass"/></label>
                                 <div class="input-wrapper">
-                                    <input type="password" id="pwd_confirm"  name="password_confirm" placeholder="Confirm new password">
+                                    <input type="password" id="pwd_confirm"  name="password_confirm" placeholder="<fmt:message key="ser.enter_conf"/>">
                                     <span id="icon_show_0" class="icon_show"><i class="bi bi-eye"></i></span>
 
                                 </div>
@@ -81,8 +84,8 @@
                				   
                             </div>
                                 <div class="btn-group">
-                            <button type="submit" id="update" class="btn btn-primary"><i class="fas fa-save"></i> Update</button>
-                            <button type="reset" class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</button>
+                            <button type="submit" id="update" class="btn btn-primary"><i class="fas fa-save"></i> <fmt:message key="set.update"/></button>
+                            <button type="reset" class="btn btn-secondary"><i class="fas fa-times"></i> <fmt:message key="set.cancel"/></button>
                         </div>
                         </form>
                           
@@ -90,7 +93,7 @@
 
 
                         <div style="margin-top: 2rem;">
-                            <h3 style="margin-bottom: 1rem; color: #555;">Recent Login Activity</h3>
+                            <h3 style="margin-bottom: 1rem; color: #555;"><fmt:message key="ser.recentlog"/></h3>
                             <ul class="activity-list">
                                 <li class="activity-item">
                                     <div class="activity-icon">

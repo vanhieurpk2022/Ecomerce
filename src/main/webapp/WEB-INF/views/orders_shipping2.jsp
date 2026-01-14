@@ -2,9 +2,11 @@
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+ <fmt:setLocale value="${sessionScope.lang != null ? sessionScope.lang : 'en'}" />
+	<fmt:setBundle basename="messages" />
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${sessionScope.lang != null ? sessionScope.lang : 'en'}">
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,7 +30,7 @@
       <div class="container-fluid">
         <!-- Main Content -->
         <div class="container">
-            <h1 class="page-title"><i class="fas fa-cog"></i> Settings</h1>
+            <h1 class="page-title"><i class="fas fa-cog"></i> <fmt:message key="setting" /></h1>
             <div class="settings-wrapper">
                 <!-- Sidebar -->
                 <jsp:include page="../includes/_SidebarSetting.jsp"></jsp:include>
@@ -37,7 +39,7 @@
                 <div class="content-area">
                     <!-- Orders Section -->
                     <section class="section" id="orders">
-                        <h3 class="section-title"><i class="fas fa-user-circle"></i> Order History</h3>
+                        <h3 class="section-title"><i class="fas fa-user-circle"></i> <fmt:message key="orders.title"/></h3>
                         
                         <form method = "GET" action="${ctx }/user/orders_his">
                         <!-- Search Form -->
@@ -45,20 +47,20 @@
                         
                             <div class="col-md-4">
                                 <select class="form-control" name="search">
-                                <option value="all" ${requestScope.choose == 'all' ?'selected':'' }> All</option>
-                                	<option value="today" ${requestScope.choose == 'today' ?'selected':'' }>Today</option>
-                                	<option value="week" ${requestScope.choose == 'week' ?'selected':'' }>This week</option>
-                                	<option value="month"  ${requestScope.choose == 'month' ?'selected':'' }>This month</option>
+                                <option value="all" ${requestScope.choose == 'all' ?'selected':'' }> <fmt:message key="orders.filter.all" /></option>
+                                	<option value="today" ${requestScope.choose == 'today' ?'selected':'' }><fmt:message key="orders.filter.today" /></option>
+                                	<option value="week" ${requestScope.choose == 'week' ?'selected':'' }><fmt:message key="orders.filter.week" /></option>
+                                	<option value="month"  ${requestScope.choose == 'month' ?'selected':'' }><fmt:message key="orders.filter.month" /></option>
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-success btn-sm">Find</button>
+                                <button type="submit" class="btn btn-success btn-sm"><fmt:message key="orders.find" /></button>
                             </div>
                           
                         </div>
                           </form>
                           <hr>
-            		<c:if test="${ empty requestScope.orders  }"> <div class="text-danger text-center">you dont have any orders shipping</div></c:if>
+            		<c:if test="${ empty requestScope.orders  }"> <div class="text-danger text-center"><fmt:message key="orders.empty.delivered"/></div></c:if>
 
                           
                         <div class="overflow-y-scroll" style="max-height: 1000px;">
@@ -76,31 +78,31 @@
                                 <c:choose>
                                 	<c:when test="${ord.status == 'PENDING' }">
                                 	 <div class="text-secondary p-2 bg-body-secondary fw-bold rounded-2 mt-2 mt-md-0">
-                                    <i class="bi bi-clock"></i> Awaiting
+                                    <i class="bi bi-clock"></i> <fmt:message key="status.PENDING"/>
                                 </div> 
                                 	</c:when>
                                 	<c:when test="${ord.status == 'CANCEL' }">
                                 	  <div class="text-danger p-2 bg-danger-subtle fw-semibold rounded-2 mt-2 mt-md-0">
-                                    <i class="bi bi-cart-x"></i> Cancel
+                                    <i class="bi bi-cart-x"></i> <fmt:message key="status.CANCEL"/>
                                 </div>
                                 	</c:when>
                                 	<c:when test="${ord.status == 'SUCCESS' }">
                                 	 <div class="text-success p-2 bg-success-subtle fw-bold rounded-2 mt-2 mt-md-0">
-                                    <i class="bi bi-archive"></i> Delivered
+                                    <i class="bi bi-archive"></i> <fmt:message key="status.SUCCESS"/>
                                 </div>
                                 	</c:when>
                                 	
                                 	<c:when test="${ord.status == 'SHIPPING' }">
                                 	 <div class="p-2 bg-warning-subtle fw-bold rounded-2 mt-2 mt-md-0">
                                     <i class="bi bi-truck text-warning"></i>
-                                    <span class="text-warning">Shipping</span>
+                                    <span class="text-warning"><fmt:message key="status.SHIPPING"/></span>
                                 </div>
                                 	</c:when>
                                 </c:choose>
                              
                             </div>
                                 <hr>
-                              <p class=" fw-semibold m-0">Infomation shipping	</p>
+                              <p class=" fw-semibold m-0"><fmt:message key="orders.info"/>	</p>
                              <div class="d-flex mb-3 flex-column shadow-sm rounded-2 p-3">
                                   <div class="d-flex flex-row ">
                                     <div class="mt-2 d-none d-sm-flex"> <i class="bi bi-geo-alt fs-4 px-3 "></i> </div>
@@ -108,13 +110,13 @@
                                     
                                     <div class="d-flex flex-column">
                                         <div class="d-flex flex-row p-1 mt-2 position-relative">
-                                          <strong class="me-2"> Họ Tên: </strong> <div class=" position-relative"> ${sessionScope.user.firstname }  ${sessionScope.user.lastname}
+                                          <strong class="me-2">  <fmt:message key="label.fullName"/>: </strong> <div class=" position-relative"> ${sessionScope.user.firstname }  ${sessionScope.user.lastname}
                                               <span class="opacity-50 fw-semibold small position-absolute top-0 start-100 ms-2">
                                                 ${ord.address.phone }</span>	</div>
                                         
                                         </div>
 
-                                        <div class="overflow-x-hidden "><strong class="me-2">Địa chỉ:</strong> ${ord.address.fullAddress },
+                                        <div class="overflow-x-hidden "><strong class="me-2"><fmt:message key="label.address"/>:</strong> ${ord.address.fullAddress },
                                          ${ord.address.ward },${ord.address.city },${ord.address.country }
                                                  </div>
 
@@ -123,7 +125,7 @@
                                 </div>
                                 
                             </div>
-                            <p class=" fw-semibold m-0">Products List</p>
+                            <p class=" fw-semibold m-0"><fmt:message key="orders.products"/></p>
                              	
                             <!-- Product Items -->
                               <c:forEach var="od" items="${ord.orderDetail}" >
@@ -135,7 +137,7 @@
                                 </div>
                                 <div class="flex-grow-1 px-3 position-relative">
                                     <p class="mb-1 fw-semibold">${od.product.productName}</p>
-                                    <div class="small text-muted">Quantity: ${od.quantity}</div>
+                                    <div class="small text-muted"><fmt:message key="label.quantity"/>: ${od.quantity}</div>
                                     <div class="d-md-none mt-1">
                                         <span class="fw-bold"><fmt:formatNumber value="${od.price }" pattern="#,##0 VNĐ"/></span>
                                     </div>
@@ -149,7 +151,7 @@
                                 
                             <hr>
                              <div class="d-flex mb-3 flex-column shadow-sm rounded-2 p-3">
-                                <p class=" fw-semibold m-0"> <i class="bi bi-journal-minus"></i> Ghi Chú</p>
+                                <p class=" fw-semibold m-0"> <i class="bi bi-journal-minus"></i>  <fmt:message key="orders.note"/></p>
                                 <div class="d-flex flex-row ">
                                     <div class="d-flex flex-column">
                                         <div class="overflow-x-hidden ms-2">${ord.note } </div>
@@ -162,16 +164,16 @@
                             <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                             <div class="d-flex flex-column">
 	                                <div>
-	                                    <span class="fw-bold fs-6">Total:</span> 
+	                                    <span class="fw-bold fs-6"><fmt:message key="orders.total"/>:</span> 
 	                                    <span class="fs-4 text-primary fw-bold"> <fmt:formatNumber value="${ord.totalAmount }" pattern="#,##0 VNĐ"/></span>
 	                                </div>
 	                                <div class="small">
-	                                    <span class="fw-bold small">PaymentMethod:</span> 
+	                                    <span class="fw-bold small"><fmt:message key="orders.paymentMethod"/>:</span> 
 	                                    <span class="fw-semibold small opacity-50">${ord.paymentMethod}</span>
 	                                </div>
                                  </div>
                                    <button onclick="cancelOrder('${ord.orderID }','${ctx}')" class="btn btn-danger text-light mt-2 mt-md-0 ${(ord.status == 'SUCCESS' ||ord.status == 'SHIPPING') ?'disabled':'' }">
-                                    <i class="bi bi-x-lg"></i> Cancel
+                                    <i class="bi bi-x-lg"></i> <fmt:message key="btn.cancel"/>
                                 </button>
                             </div>
                         </div>

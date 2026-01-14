@@ -2,8 +2,13 @@
    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+    <fmt:setLocale value="${sessionScope.lang != null ? sessionScope.lang : 'en'}" />
+	<fmt:setBundle basename="messages" />
+
 <!DOCTYPE html>
-<html>	
+<html lang="${sessionScope.lang != null ? sessionScope.lang : 'en'}">
+
    <head>
       <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +34,7 @@
       
          <div class="checkout-container">
             <div class="d-flex justify-content-between align-items-center flex-wrap">
-               <h1 class="mb-0"><i class="fas fa-shopping-cart me-2"></i>Checkout</h1>
+               <h1 class="mb-0"><i class="fas fa-shopping-cart me-2"></i><fmt:message key="page.checkout.title"/></h1>
             </div>
          </div>
       </div>
@@ -42,7 +47,7 @@
                <div class="section-card">
                   <div class="section-title">
                      <i class="fas fa-map-marker-alt"></i>
-                     Shipping Address
+                    <fmt:message key="section.shippingAddress"/>
                   </div>
                   <div class="list-address-checkout overflow-y-scroll">
                 
@@ -81,30 +86,30 @@
                     </div>
                   <!-- Add New Address -->
                   <a href="${ ctx}/user/address" class="btn btn-add-address">
-                  <i class="fas fa-plus me-2"></i>Add New Address
+                  <i class="fas fa-plus me-2"></i> <fmt:message key="address.addNew"/>
                   </a>
                </div>
                <!-- Order Notes -->
                <div class="section-card">
                   <div class="section-title">
                      <i class="fas fa-sticky-note"></i>
-                     Order Notes
+                     <fmt:message key="section.orderNotes"/>
                   </div>
                   <textarea class="form-control" rows="3"
-                     placeholder="Notes about your order, e.g. special delivery instructions" name="note"></textarea>
+                     placeholder="<fmt:message key="checkout.note"/>" name="note"></textarea>
                </div>
                <!-- Payment Method -->
                <div class="section-card">
                   <div class="section-title">
                      <i class="fas fa-credit-card"></i>
-                     Payment Method
+                     <fmt:message key="section.paymentMethod"/>
                   </div>
                   <div class="payment-method active">
                      <label class="d-flex align-items-center mb-0">
                         <input type="radio" name="payment" value="cod" checked>
                         <span class="ms-2">
-                           <strong>Cash on Delivery (COD)</strong>
-                           <span class="text-muted small">Pay with cash when you receive your order</span>
+                           <strong><fmt:message key="payment.cod"/></strong>
+                           <span class="text-muted small"><fmt:message key="checkout.cod"/></span>
                         </span>
                      </label>
                   </div>
@@ -112,8 +117,8 @@
                      <label class="d-flex align-items-center mb-0">
                         <input type="radio" name="payment" value="bank">
                         <span class="ms-2">
-                           <strong>Bank Transfer</strong>
-                           <span class="text-muted small">Direct transfer to our bank account</span>
+                           <strong><fmt:message key="payment.bank"/></strong>
+                           <span class="text-muted small"><fmt:message key="checkout.bank"/></span>
                         </span>
                      </label>
                   </div>
@@ -121,8 +126,8 @@
                      <label class="d-flex align-items-center mb-0">
                         <input type="radio" name="payment" value="momo">
                         <span class="ms-2">
-                           <strong>MoMo Wallet</strong>
-                           <span class="text-muted small">Pay via MoMo e-wallet</span>
+                           <strong><fmt:message key="payment.momo"/></strong>
+                           <span class="text-muted small"><fmt:message key="checkout.momo"/></span>
                         </span>
                      </label>
                   </div>
@@ -130,7 +135,7 @@
                      <label class="d-flex align-items-center mb-0">
                         <input type="radio" name="payment" value="card">
                         <span class="ms-2">
-                           <strong>Credit/Debit Card</strong>
+                           <strong><fmt:message key="payment.card"/></strong>
                            <span class="text-muted small">Visa, Mastercard, JCB</span>
                         </span>
                      </label>
@@ -141,7 +146,7 @@
                <div class="section-card">
                   <div class="section-title">
                      <i class="fas fa-receipt"></i>
-                     Your Order
+                      <fmt:message key="section.yourOrder"/>
                   </div>
                   <div class="order-summary overflow-y-scroll">
                   
@@ -169,43 +174,43 @@
                         <label class="form-label small fw-bold">Discount Code</label>
                         <div class="voucher-input d-flex flex-column flex-md-row">
                            <input type="text" class="form-control" placeholder="Enter code" id="intput_voucher" value="">
-                           <button onclick="applyCode(this)" type="button" class="btn btn-primary">Apply</button>
+                           <button onclick="applyCode(this)" type="button" class="btn btn-primary"><fmt:message key="btn.apply"/></button>
                         </div>
                      <!-- Summary -->
                      <div class="summary-row">
-                        <span>Subtotal</span>
+                        <span><fmt:message key="label.subtotal"/></span>
                         <span id="subtotal_checkout"> <fmt:formatNumber value="${sessionScope.Cart.price}" pattern="#,##0 VNĐ"/> </span>
                         <input type="hidden" value="${sessionScope.Cart.price }" name ="subtotal" />
                         
                      </div>
                      <div class="summary-row">
-                        <span>Shipping</span>
+                        <span><fmt:message key="label.shipping"/></span>
                         <span id="shipping_fee"> <fmt:formatNumber value="0" pattern="#,##0 VNĐ"/> </span>
                          <input type="hidden" name="shipping" id="shipping_feeInput">
                         
                      </div>
                      <div class="summary-row">
-                        <span>Discount</span>
+                        <span><fmt:message key="label.discount"/></span>
                         <span id="discount_fee" class="text-danger"> <fmt:formatNumber value="0" pattern="#,##0 VNĐ"/> </span>
                         <input type="hidden" name="discount_fee" id="discount_feeInput">
                         
                      </div>
                      <div class="summary-row">
-                        <span>Total</span>
+                        <span><fmt:message key="label.total"/></span>
                         <span id="finalTotal"> <fmt:formatNumber value="0" pattern="#,##0 VNĐ"/></span>
                         <input type="hidden" name="finalTotal" id="finalTotalInput">
                         
                      </div>
                      <div class="d-flex justify-content-center align-items-center">
                      <button type="submit" class="btn btn-success mt-3">
-                     <i class="fas fa-lock me-2"></i>Place Order
+                     <i class="fas fa-lock me-2"></i><fmt:message key="btn.placeOrder"/>
                      </button>
                      </div>
                      
                      <div class="text-center mt-3">
                         <small class="text-muted">
                         <i class="fas fa-shield-alt me-1"></i>
-                        Your payment information is secure
+                         <fmt:message key="hint.paymentSecure"/>
                         </small>
                      </div>
                   </div>

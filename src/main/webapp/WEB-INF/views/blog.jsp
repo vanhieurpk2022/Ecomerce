@@ -2,9 +2,13 @@
     pageEncoding="UTF-8"%>
     
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+        <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
     
+    <fmt:setLocale value="${sessionScope.lang != null ? sessionScope.lang : 'en'}" />
+	<fmt:setBundle basename="messages" />
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${sessionScope.lang != null ? sessionScope.lang : 'en'}">
 
 <head>
     <meta charset="UTF-8">
@@ -29,8 +33,8 @@
 
 
     <section id="page-header" class="blog-header">
-        <h2>#readmore</h2>
-        <p>Read all case studies about our products!</p>
+        <h2><fmt:message key="blog.header.title" /></h2>
+        <p><fmt:message key="blog.header.desc" /></p>
     </section>
 
     <section id="blog">
@@ -39,10 +43,9 @@
                 <img src="${ctx }/assert/img/blog/b1.jpg" alt="">
             </div>
             <div class="blog-details">
-                <h4>The Cotton-Jersey Zip-Up Hoodier</h4>
-                <p>Kickstarter man braid godard coloring book. Raclette waistcoat selfies yr wolf chartreuse hexagon
-                    irony, godard...</p>
-                <a href="#">CONTINUE READING</a>
+                <h4><fmt:message key="blog.post.title" /></h4>
+                <p><fmt:message key="blog.post.desc" /></p>
+                <a href="#"><fmt:message key="blog.post.continue" /></a>
             </div>
             <h1>13/01</h1>
         </div>
@@ -51,10 +54,9 @@
                 <img src="${ctx }/assert/img/blog/b2.jpg" alt="">
             </div>
             <div class="blog-details">
-                <h4>The Cotton-Jersey Zip-Up Hoodier</h4>
-                <p>Kickstarter man braid godard coloring book. Raclette waistcoat selfies yr wolf chartreuse hexagon
-                    irony, godard...</p>
-                <a href="#">CONTINUE READING</a>
+                <h4><fmt:message key="blog.post.title" /></h4>
+                <p><fmt:message key="blog.post.desc" /></p>
+                <a href="#"><fmt:message key="blog.post.continue" /></a>
             </div>
             <h1>13/01</h1>
         </div>
@@ -63,10 +65,9 @@
                 <img src="${ctx }/assert/img/blog/b3.jpg" alt="">
             </div>
             <div class="blog-details">
-                <h4>The Cotton-Jersey Zip-Up Hoodier</h4>
-                <p>Kickstarter man braid godard coloring book. Raclette waistcoat selfies yr wolf chartreuse hexagon
-                    irony, godard...</p>
-                <a href="#">CONTINUE READING</a>
+                <h4><fmt:message key="blog.post.title" /></h4>
+                <p><fmt:message key="blog.post.desc" /></p>
+                <a href="#"><fmt:message key="blog.post.continue" /></a>
             </div>
             <h1>13/01</h1>
         </div>
@@ -75,10 +76,9 @@
                 <img src="${ctx }/assert/img/blog/b4.jpg" alt="">
             </div>
             <div class="blog-details">
-                <h4>The Cotton-Jersey Zip-Up Hoodier</h4>
-                <p>Kickstarter man braid godard coloring book. Raclette waistcoat selfies yr wolf chartreuse hexagon
-                    irony, godard...</p>
-                <a href="#">CONTINUE READING</a>
+                <h4><fmt:message key="blog.post.title" /></h4>
+                <p><fmt:message key="blog.post.desc" /></p>
+                <a href="#"><fmt:message key="blog.post.continue" /></a>
             </div>
             <h1>13/01</h1>
         </div>
@@ -87,10 +87,9 @@
                 <img src="${ctx }/assert/img/blog/b5.jpg" alt="">
             </div>
             <div class="blog-details">
-                <h4>The Cotton-Jersey Zip-Up Hoodier</h4>
-                <p>Kickstarter man braid godard coloring book. Raclette waistcoat selfies yr wolf chartreuse hexagon
-                    irony, godard...</p>
-                <a href="#">CONTINUE READING</a>
+                <h4><fmt:message key="blog.post.title" /></h4>
+                <p><fmt:message key="blog.post.desc" /></p>
+                <a href="#"><fmt:message key="blog.post.continue" /></a>
             </div>
             <h1>13/01</h1>
         </div>
@@ -99,10 +98,9 @@
                 <img src="${ctx }/assert/img/blog/b6.jpg" alt="">
             </div>
             <div class="blog-details">
-                <h4>The Cotton-Jersey Zip-Up Hoodier</h4>
-                <p>Kickstarter man braid godard coloring book. Raclette waistcoat selfies yr wolf chartreuse hexagon
-                    irony, godard...</p>
-                <a href="#">CONTINUE READING</a>
+                <h4><fmt:message key="blog.post.title" /></h4>
+                <p><fmt:message key="blog.post.desc" /></p>
+                <a href="#"><fmt:message key="blog.post.continue" /></a>
             </div>
             <h1>13/01</h1>
         </div>
@@ -117,12 +115,12 @@
 
     <section id="newsletter" class="section-p1 section-m1">
         <div class="newstext">
-            <h4>Sign Up For Newsletters</h4>
-            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+            <h4><fmt:message key="newsletter.title" /></h4>
+            <p><fmt:message key="newsletter.desc" />  <span><fmt:message key="newsletter.specialOffers" /></span></p>
         </div>
         <div class="form">
             <input type="text" placeholder=" Your email address">
-            <button class="normal">Sign Up</button>
+            <button class="normal"><fmt:message key="newsletter.signup" /></button>
         </div>
     </section> 
 

@@ -1,9 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+             <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+ <fmt:setLocale value="${sessionScope.lang != null ? sessionScope.lang : 'en'}" />
+	<fmt:setBundle basename="messages" />
+<fmt:message key="auth.brand" var="brandName"/>
+<fmt:message key="auth.signup.title" var="signupTitle"/>
+
+<fmt:message key="auth.firstname.placeholder" var="phFirstName"/>
+<fmt:message key="auth.lastname.placeholder" var="phLastName"/>
+<fmt:message key="auth.username.placeholder" var="phUsername"/>
+<fmt:message key="auth.email.placeholder" var="phEmail"/>
+<fmt:message key="auth.verify.placeholder" var="phVerifyCode"/>
+<fmt:message key="auth.password.placeholder" var="phPassword"/>
+<fmt:message key="auth.confirmPassword.placeholder" var="phConfirmPassword"/>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${sessionScope.lang != null ? sessionScope.lang : 'en'}">
+
 
 <head>
     <meta charset="UTF-8">
@@ -37,24 +50,24 @@
             </div>
             <div class="signup_Main">
                 <div class="signup_main_div">
-                    <input type="text" placeholder="First name" required name="firstname" value="${firstname}"> 
-                    <input type="text" placeholder="Last name" required name="lastname" value="${lastname}">
+                    <input type="text" placeholder="${phFirstName}" required name="firstname" value="${firstname}"> 
+                    <input type="text" placeholder="${phLastName}" required name="lastname" value="${lastname}">
                 </div>
-                <input type="text" placeholder="User name" required name="username" value="${username}">
-                <input type="text" placeholder="Email" id="email_signup" required name="email">
+                <input type="text" placeholder="${phUsername}" required name="username" value="${username}">
+                <input type="text" placeholder="${phEmail}" id="email_signup" required name="email">
                 <div class="verify">
 					
-                    <button type="button" id="btn_verify" onclick="sendData();">Send</button>
-                    <input type="text" placeholder="Enter code" required name="verifyCode">
+                    <button type="button" id="btn_verify" onclick="sendData();"> <fmt:message key="auth.verify.send"/></button>
+                    <input type="text" placeholder="${phVerifyCode}" required name="verifyCode">
                  
                 </div>
                  <div class="input-wrapper">
-                <input type="password"  placeholder="Password" required id="pwd" name="password">
+                <input type="password"  placeholder="${phPassword}" required id="pwd" name="password">
                 <span id="icon_show" class="icon_show"><i class="bi bi-eye"></i></span>
 					</div>
 					
 					<div class="input-wrapper">
-                <input type="password" placeholder="Confirm password" required id="pwd_confirm"  name="password_confirm">
+                <input type="password" placeholder="${phConfirmPassword}" required id="pwd_confirm"  name="password_confirm">
                 <span id="icon_show_confirm" class="icon_show"><i class="bi bi-eye"></i></span>
                 </div>
  				<c:choose>
@@ -72,11 +85,11 @@
             <span class="visible"></span>
             <label>
                 <input type="checkbox" required>
-                I agree to the <a href="#">Terms of Service</a> & <a href="#">Privacy Policy</a>
+                  <fmt:message key="auth.terms.prefix"/> <a href="#"><fmt:message key="auth.terms.tos"/></a> & <a href="#"><fmt:message key="auth.terms.privacy"/></a>
             </label>
-            <button id="signup_btn">Sign up</button>
+            <button id="signup_btn"> <fmt:message key="auth.signup.btn"/></button>
             <hr>
-            <p>Have account ? <a href="${ctx }/login/signin">Sign in</a></p>
+            <p> <fmt:message key="auth.haveAccount"/> <a href="${ctx }/login/signin"><fmt:message key="auth.signin.link"/></a></p>
         </form>
 
     </section>

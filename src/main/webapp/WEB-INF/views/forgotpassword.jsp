@@ -1,8 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+    
+    <fmt:setLocale value="${sessionScope.lang != null ? sessionScope.lang : 'en'}" />
+	<fmt:setBundle basename="messages" />
+<fmt:message key="auth.brand" var="brandName"/>
+<fmt:message key="auth.forgot.title" var="forgotTitle"/>
+<fmt:message key="auth.email.placeholder" var="phEmail"/>
+<fmt:message key="auth.verify.placeholder" var="phVerifyCode"/>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${sessionScope.lang != null ? sessionScope.lang : 'en'}">
+
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,12 +83,12 @@
       <form id="forgotform" action="${ctx }/login/forgotpassword" method="POST" autocomplete="off">
         <div class="signup_Header">
           <h1>Cara Clothes</h1>
-          <h2>Forgot Password</h2>
+          <h2>${forgotTitle}</h2>
         </div>
         <div class="signup_Main">
           <input 
             type="text"
-            placeholder="Your e-mail address"
+            placeholder="${phEmail}"
             required
             id="email_forgot"
             name="email"
@@ -89,10 +98,10 @@
             style="margin-bottom:14px">
           <div class="verify-row">
             <!-- Gửi mã xác thực về email (chỉ gửi email, không gửi code) -->
-            <button type="submit" class="cara-btn" id="btn_sendcode" name="sendcode" value="sendcode" style="width:135px;">Send</button>
+            <button type="submit" class="cara-btn" id="btn_sendcode" name="sendcode" value="sendcode" style="width:135px;"><fmt:message key="auth.verify.send"/></button>
             <input
               type="text"
-              placeholder="Enter code"
+              placeholder="${phVerifyCode}"
               id="verify_code_input"
               name="verifyCode"
               class="form-control">
@@ -108,9 +117,9 @@
           </c:choose>
         </div>
         <!-- Kiểm tra mã code nhập vào, nếu đúng sẽ chuyển trang -->
-        <button type="submit" class="cara-btn" name="verifycode" value="verifycode" style="margin-top:30px;width:100%;">Reset Password</button>
+        <button type="submit" class="cara-btn" name="verifycode" value="verifycode" style="margin-top:30px;width:100%;"><fmt:message key="auth.forgot.resetBtn"/></button>
         <hr>
-        <p>Remembered your password? <a href="${ ctx}/login/signin">Sign in</a></p>
+        <p><fmt:message key="auth.forgot.remembered"/> <a href="${ ctx}/login/signin"><fmt:message key="auth.signin.link"/></a></p>
       </form>
     </section>
     <%@ include file="../includes/footer.jsp" %>

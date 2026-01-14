@@ -77,7 +77,7 @@ public class AdminDao extends BaseDao{
 				
 				or=  new Order();
 				or.setOrderID(rs.getInt("orderID"));
-				or.setStatus(rs.getString("STATUS"));
+				or.setStatus(rs.getString("STATUS").toUpperCase());
 				or.setCreatedAt(rs.getTimestamp("createdAt"));
 				or.setTotalAmount(rs.getBigDecimal("totalAmount"));
 				or.setPaymentMethod(rs.getString("paymentMethod"));
@@ -375,7 +375,7 @@ public class AdminDao extends BaseDao{
 	}
 	public List<Order> getOrders() {
 		List<Order> or = new ArrayList<Order>();
-		String sql = "SELECT o.*,u.* FROM orders o JOIN users u ON u.userID = o.userID";
+		String sql = "SELECT o.*,u.* FROM orders o JOIN users u ON u.userID = o.userID ORDER BY o.createdAt DESC";
 		try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 			
 			ResultSet rs = ps.executeQuery();
@@ -479,6 +479,81 @@ public class AdminDao extends BaseDao{
 			ps.setInt(2, orderID);
 			int re = ps.executeUpdate();
 		
+			return re>0;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public boolean updateProductsVariant(ProductVariants pv, int productsID, int variantID) {
+		String sql = "UPDATE products_variants SET size=?,priceAdjustment=?,stock=?,status = ? WHERE variantID=? AND productID=?";
+		try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
+			
+			ps.setString(1, pv.getSize());
+			ps.setBigDecimal(2, pv.getPriceAdjustment());
+			ps.setInt(3, pv.getStock());
+			ps.setString(4,pv.getStatus());
+			ps.setInt(5, variantID);
+			ps.setInt(6, productsID);
+			int re = ps.executeUpdate();
+		
+			return re>0;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public Products selectProductsByID(int pid) {
+		String sql = "SELECT * FROM PRODUCTS WHERE productsID = ?";
+		Products p=null;
+		try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
+			ps.setInt(1, pid);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				p = new Products();
+				p.setProductName(rs.getString("productsName"));
+				p.setCategoryID(rs.getInt("categoryID"));
+				p.setPrice(rs.getBigDecimal("price"));
+				p.setStatus(rs.getString("status").toUpperCase());
+				p.setDescription(rs.getString("description"));
+				p.setImg(rs.getString("img"));
+			}
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return p;
+	}
+	public boolean updateModifyProducts(Products p, int pid) {
+		String sql="";
+		if(p.getImg().isEmpty()) {
+			 sql = "UPDATE PRODUCTS SET productsName=?,categoryID=?,price=?, status=?,description=? WHERE productsID=?";
+		}else {
+			 sql = "UPDATE PRODUCTS SET productsName=?,categoryID=?,price=?, status=?,img=?,description=? WHERE productsID=?";
+		}
+		try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
+			if(p.getImg().isEmpty()) {
+				ps.setString(1, p.getProductName());
+				ps.setInt(2, p.getCategoryID());
+				ps.setBigDecimal(3, p.getPrice());
+				ps.setString(4, p.getStatus());
+				ps.setString(5, p.getDescription());
+				ps.setInt(6, pid);
+			}else {
+				ps.setString(1, p.getProductName());
+				ps.setInt(2, p.getCategoryID());
+				ps.setBigDecimal(3, p.getPrice());
+				ps.setString(4, p.getStatus());
+				
+				ps.setString(5, p.getImg());
+				ps.setString(6, p.getDescription());
+				ps.setInt(7, pid);
+			
+			}
+		
+
+			int re = ps.executeUpdate();
+			
 			return re>0;
 		} catch (Exception e) {
 			throw new RuntimeException(e);

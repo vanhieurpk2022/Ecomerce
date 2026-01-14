@@ -2,9 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+ <fmt:setLocale value="${sessionScope.lang != null ? sessionScope.lang : 'en'}" />
+	<fmt:setBundle basename="messages" />
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${sessionScope.lang != null ? sessionScope.lang : 'en'}">
+
 
 <head>
 <meta charset="UTF-8">
@@ -207,14 +210,14 @@
 		</div>
 		<div class="sing-pro-details">
 		
-			<h6><a class="text-decoration-none" href="#" onclick="history.back()">Home</a> / ${sproduct.productName }</h6>
+			<h6><a class="text-decoration-none" href="#" onclick="history.back()"><fmt:message key="breadcrumb.home"/></a> / ${sproduct.productName }</h6>
 			<h4>${sproduct.productName }</h4>
 			<fmt:setLocale value="vi_VN"/>
 			
 			<h2 id="displayPrice"><fmt:formatNumber value="${sproduct.price }" pattern="#,##0 VNĐ"/></h2>
 			<div class="d-flex flex-row">
 				<div class="d-flex flex-row align-items-center"> 
-				<p class="me-3 p-2 mt-2">Size: </p>
+				<p class="me-3 p-2 mt-2"><fmt:message key="product.size"/>: </p>
 				<c:if test="${empty getVariants}"> <span class="opacity-50" >Out Stock</span></c:if>
 				<c:if test="${not empty getVariants}"> 
 				
@@ -231,19 +234,19 @@
 				
 		</div>
 		<div class="d-flex flex-row align-items-center mb-5">
-			<p class="mt-2 me-2">Số Lượng: </p>
+			<p class="mt-2 me-2"><fmt:message key="product.quantity"/>: </p>
 			  <input  id="quanity" type="number" value="1" min ="1">
 			
 		</div>
 		
 		<div>
-					<button class="normal" id="btn_AddToCart" ${empty getVariants?'disabled':'' } onclick="addToCart()">Add To Cart</button>
+					<button class="normal" id="btn_AddToCart" ${empty getVariants?'disabled':'' } onclick="addToCart()"><fmt:message key="product.add_to_cart"/></button>
 		
 		</div>
     
             
-            <h4> <p style="opacity=50%;">Remain: <span id="remainSpan"></span>  </p><br>
-            products Details</h4>
+            <h4> <p style="opacity=50%;"><fmt:message key="product.remain"/>: <span id="remainSpan"></span>  </p><br>
+            <fmt:message key="product.details"/></h4>
             <span>${sproduct.description}</span>
         </div>
     </section>
@@ -252,15 +255,15 @@
         <div class="rating-flex d-flex flex-row justify-content-evenly">
             <!-- Bên trái: Đánh giá sản phẩm (DỮ LIỆU MẶC ĐỊNH) -->
             <div class="rating-panel">
-                <div class="rating-title">Đánh giá</div>
+                <div class="rating-title"><fmt:message key="product.rating.title"/></div>
                 <div class="rating-summary">
                     <div>
                         <span class="rating-summary-score">5</span>
                         <span class="rating-summary-out">/5</span>
                     </div>
                     <div style="display:flex;flex-direction:column;">
-                        <span class="rating-summary-label">${sproduct.review_count} khách hài lòng</span>
-                        <span class="rating-summary-count">Dựa trên ${sproduct.review_count} đánh giá</span>
+                        <span class="rating-summary-label">${sproduct.review_count} 	<fmt:message key="product.rating.satisfied"/></span>
+                        <span class="rating-summary-count"><fmt:message key="product.rating.based_on"/> ${sproduct.review_count} </span>
                     </div>
                 </div>
                 <div>
@@ -298,13 +301,18 @@
             </div>
             <!-- Bên phải: Mở rộng thông tin sản phẩm -->
             <div class="product-info-extend">
-                <div class="product-info-title">Thông tin sản phẩm</div>
+                <div class="product-info-title"><fmt:message key="product.info.title"/></div>
                 <ul class="product-info-list">
-                    <li><span class="product-info-label info-material"><i class="fa-solid fa-shirt"></i> Chất liệu:</span> <span class="product-info-value">100% Cotton</span></li>
-                    <li><span class="product-info-label info-weight"><i class="fa-solid fa-weight-hanging"></i> Định lượng vải:</span> <span class="product-info-value">180gsm</span></li>
-                    <li><span class="product-info-label info-color"><i class="fa-solid fa-palette"></i> Màu sắc:</span> <span class="product-info-value">Nhiều màu </span></li>
-                    <li><span class="product-info-label info-style"><i class="fa-solid fa-tag"></i> Kiểu dáng:</span> <span class="product-info-value">Regular fit / Unisex</span></li>
-                    <li><span class="product-info-label info-care"><i class="fa-solid fa-box-archive"></i> Bảo quản:</span> <span class="product-info-value">Giặt nhiệt độ thấp, không tẩy, hạn chế sấy</span></li>
+                    <li><span class="product-info-label info-material"><i class="fa-solid fa-shirt"></i> <fmt:message key="product.info.material" />:</span> <span class="product-info-value">100% Cotton</span></li>
+                    <li><span class="product-info-label info-weight"><i class="fa-solid fa-weight-hanging"></i> <fmt:message
+								key="product.info.weight" />:</span> <span class="product-info-value">180gsm</span></li>
+                    <li><span class="product-info-label info-color"><i class="fa-solid fa-palette"></i> <fmt:message
+								key="product.info.color" />:</span> <span class="product-info-value"><fmt:message
+								key="product.info.style" /> </span></li>
+                    <li><span class="product-info-label info-style"><i class="fa-solid fa-tag"></i> <fmt:message
+								key="product.info.care" />:</span> <span class="product-info-value">Regular fit / Unisex</span></li>
+                    <li><span class="product-info-label info-care"><i class="fa-solid fa-box-archive"></i> <fmt:message
+								key="product.info.care" />:</span> <span class="product-info-value">Giặt nhiệt độ thấp, không tẩy, hạn chế sấy</span></li>
                 </ul>
             </div>
         </div>
@@ -337,12 +345,12 @@
     </section>
     <section id="newsletter" class="section-p1 section-m1">
         <div class="newstext">
-            <h4>Sign Up For Newsletters</h4>
-            <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+            <h4><fmt:message key="newsletter.title"/></h4>
+            <p><fmt:message key="newsletter.desc1"/> <span><fmt:message key="newsletter.desc2"/></span></p>
         </div>
         <div class="form">
             <input type="text" placeholder=" Your email address">
-            <button class="normal">Sign Up</button>
+            <button class="normal"><fmt:message key="newsletter.signup"/></button>
         </div>
     </section>
     <%@ include file="../includes/footer.jsp" %>

@@ -3,8 +3,12 @@
     <%@ taglib prefix ="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
     
+    <fmt:setLocale value="${sessionScope.lang != null ? sessionScope.lang : 'en'}" />
+	<fmt:setBundle basename="messages" />
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${sessionScope.lang != null ? sessionScope.lang : 'en'}">
+
 
 <head>
     <meta charset="UTF-8">
@@ -29,8 +33,8 @@
    <jsp:include page="../includes/header.jsp"></jsp:include>
 
     <section id="page-header" class="about-header">
-        <h2>#let's_talk</h2>
-        <p>LEAVE A MESSENGE. We love to hear from you!</p>
+    <h2><fmt:message key="page.cart.header.title"/></h2>
+        <p><fmt:message key="page.cart.header.desc"/></p>
     </section>
 		
     <section id="cart" class="section-p1">
@@ -38,12 +42,12 @@
         <table >
             <thead>
                 <tr>
-                    <td>Image</td>
-                    <td>Product</td>
-                    <td>Price</td>
-                    <td>Quantity</td>
-                    <td>Subtotal</td> 
-                    <td>Remove</td>
+                    <td><fmt:message key="cart.table.image"/></td>
+              <td><fmt:message key="cart.table.product"/></td>
+              <td><fmt:message key="cart.table.price"/></td>
+              <td><fmt:message key="cart.table.quantity"/></td>
+              <td><fmt:message key="cart.table.subtotal"/></td> 
+              <td><fmt:message key="cart.table.remove"/></td>
                 </tr>
 
             </thead>
@@ -71,9 +75,9 @@
   
     	  <div id="subtotal">
     	    <div class="d-flex flex-row">
-    	 <p> <span class="fs-4">Total:</span>  <strong id="TotalPrice"> <fmt:formatNumber value="${sessionScope.Cart.price}" pattern="#,##0 VNĐ"/> </strong> </p>
+    	 <p> <span class="fs-4"><fmt:message key="label.total"/>:</span>  <strong id="TotalPrice"> <fmt:formatNumber value="${sessionScope.Cart.price}" pattern="#,##0 VNĐ"/> </strong> </p>
     </div>
-     <a href="${ctx }/cart/checkout"  class="btn btn-success ${empty sessionScope.Cart.items ?'disabled':''}" aria-disabled="true">Proceed to checkout</a>
+     <a href="${ctx }/cart/checkout"  class="btn btn-success ${empty sessionScope.Cart.items ?'disabled':''}" aria-disabled="true"> <fmt:message key="cart.proceed"/></a>
      </div>
     </section>
 

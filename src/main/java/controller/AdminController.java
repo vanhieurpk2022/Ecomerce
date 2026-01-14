@@ -16,6 +16,7 @@ import javax.servlet.http.Part;
 
 import dao.AdminDao;
 import dao.OrdersDao;
+import dao.ProductVariantsDao;
 import model.Category;
 import model.Order;
 import model.OrderDetail;
@@ -242,9 +243,133 @@ public class AdminController extends HttpServlet {
 		case "/updateStatusOrders":
 			updateStatusOrders(request,response);
 			break;
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + path);
+		case "/getVariantModify":
+			getVariantModify(request,response);
+			break;
+		case "/modifyVariant":
+			modifyVariantAddmin(request,response);
+			break;
+		case "/getProductModify":
+			getProductModify(request,response);
+			break;
+		case "/modifyProducts":
+			modifyProducts(request,response);
+			break;
 		}
+	}
+
+	private void modifyProducts(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		 request.setCharacterEncoding("UTF-8");
+		  AdminDao dao = new AdminDao();
+		  int pid = Integer.parseInt(request.getParameter("pid"));
+		    String name = request.getParameter("productName");
+		    int categoryID = Integer.parseInt(request.getParameter("categoryID"));
+		    BigDecimal price =  new BigDecimal(request.getParameter("price"));
+		    String status = request.getParameter("status");
+		    String description = request.getParameter("description");
+		    String fileUrl ="";
+		    Part image = request.getPart("image");
+		    if (image != null && image.getSize() > 0) {
+		    	 String fileName = System.currentTimeMillis() + "_" + 
+		                  Paths.get(image.getSubmittedFileName())
+		                       .getFileName()
+		                       .toString();
+			    
+			    String getUploadFolder = request.getServletContext().getInitParameter("upload");
+			    
+			    String uploadPath = request.getServletContext()
+	                   .getRealPath(getUploadFolder);
+			    
+			     fileUrl = getUploadFolder+"/" + fileName;		
+			    System.out.println(uploadPath);
+			    File uploadDir = new File(uploadPath);
+			    if (!uploadDir.exists()) {
+			        uploadDir.mkdirs();
+			    }
+			    image.write(uploadPath + File.separator + fileName);
+		    } 
+		   
+
+		    
+		    Products p = new Products();	
+		    p.setProductName(name);
+		    p.setCategoryID(categoryID);
+		    p.setPrice(price);
+		    p.setStatus(status);
+		    p.setDescription(description);
+		    p.setImg(fileUrl);
+		    if(dao.updateModifyProducts(p,pid)) {
+		    	   response.sendRedirect(request.getContextPath() +"/admin/products");
+		    }
+		     
+		  
+		
+	}
+
+	private void getProductModify(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		// TODO Auto-generated method stub
+		int getProductsId = Integer.parseInt(request.getParameter("productID"));
+		AdminDao dao = new AdminDao();
+		Products p = dao.selectProductsByID(getProductsId);
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+
+		response.getWriter().write(
+		    "{"
+		    + "\"productName\":\"" + p.getProductName() + "\","
+		    + "\"categoryID\":" + p.getCategoryID() + ","
+		    + "\"price\":" + p.getPrice() + ","
+		    + "\"status\":\"" + p.getStatus() + "\","
+		    + "\"description\":\"" + p.getDescription() + "\","
+		    + "\"img\":\"" + p.getImg() + "\""
+		    + "}"
+		);
+	}
+
+	private void modifyVariantAddmin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");	
+		AdminDao dao = new AdminDao();
+		int variantID = Integer.parseInt(request.getParameter("variantID"));
+		int productID = Integer.parseInt(request.getParameter("productID"));
+		String size = request.getParameter("size");
+		int stock = Integer.parseInt(request.getParameter("stock"));
+		BigDecimal priceAdjustment =
+		    new BigDecimal(request.getParameter("priceAdjustment"));
+		String status = request.getParameter("status");
+		
+		ProductVariants pv = new ProductVariants();
+			pv.setSize(size);
+			pv.setPriceAdjustment(priceAdjustment);
+			pv.setStock(stock);
+			pv.setStatus(status);
+		
+			if(dao.updateProductsVariant(pv,productID,variantID)) {
+				response.sendRedirect(
+					    request.getContextPath() + "/admin/variant?id=" + productID
+					);			}
+
+	}
+
+	private void getVariantModify(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		  request.setCharacterEncoding("UTF-8");
+		  response.setCharacterEncoding("UTF-8");
+		int getvariantID = Integer.parseInt(request.getParameter("variantID"));
+		int productID = Integer.parseInt(request.getParameter("productID"));
+		
+		ProductVariantsDao dao = new ProductVariantsDao();
+		ProductVariants pv = dao.selectToModify(getvariantID, productID);
+		
+		 response.setContentType("application/json");
+		 response.getWriter().write(
+				    "{"
+				    + "\"size\":\"" + pv.getSize() + "\","
+				    + "\"stock\":" + pv.getStock() + ","
+				    + "\"price\":" + pv.getPriceAdjustment() + ","
+				    + "\"status\":\"" + pv.getStatus() + "\""
+				    + "}"
+				);
 	}
 
 	private void updateStatusOrders(HttpServletRequest request, HttpServletResponse response) {
@@ -273,10 +398,13 @@ public class AdminController extends HttpServlet {
 	                  Paths.get(image.getSubmittedFileName())
 	                       .getFileName()
 	                       .toString();
-		    String uploadPath = request.getServletContext()
-                    .getRealPath("/assets/upload");
 		    
-		    String fileUrl = "/assets/upload/" + fileName;		
+		    String getUploadFolder = request.getServletContext().getInitParameter("upload");
+		    
+		    String uploadPath = request.getServletContext()
+                    .getRealPath(getUploadFolder);
+		    
+		    String fileUrl = getUploadFolder+"/" + fileName;		
 		    System.out.println(uploadPath);
 		    File uploadDir = new File(uploadPath);
 		    if (!uploadDir.exists()) {
@@ -285,7 +413,7 @@ public class AdminController extends HttpServlet {
 		    image.write(uploadPath + File.separator + fileName);
 
 		    
-		    Products p = new Products();
+		    Products p = new Products();	
 		    p.setProductName(name);
 		    p.setCategoryID(categoryID);
 		    p.setPrice(price);
@@ -300,6 +428,7 @@ public class AdminController extends HttpServlet {
 
 	private void addVariant(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
 		AdminDao dao = new AdminDao();
 		int productID = Integer.parseInt(request.getParameter("productID"));
 		String size = request.getParameter("size");

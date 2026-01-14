@@ -120,7 +120,7 @@ public class OrdersDao extends BaseDao {
 				or.setOrderID(rs.getInt("orderID"));
 				or.setAddressID(rs.getInt("addressID"));
 				or.setTotalAmount(rs.getBigDecimal("totalAmount"));
-				or.setStatus(rs.getString("status"));
+				or.setStatus(rs.getString("status").toUpperCase());
 				or.setCreatedAt(rs.getTimestamp("createdAt"));
 				or.setPaymentMethod(rs.getString("paymentMethod"));
 				Address add = new Address();
@@ -174,7 +174,7 @@ public class OrdersDao extends BaseDao {
 				or.setOrderID(rs.getInt("orderID"));
 				or.setAddressID(rs.getInt("addressID"));
 				or.setTotalAmount(rs.getBigDecimal("totalAmount"));
-				or.setStatus(rs.getString("status"));
+				or.setStatus(rs.getString("status").toUpperCase());
 				or.setCreatedAt(rs.getTimestamp("createdAt"));
 				or.setPaymentMethod(rs.getString("paymentMethod"));
 				Address add = new Address();
@@ -214,7 +214,7 @@ public class OrdersDao extends BaseDao {
 				or.setOrderID(rs.getInt("orderID"));
 				or.setAddressID(rs.getInt("addressID"));
 				or.setTotalAmount(rs.getBigDecimal("totalAmount"));
-				or.setStatus(rs.getString("status"));
+				or.setStatus(rs.getString("status").toUpperCase());
 				or.setCreatedAt(rs.getTimestamp("createdAt"));
 				or.setPaymentMethod(rs.getString("paymentMethod"));
 				Address add = new Address();
@@ -255,7 +255,7 @@ public class OrdersDao extends BaseDao {
 				or.setOrderID(rs.getInt("orderID"));
 				or.setAddressID(rs.getInt("addressID"));
 				or.setTotalAmount(rs.getBigDecimal("totalAmount"));
-				or.setStatus(rs.getString("status"));
+				or.setStatus(rs.getString("status").toUpperCase());
 				or.setCreatedAt(rs.getTimestamp("createdAt"));
 				or.setPaymentMethod(rs.getString("paymentMethod"));
 				Address add = new Address();
@@ -295,7 +295,7 @@ public class OrdersDao extends BaseDao {
 				or.setOrderID(rs.getInt("orderID"));
 				or.setAddressID(rs.getInt("addressID"));
 				or.setTotalAmount(rs.getBigDecimal("totalAmount"));
-				or.setStatus(rs.getString("status"));
+				or.setStatus(rs.getString("status").toUpperCase());
 				or.setCreatedAt(rs.getTimestamp("createdAt"));
 				or.setPaymentMethod(rs.getString("paymentMethod"));
 				Address add = new Address();
@@ -336,7 +336,7 @@ public class OrdersDao extends BaseDao {
 				or.setOrderID(rs.getInt("orderID"));
 				or.setAddressID(rs.getInt("addressID"));
 				or.setTotalAmount(rs.getBigDecimal("totalAmount"));
-				or.setStatus(rs.getString("status"));
+				or.setStatus(rs.getString("status").toUpperCase());
 				or.setCreatedAt(rs.getTimestamp("createdAt"));
 				or.setPaymentMethod(rs.getString("paymentMethod"));
 				Address add = new Address();
@@ -376,7 +376,7 @@ public class OrdersDao extends BaseDao {
 				or.setOrderID(rs.getInt("orderID"));
 				or.setAddressID(rs.getInt("addressID"));
 				or.setTotalAmount(rs.getBigDecimal("totalAmount"));
-				or.setStatus(rs.getString("status"));
+				or.setStatus(rs.getString("status").toUpperCase());
 				or.setCreatedAt(rs.getTimestamp("createdAt"));
 				or.setPaymentMethod(rs.getString("paymentMethod"));
 				Address add = new Address();
@@ -417,7 +417,7 @@ public class OrdersDao extends BaseDao {
 				or.setOrderID(rs.getInt("orderID"));
 				or.setAddressID(rs.getInt("addressID"));
 				or.setTotalAmount(rs.getBigDecimal("totalAmount"));
-				or.setStatus(rs.getString("status"));
+				or.setStatus(rs.getString("status").toUpperCase());
 				or.setCreatedAt(rs.getTimestamp("createdAt"));
 				or.setPaymentMethod(rs.getString("paymentMethod"));
 				Address add = new Address();
@@ -458,7 +458,7 @@ public class OrdersDao extends BaseDao {
 				or.setOrderID(rs.getInt("orderID"));
 				or.setAddressID(rs.getInt("addressID"));
 				or.setTotalAmount(rs.getBigDecimal("totalAmount"));
-				or.setStatus(rs.getString("status"));
+				or.setStatus(rs.getString("status").toUpperCase());
 				or.setCreatedAt(rs.getTimestamp("createdAt"));
 				or.setPaymentMethod(rs.getString("paymentMethod"));
 				Address add = new Address();
@@ -499,7 +499,7 @@ public class OrdersDao extends BaseDao {
 				or.setOrderID(rs.getInt("orderID"));
 				or.setAddressID(rs.getInt("addressID"));
 				or.setTotalAmount(rs.getBigDecimal("totalAmount"));
-				or.setStatus(rs.getString("status"));
+				or.setStatus(rs.getString("status").toUpperCase());
 				or.setCreatedAt(rs.getTimestamp("createdAt"));
 				or.setPaymentMethod(rs.getString("paymentMethod"));
 				Address add = new Address();
@@ -539,7 +539,7 @@ public class OrdersDao extends BaseDao {
 				or.setOrderID(rs.getInt("orderID"));
 				or.setAddressID(rs.getInt("addressID"));
 				or.setTotalAmount(rs.getBigDecimal("totalAmount"));
-				or.setStatus(rs.getString("status"));
+				or.setStatus(rs.getString("status").toUpperCase());
 				or.setCreatedAt(rs.getTimestamp("createdAt"));
 				or.setPaymentMethod(rs.getString("paymentMethod"));
 				Address add = new Address();
@@ -580,7 +580,7 @@ public class OrdersDao extends BaseDao {
 				or.setOrderID(rs.getInt("orderID"));
 				or.setAddressID(rs.getInt("addressID"));
 				or.setTotalAmount(rs.getBigDecimal("totalAmount"));
-				or.setStatus(rs.getString("status"));
+				or.setStatus(rs.getString("status").toUpperCase());
 				or.setCreatedAt(rs.getTimestamp("createdAt"));
 				or.setPaymentMethod(rs.getString("paymentMethod"));
 				Address add = new Address();
